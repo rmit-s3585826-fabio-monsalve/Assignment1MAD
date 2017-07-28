@@ -8,12 +8,29 @@
         android:id="@+id/ft1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/fb1"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="98dp"
+        android:layout_marginBottom="49dp"
         android:text="You have no friends on your list, click on the top right to add"
         android:textAppearance="@android:style/TextAppearance.Material.Notification.Info"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/fb1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="Add Friend from contacts"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <ListView
+        android:id="@+id/flw1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ft1"
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
 
 </RelativeLayout>
