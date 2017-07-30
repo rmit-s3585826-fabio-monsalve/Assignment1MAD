@@ -12,8 +12,10 @@ import s3585826.assignment1.R;
 public class Meetings extends Fragment {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_meetings,container,false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup
+        container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_meetings,container,
+            false);
         return view;
     }
 }

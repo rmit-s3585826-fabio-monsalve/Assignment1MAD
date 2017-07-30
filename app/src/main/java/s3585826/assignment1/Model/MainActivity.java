@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.addFragment(new Friends(), "Friends");
         adapter.addFragment(new Meetings(), "Meetings");
-        adapter.addFragment(new Other(), "Other");
 
         viewPager.setAdapter(adapter);
     }

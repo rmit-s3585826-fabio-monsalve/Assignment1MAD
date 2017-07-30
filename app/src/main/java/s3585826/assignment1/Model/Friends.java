@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import s3585826.assignment1.R;
 
@@ -27,17 +30,21 @@ public class Friends extends Fragment{
     private View view;
     private int friendCount = 0;
     protected static final int PICK_CONTACTS = 100;
-    private String [] names;
+    private ArrayList <String> names = new ArrayList<>();
+    private BaseAdapter la;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup
             container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_friends,container,false);
+        ListView flv = view.findViewById(R.id.flw1);
+        la = new ArrayAdapter <String> (this.getContext(),
+            android.R.layout.simple_list_item_1, names) {
+        };
+        flv.setAdapter(la);
 
         if(friendCount == 0) {
-            TextView ft1 = view.findViewById(R.id.ft1);
-            ft1.setVisibility(View.VISIBLE);
             Toast.makeText(getActivity(), "You have no friends",
                     Toast.LENGTH_LONG).show();
         }else{
@@ -65,19 +72,11 @@ public class Friends extends Fragment{
             if (resultCode == RESULT_OK) {
                 ContactDataManager contactsManager = new
                         ContactDataManager(this.getContext(), data);
-
                 try {
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
-
-                    TextView ft1 = view.findViewById(R.id.ft1);
-                    ft1.setText(name);
-                    names = new String[]{name};
-                    ListView flv = view.findViewById(R.id.flw1);
-                    ListAdapter la = new ArrayAdapter<>(this.getContext(),
-                            android.R.layout.simple_list_item_1, names);
-                    flv.setAdapter(la);
-
+                    names.add(name);
+                    la.notifyDataSetChanged();
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
                 }
