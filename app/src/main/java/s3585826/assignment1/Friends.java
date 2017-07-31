@@ -1,26 +1,21 @@
-package s3585826.assignment1.Model;
+package s3585826.assignment1;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import s3585826.assignment1.R;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -50,9 +45,8 @@ public class Friends extends Fragment{
         }else{
             //TODO
         }
-
-        Button fb1 = view.findViewById(R.id.fb1);
-        fb1.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton flb = view.findViewById(R.id.ffab);
+        flb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,

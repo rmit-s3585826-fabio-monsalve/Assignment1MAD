@@ -1,4 +1,4 @@
-package s3585826.assignment1.Model;
+package s3585826.assignment1;
 
 import android.content.Context;
 import android.content.Intent;

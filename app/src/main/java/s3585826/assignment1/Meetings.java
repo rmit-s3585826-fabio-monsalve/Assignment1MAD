@@ -1,4 +1,4 @@
-package s3585826.assignment1.Model;
+package s3585826.assignment1;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

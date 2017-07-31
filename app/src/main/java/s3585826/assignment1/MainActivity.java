@@ -1,4 +1,4 @@
-package s3585826.assignment1.Model;
+package s3585826.assignment1;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import java.util.ArrayList;
 import java.util.List;
-
-import s3585826.assignment1.R;
 
 public class MainActivity extends AppCompatActivity {
 
