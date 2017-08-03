@@ -9,15 +9,31 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    protected User user1;
+    protected static User user1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try{
+            BufferedReader in = new BufferedReader(new FileReader("dummydata.txt"));
+            String str;
+            str = in.readLine();
+            while ((str = in.readLine()) != null) {
+                System.out.println(str);
+            }
+            in.close();
+        } catch (IOException e) {
+            System.out.println("File Read Error");
+        }
+
 
         setUpUsers();
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,6 +35,11 @@ public class Friends extends Fragment{
             container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_friends,container,false);
         ListView flv = view.findViewById(R.id.flw1);
+
+        for(Friend e: MainActivity.user1.getFriendList()){
+            names.add(e.getName());
+        }
+
         la = new ArrayAdapter <String> (this.getContext(),
             android.R.layout.simple_list_item_1, names) {
         };
@@ -45,6 +51,7 @@ public class Friends extends Fragment{
         }else{
             //TODO
         }
+
         FloatingActionButton flb = view.findViewById(R.id.ffab);
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +66,7 @@ public class Friends extends Fragment{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String id = "";
         String name = "";
         String email = "";
 

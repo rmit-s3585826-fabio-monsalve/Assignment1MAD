@@ -1,6 +1,7 @@
 
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,33 +15,66 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dip">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/utf1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="NAME: "/>
-
-            <TextView
-                android:id="@+id/utf2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="NAME "/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:text="@string/id"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+
+            <TextView
+                android:id="@+id/userInfoId"
+                android:layout_weight="1"
+                android:text="ID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_weight="1"
+                android:text="@string/name"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+
+            <TextView
+                android:id="@+id/userInfoName"
+                android:layout_weight="1"
+                android:text="NAME"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_weight="1"
+                android:text="@string/email"
+                android:textAppearance="@android:style/TextAppearance.Material.Large"/>
+
+            <TextView
+                android:id="@+id/userInfoEmail"
+                android:layout_weight="1"
+                android:text="EMAIL"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        </TableRow>
     </TableLayout>
 
 </GridLayout>
