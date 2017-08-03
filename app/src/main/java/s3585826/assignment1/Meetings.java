@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
+//Implement expandable list view for friends attending the scheduled meetings
+
 public class Meetings extends Fragment {
 
     private static final String LOG_TAG = "1";

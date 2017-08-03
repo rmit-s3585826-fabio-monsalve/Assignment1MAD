@@ -9,9 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,75 +19,73 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try{
-            BufferedReader in = new BufferedReader(new FileReader("dummydata.txt"));
-            String str;
-            str = in.readLine();
-            while ((str = in.readLine()) != null) {
-                System.out.println(str);
-            }
-            in.close();
-        } catch (IOException e) {
-            System.out.println("File Read Error");
-        }
-
-
         setUpUsers();
 
         setContentView(R.layout.activity_main);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setSubtitle(user1.getName());
     }
 
     private void setupViewPager(ViewPager viewPager) {
+
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new Friends(), "Friends");
         adapter.addFragment(new Meetings(), "Meetings");
-        adapter.addFragment(new UserInfo(), "My Profile");
+        adapter.addFragment(new UserInfo(), "My Details");
 
         viewPager.setAdapter(adapter);
     }
 
     public void setUpUsers(){
+
         ArrayList<Meeting> meetingList = new ArrayList<>();
         ArrayList<Friend> friendList = new ArrayList<>();
-        user1 = new User("0", "user1", "user1@user1.com", friendList,
+        user1 = new User("j0u301", "Nebojsa Pajkic", "user1@user1.com", friendList,
             meetingList);
+        Friend user2 = new Friend("13jk14", "Alan Lam", "user2@user2.com");
+        friendList.add(user2);
+        Friend user3 = new Friend("fa879f", "Fabio Monsalve", "user3@user3.com");
+        friendList.add(user3);
+        Friend user4 = new Friend("fa7ffa", "Callum Pearse", "user4@user4.com");
+        friendList.add(user4);
+
     }
 
 
     private class SectionsPageAdapter extends FragmentPagerAdapter {
 
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitleList = new ArrayList<>();
 
         void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
         }
 
-        SectionsPageAdapter(FragmentManager fm) {
-            super(fm);
+        SectionsPageAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
+            return fragmentTitleList.get(position);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragmentList.get(position);
+            return fragmentList.get(position);
         }
 
         @Override
         public int getCount() {
-            return mFragmentList.size();
+            return fragmentList.size();
         }
     }
 
