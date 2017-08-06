@@ -26,8 +26,6 @@ import static android.app.Activity.RESULT_OK;
 public class Friends extends Fragment {
 
     private static final String LOG_TAG = "Friends Activity";
-    private View view;
-    private int friendCount = 0;
     protected static final int PICK_CONTACTS = 100;
     private ArrayList<String> names = new ArrayList<>();
     private BaseAdapter adapter;
@@ -38,11 +36,15 @@ public class Friends extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup
         container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_friends, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends, container, false);
         final ListView flv = view.findViewById(R.id.flw1);
 
         for (Friend e : MainActivity.user1.getFriendList()) {
             if(firstVisit) {
+                if(MainActivity.user1.getFriendList().size() == 0) {
+                    Toast.makeText(getActivity(), "You have no friends",
+                        Toast.LENGTH_SHORT).show();
+                }
                 names.add(e.getName());
             }
         }
@@ -100,26 +102,6 @@ public class Friends extends Fragment {
                 return true;
             }
         });
-/*
-                flv.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        String listItem = (String) parent.getItemAtPosition
-                            (position);
-                        names.remove(listItem);
-                        adapter.notifyDataSetChanged();
-                    }
-                }, 400);
-                return false;
-            }
-        });
-*/
-        if(MainActivity.user1.getFriendList().size() == 0) {
-            Toast.makeText(getActivity(), "You have no friends",
-                Toast.LENGTH_SHORT).show();
-        }else{
-            //TODO
-        }
 
         FloatingActionButton flb = view.findViewById(R.id.ffab);
 

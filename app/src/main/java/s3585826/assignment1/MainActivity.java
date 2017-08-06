@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     protected static User user1;
+    private static final String LOG_TAG = "Main Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
 
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        SectionsPageAdapter adapter = new SectionsPageAdapter
+            (getSupportFragmentManager());
 
         adapter.addFragment(new Friends(), "Friends");
         adapter.addFragment(new Meetings(), "Meetings");
@@ -43,24 +47,31 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main2, menu);
+        return true;
+    }
     public void setUpUsers(){
 
         ArrayList<Meeting> meetingList = new ArrayList<>();
         ArrayList<Friend> friendList = new ArrayList<>();
-        user1 = new User("j0u301", "Nebojsa Pajkic", "user1@user1.com", friendList,
+        user1 = new User("j0u301", "Nebojsa Pajkic", "user1@user1.com",
+            friendList,
             meetingList);
         Friend user2 = new Friend("13jk14", "Alan Lam", "user2@user2.com");
         friendList.add(user2);
-        Friend user3 = new Friend("fa879f", "Fabio Monsalve", "user3@user3.com");
+        Friend user3 = new Friend("fa879f", "Fabio Monsalve",
+            "user3@user3.com");
         friendList.add(user3);
         Friend user4 = new Friend("fa7ffa", "Callum Pearse", "user4@user4.com");
         friendList.add(user4);
 
+        Log.d(LOG_TAG, "setUpUsers");
     }
 
 
     private class SectionsPageAdapter extends FragmentPagerAdapter {
-
         private final List<Fragment> fragmentList = new ArrayList<>();
         private final List<String> fragmentTitleList = new ArrayList<>();
 
@@ -88,5 +99,4 @@ public class MainActivity extends AppCompatActivity {
             return fragmentList.size();
         }
     }
-
 }
