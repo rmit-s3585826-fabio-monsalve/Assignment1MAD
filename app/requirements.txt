@@ -1,0 +1,23 @@
+FUNCTIONAL REQUIREMENTS
+
++ Add friends
+	-Name and Email from contacts list ***
+	-Generate random id
++ Remove friends ***
++ Edit friend details
+	-Implement DatePicker
+	-Photo?
++ Display friend list ***
++ Schedule meeting
++ Unschedule meeting
++ Edit meeting details
++ Display meeting list
+
+OTHER REQUIREMENTS
+
++ Application scope to facilitate testing
++ Use common values (Strings, dimensions, colours)
++ API version 23
++ Use of MVC
++ Simple UI
++ Branding, business models, distribution, 3rd party integrations (maps, social media etc)
