@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,29 +50,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu_main2, menu);
         return true;
     }
+
     public void setUpUsers(){
 
         ArrayList<Meeting> meetingList = new ArrayList<>();
-        ArrayList<Friend> friendList = new ArrayList<>();
+        HashMap<String, Friend> friendMap = new HashMap<>();
+
         user1 = new User("j0u301", "Nebojsa Pajkic", "user1@user1.com",
-            friendList,
-            meetingList);
+            friendMap, meetingList);
+
         Friend user2 = new Friend("13jk14", "Alan Lam", "user2@user2.com");
-        friendList.add(user2);
-        Friend user3 = new Friend("fa879f", "Fabio Monsalve",
-            "user3@user3.com");
-        friendList.add(user3);
+        friendMap.put("13jk14", user2);
+        Friend user3 = new Friend("fa879f","Fabio Monsalve", "user3@user3.com");
+        friendMap.put("fa879f", user3);
         Friend user4 = new Friend("fa7ffa", "Callum Pearse", "user4@user4.com");
-        friendList.add(user4);
+        friendMap.put("fa7ffa", user4);
 
         Log.d(LOG_TAG, "setUpUsers");
     }
 
-
     private class SectionsPageAdapter extends FragmentPagerAdapter {
+
         private final List<Fragment> fragmentList = new ArrayList<>();
         private final List<String> fragmentTitleList = new ArrayList<>();
 

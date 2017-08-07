@@ -7,4 +7,5 @@
     <string name="id">ID:</string>
     <string name="name">NAME:</string>
     <string name="email">EMAIL:</string>
+    <string name="friendCount">FRIEND COUNT:</string>
 </resources>

@@ -1,21 +1,21 @@
 package s3585826.assignment1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
     private String id;
     private String name;
     private String email;
-
-    private ArrayList<Friend> friendList;
+    private HashMap<String, Friend> friendMap;
     private ArrayList<Meeting> meetingsList;
 
-    public User (String id, String name, String email, ArrayList<Friend>
-        friendList, ArrayList<Meeting> meetingList){
+    public User (String id, String name, String email,
+                 HashMap<String, Friend> friendMap, ArrayList<Meeting> meetingList){
         this.id = id;
         this.name = name;
         this.email = email;
-        this.friendList = friendList;
+        this.friendMap = friendMap;
         this.meetingsList = meetingList;
     }
 
@@ -43,19 +43,19 @@ public class User {
         this.email = email;
     }
 
-    public ArrayList<Friend> getFriendList() {
-        return friendList;
-    }
-
-    public void setFriendList(ArrayList<Friend> friendList) {
-        this.friendList = friendList;
-    }
-
     public ArrayList<Meeting> getMeetingsList() {
         return meetingsList;
     }
 
     public void setMeetingsList(ArrayList<Meeting> meetingsList) {
         this.meetingsList = meetingsList;
+    }
+
+    public HashMap<String, Friend> getFriendMap() {
+        return friendMap;
+    }
+
+    public void setFriendMap(HashMap<String, Friend> friendMap) {
+        this.friendMap = friendMap;
     }
 }
