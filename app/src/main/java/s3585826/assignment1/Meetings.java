@@ -2,7 +2,6 @@ package s3585826.assignment1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -24,10 +23,11 @@ import static android.app.Activity.RESULT_OK;
 public class Meetings extends Fragment {
 
     private static final String LOG_TAG = "1";
-    private int friendCount = 0;
-    protected static final int PICK_CONTACTS = 100;
-    private ArrayList<String> names = new ArrayList<>();
-    private BaseAdapter la;
+    private int meetingCount = 0;
+    protected static final int PICK_CONTACTS_RC = 100;
+    protected static final int ADD_MEETING_RC = 200;
+    private ArrayList<Meeting> meetings = new ArrayList<>();
+    private BaseAdapter meetingsAdapter;
 
     @Nullable
     @Override
@@ -36,13 +36,13 @@ public class Meetings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meetings,container,
             false);
         ListView flv = view.findViewById(R.id.mlw1);
-        la = new ArrayAdapter<String>(this.getContext(),
-            android.R.layout.simple_list_item_1, names) {
+        meetingsAdapter = new ArrayAdapter<Meeting>(this.getContext(),
+            android.R.layout.simple_list_item_1, meetings) {
         };
-        flv.setAdapter(la);
+        flv.setAdapter(meetingsAdapter);
 
-        if(friendCount == 0) {
-            Toast.makeText(getActivity(), "You have no friends",
+        if(meetingCount == 0) {
+            Toast.makeText(getActivity(), "You have no meetings",
                 Toast.LENGTH_LONG).show();
         }else{
             //TODO
@@ -51,9 +51,8 @@ public class Meetings extends Fragment {
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
-                    ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(contactPickerIntent, PICK_CONTACTS);
+                Intent addMeetingIntent = new Intent(getActivity(),NewMeetingActivity.class);
+                startActivity(addMeetingIntent);
             }
         });
         return view;
@@ -61,18 +60,17 @@ public class Meetings extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String name = "";
-        String email = "";
 
-        if (requestCode == PICK_CONTACTS) {
+        if (requestCode == PICK_CONTACTS_RC) {
             if (resultCode == RESULT_OK) {
                 ContactDataManager contactsManager = new
-                    ContactDataManager(this.getContext(), data);
+                        ContactDataManager(this.getContext(), data);
+
                 try {
-                    name = contactsManager.getContactName();
-                    email = contactsManager.getContactEmail();
-                    names.add(name);
-                    la.notifyDataSetChanged();
+                    String name = contactsManager.getContactName();
+                    Intent addMeetingIntent = new Intent(this.getContext(), NewMeetingActivity.class);
+                    addMeetingIntent.putExtra("name", "John");
+                    startActivityForResult(addMeetingIntent, ADD_MEETING_RC);
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
                 }

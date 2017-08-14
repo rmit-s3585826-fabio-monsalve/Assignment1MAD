@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button android:id="@+id/select_friends_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Friends"/>
+    <Button android:id="@+id/select_date_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Date"/>
+    <Button android:id="@+id/select_start_time_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="time"/>
+    <Button android:id="@+id/select_end_time_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="time"/>
+    <Button android:id="@+id/select_loaca_button_button"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="location"/>
+
+
+
+</LinearLayout>
