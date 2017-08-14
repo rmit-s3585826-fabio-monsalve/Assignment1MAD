@@ -21,7 +21,6 @@ public class FriendInfo extends AppCompatActivity {
             friendName = extras.getString("friend");
         }
 
-
         Log.d(LOG_TAG, friendName);
 
         Friend f = null;
@@ -36,10 +35,11 @@ public class FriendInfo extends AppCompatActivity {
         TextView friendInfoId = (TextView) findViewById(R.id.friendInfoId);
         TextView friendInfoName = (TextView) findViewById(R.id.friendInfoName);
         TextView friendInfoEmail = (TextView)findViewById(R.id.friendInfoEmail);
+        TextView friendInfoBirthday = (TextView)findViewById(R.id.friendInfoBirthday);
 
         friendInfoId.setText(f.getId());
         friendInfoName.setText(f.getName());
         friendInfoEmail.setText(f.getEmail());
-
+        friendInfoBirthday.setText(f.getBirthday());
     }
 }

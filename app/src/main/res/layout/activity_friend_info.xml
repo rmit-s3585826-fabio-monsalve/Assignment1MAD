@@ -74,6 +74,23 @@
                 android:text="EMAIL"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_weight="1"
+                android:text="@string/birthday"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+
+            <TextView
+                android:id="@+id/friendInfoBirthday"
+                android:layout_weight="1"
+                android:text="BIRTHDAY"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+        </TableRow>
     </TableLayout>
 </GridLayout>
 

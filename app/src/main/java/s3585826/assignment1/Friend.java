@@ -4,13 +4,14 @@ public class Friend {
     private String id;
     private String name;
     private String email;
-    //private birthday;
+    private String birthday;
     //private photo;
 
-    public Friend(String id, String name, String email) {
+    public Friend(String id, String name, String email, String birthday) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.birthday = birthday;
     }
 
     public String getId() {
@@ -37,4 +38,11 @@ public class Friend {
         this.email = email;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 }

@@ -38,6 +38,7 @@ public class Friends extends Fragment {
     int idNo = 0;
     private TextView datetf;
     private DatePickerDialog.OnDateSetListener dateSetListener;
+    private Friend focusFriend;
 
     @Nullable
     @Override
@@ -66,7 +67,6 @@ public class Friends extends Fragment {
         flv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
 
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), FriendInfo.class);
@@ -112,6 +112,7 @@ public class Friends extends Fragment {
                                     MainActivity.user1.getFriendMap().values().remove(f);
 
                                     names.remove(listItem);
+                                    focusFriend = f;
                                     adapter.notifyDataSetChanged();
                                     adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                 }
@@ -153,6 +154,8 @@ public class Friends extends Fragment {
                 String date = month + "/" + day + "/" + year;
                 datetf = view.findViewById(R.id.datetf);
                 datetf.setText(date);
+                String friendid = focusFriend.getId();
+                MainActivity.user1.getFriendMap().get(friendid).setBirthday(date);
             }
         };
 
@@ -166,18 +169,21 @@ public class Friends extends Fragment {
         String email;
 
         if (requestCode == PICK_CONTACTS) {
+
             if (resultCode == RESULT_OK) {
                 ContactDataManager contactsManager = new
                     ContactDataManager(this.getContext(), data);
+
                 try {
                     idNo = idNo + 1;
                     id = String.valueOf(idNo);
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
-                    Friend friend = new Friend(id, name, email);
+                    Friend friend = new Friend(id, name, email, null);
                     MainActivity.user1.getFriendMap().put(id, friend);
 
                     names.add(friend.getName());
+                    focusFriend = friend;
 
                     Calendar cal = Calendar.getInstance();
                     int year = cal.get(Calendar.YEAR);
@@ -186,13 +192,12 @@ public class Friends extends Fragment {
 
                     DatePickerDialog dialog = new DatePickerDialog(
                         this.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year,month,day);
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListener, year,month,day);
 
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
                     adapter.notifyDataSetChanged();
+
                 } catch (ContactDataManager.ContactQueryException e) {
                     Log.e(LOG_TAG, e.getMessage());
                 }

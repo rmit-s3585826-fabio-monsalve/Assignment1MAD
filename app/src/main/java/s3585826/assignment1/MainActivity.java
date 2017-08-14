@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
         user1 = new User("j0u301", "Nebojsa Pajkic", "user1@user1.com",
             friendMap, meetingList);
 
-        Friend user2 = new Friend("13jk14", "Alan Lam", "user2@user2.com");
+        Friend user2 = new Friend("13jk14", "Alan Lam", "user2@user2.com", "31/12/1991");
         friendMap.put("13jk14", user2);
-        Friend user3 = new Friend("fa879f","Fabio Monsalve", "user3@user3.com");
+        Friend user3 = new Friend("fa879f","Fabio Monsalve", "user3@user3.com", "31/12/1991");
         friendMap.put("fa879f", user3);
-        Friend user4 = new Friend("fa7ffa", "Callum Pearse", "user4@user4.com");
+        Friend user4 = new Friend("fa7ffa", "Callum Pearse", "user4@user4.com", "31/12/1991");
         friendMap.put("fa7ffa", user4);
 
         Log.d(LOG_TAG, "setUpUsers");
