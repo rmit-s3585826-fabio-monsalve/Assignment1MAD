@@ -12,12 +12,13 @@ public class FriendInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("");
 
         Log.d(LOG_TAG, "OnCreate");
         setContentView(R.layout.activity_friend_info);
 
         Bundle extras = getIntent().getExtras();
-       if(extras !=null) {
+        if(extras !=null) {
             friendName = extras.getString("friend");
         }
 
