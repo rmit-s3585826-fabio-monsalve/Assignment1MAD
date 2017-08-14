@@ -9,4 +9,7 @@ public class Meeting {
     private String endTime;
     private ArrayList<Friend> invitedFriends;
     private Location location;
+
+
 }
+

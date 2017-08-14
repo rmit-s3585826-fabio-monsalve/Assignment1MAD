@@ -15,14 +15,14 @@ import android.util.Log;
  *
  * Below is a simple example usage of this class from an Activity class
  * launch the contact picker and to promote the user to select an attendee
- * protected static final int PICK_CONTACTS = 100;
+ * protected static final int PICK_MEETINGS = 100;
  * Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
- * startActivityForResult(contactPickerIntent, PICK_CONTACTS);
+ * startActivityForResult(contactPickerIntent, PICK_MEETINGS);
  * grab the result in onActivityResult()
  *
  * @author ermyasabebe
  * @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
- * if (requestCode == PICK_CONTACTS) {
+ * if (requestCode == PICK_MEETINGS) {
  * if (resultCode == RESULT_OK) {
  * ContactDataManager contactsManager = new ContactDataManager(this, data);
  * String name = "";
