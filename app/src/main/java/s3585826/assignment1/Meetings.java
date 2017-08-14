@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,12 +40,6 @@ public class Meetings extends Fragment {
         };
         flv.setAdapter(la);
 
-        if(friendCount == 0) {
-            Toast.makeText(getActivity(), "You have no friends",
-                Toast.LENGTH_LONG).show();
-        }else{
-            //TODO
-        }
         FloatingActionButton flb = view.findViewById(R.id.ffab);
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
