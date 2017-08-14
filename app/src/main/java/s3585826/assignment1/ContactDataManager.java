@@ -7,37 +7,6 @@ import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 
-/**
- * Class used to retrieve information about a Contact selected through the Android
- * Contacts Picker Activity. requires permission android.permission.READ_CONTACTS
- *    Simplified manifest permissions for targetSdkVersion<=22
- *        <uses-permission android:name="android.permission.READ_CONTACTS" />
- *
- * Below is a simple example usage of this class from an Activity class
- * launch the contact picker and to promote the user to select an attendee
- * protected static final int PICK_MEETINGS = 100;
- * Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
- * startActivityForResult(contactPickerIntent, PICK_MEETINGS);
- * grab the result in onActivityResult()
- *
- * @author ermyasabebe
- * @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
- * if (requestCode == PICK_MEETINGS) {
- * if (resultCode == RESULT_OK) {
- * ContactDataManager contactsManager = new ContactDataManager(this, data);
- * String name = "";
- * String email = "";
- * try {
- * name = contactsManager.getContactName();
- * email = contactsManager.getContactEmail();
- * } catch (ContactQueryException e) {
- * Log.e(LOG_TAG, e.getMessage());
- * }
- * }
- * }
- * }
- *
- */
 public class ContactDataManager
 {
     private static final String LOG_TAG = ContactDataManager.class.getName();

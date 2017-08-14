@@ -13,6 +13,7 @@ public class FriendInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("");
+        getActionBar().show();
 
         Log.d(LOG_TAG, "OnCreate");
         setContentView(R.layout.activity_friend_info);
