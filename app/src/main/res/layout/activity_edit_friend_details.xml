@@ -1,12 +1,11 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rowCount="2"
-    android:columnCount="2"
-    tools:context=".FriendInfo">
+    tools:context="s3585826.assignment1.EditFriendDetails">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -14,9 +13,7 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
+            android:layout_height="match_parent"/>
 
         <TableRow
             android:layout_width="match_parent"
@@ -30,11 +27,13 @@
                 android:text="@string/id"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
-            <TextView
-                android:id="@+id/friendInfoId"
-                android:layout_weight="1"
-                android:text="ID"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+            <EditText
+                android:id="@+id/editTextId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"/>
 
         </TableRow>
 
@@ -49,12 +48,14 @@
                 android:layout_weight="1"
                 android:text="@string/name"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"/>
 
-            <TextView
-                android:id="@+id/friendInfoName"
-                android:layout_weight="1"
-                android:text="NAME"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 
         <TableRow
@@ -67,12 +68,14 @@
                 android:layout_weight="1"
                 android:text="@string/email"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"/>
 
-            <TextView
-                android:id="@+id/friendInfoEmail"
-                android:layout_weight="1"
-                android:text="EMAIL"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -84,13 +87,27 @@
                 android:layout_weight="1"
                 android:text="@string/birthday"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
-            <TextView
-                android:id="@+id/friendInfoBirthday"
-                android:layout_weight="1"
-                android:text="BIRTHDAY"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+            <EditText
+                android:id="@+id/editTextBirthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"/>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dip">
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal"
+                android:text="Done"/>
+        </TableRow>
+
     </TableLayout>
 </GridLayout>
 

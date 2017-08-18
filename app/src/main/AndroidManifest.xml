@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".NewMeetingActivity">
         </activity>
+        <activity android:name=".EditFriendDetails">
+        </activity>
     </application>
 
 </manifest>

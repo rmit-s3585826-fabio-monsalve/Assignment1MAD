@@ -2,9 +2,9 @@ package s3585826.assignment1;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
 /**
  * Created by Callum on 8/08/2017.

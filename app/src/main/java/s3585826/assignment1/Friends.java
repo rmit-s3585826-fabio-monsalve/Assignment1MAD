@@ -1,14 +1,14 @@
 package s3585826.assignment1;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,13 +18,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Calendar;
+
+import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Friend;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -36,10 +35,8 @@ public class Friends extends Fragment {
     private boolean firstVisit = true;
     private ArrayList<String> names;
     int idNo = 0;
-    private TextView datetf;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
-    private Friend focusFriend;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
@@ -49,7 +46,7 @@ public class Friends extends Fragment {
         final ListView flv = view.findViewById(R.id.flw1);
 
         if(firstVisit) {
-            if(MainActivity.user1.getFriendMap().size() == 0) {
+            if(Data.user1.getFriendMap().size() == 0) {
                 Toast.makeText(getActivity(), "You have no friends",
                     Toast.LENGTH_SHORT).show();
             }
@@ -57,7 +54,7 @@ public class Friends extends Fragment {
         firstVisit = false;
 
         names = new ArrayList<>();
-        for(Friend e: MainActivity.user1.getFriendMap().values()){
+        for(Friend e: Data.user1.getFriendMap().values()){
             names.add(e.getName());
         }
 
@@ -71,9 +68,15 @@ public class Friends extends Fragment {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), FriendInfo.class);
                 String listItem = (String) adapterView.getItemAtPosition(i);
-                intent.putExtra("friend", listItem);
+                Friend f = null;
+                for(Friend e: Data.user1.getFriendMap().values()){
+                    if(listItem.equals(e.getName())){
+                        f = e;
+                    }
+                }
+                Data.focusFriend = f;
                 getActivity().startActivity(intent);
-                Log.d(LOG_TAG, "OnItemClick");
+                Log.d(LOG_TAG, "OnItemClick" + listItem);
             }
         });
 
@@ -103,16 +106,16 @@ public class Friends extends Fragment {
                                     String listItem = (String) adapterView.getItemAtPosition(i);
 
                                     Friend f = null;
-                                    for(Friend e: MainActivity.user1.getFriendMap().values()){
+                                    for(Friend e: Data.user1.getFriendMap().values()){
                                         if(listItem.equals(e.getName())){
                                             f = e;
                                         }
                                     }
 
-                                    MainActivity.user1.getFriendMap().values().remove(f);
+                                    Data.user1.getFriendMap().values().remove(f);
 
                                     names.remove(listItem);
-                                    focusFriend = f;
+                                    Data.focusFriend = f;
                                     adapter.notifyDataSetChanged();
                                     adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                 }
@@ -142,26 +145,12 @@ public class Friends extends Fragment {
             }
         });
 
-        Log.d(LOG_TAG, "onCreateView" + MainActivity.user1.getFriendMap().size());
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-
-                month = month + 1;
-                Log.d(LOG_TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-
-                String date = month + "/" + day + "/" + year;
-                datetf = view.findViewById(R.id.datetf);
-                datetf.setText(date);
-                String friendid = focusFriend.getId();
-                MainActivity.user1.getFriendMap().get(friendid).setBirthday(date);
-            }
-        };
+        Log.d(LOG_TAG, "onCreateView" + Data.user1.getFriendMap().size());
 
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String id;
@@ -180,22 +169,13 @@ public class Friends extends Fragment {
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
                     Friend friend = new Friend(id, name, email, null);
-                    MainActivity.user1.getFriendMap().put(id, friend);
+                    Data.user1.getFriendMap().put(id, friend);
 
                     names.add(friend.getName());
-                    focusFriend = friend;
+                    Data.focusFriend = friend;
 
-                    Calendar cal = Calendar.getInstance();
-                    int year = cal.get(Calendar.YEAR);
-                    int month = cal.get(Calendar.MONTH);
-                    int day = cal.get(Calendar.DAY_OF_MONTH);
+                    new ChooseDateFragment().show(getFragmentManager(), "");
 
-                    DatePickerDialog dialog = new DatePickerDialog(
-                        this.getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateSetListener, year,month,day);
-
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dialog.show();
                     adapter.notifyDataSetChanged();
 
                 } catch (ContactDataManager.ContactQueryException e) {

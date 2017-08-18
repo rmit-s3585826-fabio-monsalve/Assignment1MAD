@@ -2,12 +2,12 @@ package s3585826.assignment1;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import s3585826.assignment1.Model.Data;
 
 /**
  * Created by Callum on 14/08/2017.
@@ -16,9 +16,12 @@ import java.util.Calendar;
 public class ChooseDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        month = month + 1;
 
-        Calendar c = Calendar.getInstance();
+        String date = month + "/" + day + "/" + year;
+        String friendid = Data.focusFriend.getId();
+        Data.user1.getFriendMap().get(friendid).setBirthday(date);
     }
 
     @Override
@@ -29,6 +32,6 @@ public class ChooseDateFragment extends DialogFragment implements DatePickerDial
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, this, year, month, day);
+        return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 }

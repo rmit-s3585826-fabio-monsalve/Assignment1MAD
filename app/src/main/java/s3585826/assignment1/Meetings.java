@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import s3585826.assignment1.Model.Meeting;
+
 import static android.app.Activity.RESULT_OK;
 
 //Implement expandable list view for friends attending the scheduled meetings

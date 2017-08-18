@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import s3585826.assignment1.Model.Data;
+
 public class UserInfo extends Fragment {
     View view;
 
@@ -19,10 +21,10 @@ public class UserInfo extends Fragment {
         TextView userInfoEmail = view.findViewById(R.id.userInfoEmail);
         TextView userInfoFriendCount = view.findViewById(R.id.userInfoFriendCount);
 
-        userInfoId.setText(MainActivity.user1.getId());
-        userInfoName.setText(MainActivity.user1.getName());
-        userInfoEmail.setText(MainActivity.user1.getEmail());
-        userInfoFriendCount.setText(Integer.toString(MainActivity.user1.getFriendMap().size()));
+        userInfoId.setText(Data.user1.getId());
+        userInfoName.setText(Data.user1.getName());
+        userInfoEmail.setText(Data.user1.getEmail());
+        userInfoFriendCount.setText(Integer.toString(Data.user1.getFriendMap().size()));
 
         return view;
     }
