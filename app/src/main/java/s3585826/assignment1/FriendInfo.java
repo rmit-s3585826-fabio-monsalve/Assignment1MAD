@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import s3585826.assignment1.Model.Data;
 
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
+
 public class FriendInfo extends AppCompatActivity {
     private static final String LOG_TAG = "Friend Info Activity";
 

@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import s3585826.assignment1.Model.Data;
+
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
 
 public class UserInfo extends Fragment {
     View view;

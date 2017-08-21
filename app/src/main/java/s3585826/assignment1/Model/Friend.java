@@ -1,5 +1,9 @@
 package s3585826.assignment1.Model;
 
+/**
+ * Created by Fabio Monsalve s3585826 on 18/8/17.
+ */
+
 public class Friend {
     private String id;
     private String name;

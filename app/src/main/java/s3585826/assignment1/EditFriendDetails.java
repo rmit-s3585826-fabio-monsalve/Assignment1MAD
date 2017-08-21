@@ -9,6 +9,10 @@ import android.widget.EditText;
 
 import s3585826.assignment1.Model.Data;
 
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
+
 public class EditFriendDetails extends AppCompatActivity{
 
     @Override

@@ -3,19 +3,15 @@ package s3585826.assignment1.Model;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static java.security.AccessController.getContext;
-
 /**
- * Created by Fabio Monsalve s3585826 on 18/8/17.
+ * Created by Fabio Monsalve s3585826.
  */
 
 public class Data {
@@ -24,6 +20,7 @@ public class Data {
     private static final String LOG_TAG = "Friends Activity";
 
     public static void setUpApp(Context context) {
+
         Log.d(LOG_TAG, "setUpApp() START");
         String[] tokens;
         String line;

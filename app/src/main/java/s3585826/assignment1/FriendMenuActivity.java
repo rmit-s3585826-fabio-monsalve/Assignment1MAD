@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 /**
- * Created by orlandok on 18/8/17.
+ * Created by Fabio Monsalve s3585826.
  */
 
 public class FriendMenuActivity extends Activity{

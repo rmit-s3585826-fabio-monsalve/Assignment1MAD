@@ -3,6 +3,10 @@ package s3585826.assignment1.Model;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
+
 public class User {
     private String id;
     private String name;

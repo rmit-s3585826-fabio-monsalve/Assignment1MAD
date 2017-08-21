@@ -13,6 +13,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,11 +23,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
-
 import s3585826.assignment1.Model.Data;
 import s3585826.assignment1.Model.Friend;
 
 import static android.app.Activity.RESULT_OK;
+
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
 
 public class Friends extends Fragment {
 
@@ -44,6 +49,7 @@ public class Friends extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_friends, container, false);
         final ListView flv = view.findViewById(R.id.flw1);
+        setHasOptionsMenu(true);
 
         if(firstVisit) {
             if(Data.user1.getFriendMap().size() == 0) {
@@ -148,6 +154,13 @@ public class Friends extends Fragment {
         Log.d(LOG_TAG, "onCreateView" + Data.user1.getFriendMap().size());
 
         return view;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.friends_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

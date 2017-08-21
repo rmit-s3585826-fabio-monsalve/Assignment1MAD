@@ -15,6 +15,10 @@ import java.util.List;
 
 import s3585826.assignment1.Model.Data;
 
+/**
+ * Created by Fabio Monsalve s3585826.
+ */
+
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "Main Activity";
     protected static Toolbar toolbar;

@@ -9,4 +9,5 @@
     <string name="birthday">BIRTHDAY:</string>
     <string name="menu_settings">Edit</string>
     <string name="back_button">Edit</string>
+    <string name="search_title">Search</string>
 </resources>
