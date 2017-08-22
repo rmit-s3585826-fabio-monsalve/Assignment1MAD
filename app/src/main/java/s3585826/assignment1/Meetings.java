@@ -12,15 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import s3585826.assignment1.Model.Meeting;
 
 import static android.app.Activity.RESULT_OK;
-
-//Implement expandable list view for friends attending the scheduled meetings
 
 public class Meetings extends Fragment {
 
@@ -43,12 +40,6 @@ public class Meetings extends Fragment {
         };
         flv.setAdapter(meetingsAdapter);
 
-        if(meetingCount == 0) {
-            Toast.makeText(getActivity(), "You have no meetings",
-                Toast.LENGTH_LONG).show();
-        }else{
-            //TODO
-        }
         FloatingActionButton flb = view.findViewById(R.id.ffab);
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
