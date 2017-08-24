@@ -23,7 +23,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.Model.Friend;
 
 import static android.app.Activity.RESULT_OK;
@@ -52,7 +52,7 @@ public class Friends extends Fragment {
         setHasOptionsMenu(true);
 
         if(firstVisit) {
-            if(Data.user1.getFriendMap().size() == 0) {
+            if(Model.getInstance().getUser().getFriendMap().size() == 0) {
                 Toast.makeText(getActivity(), "You have no friends",
                     Toast.LENGTH_SHORT).show();
             }
@@ -60,7 +60,7 @@ public class Friends extends Fragment {
         firstVisit = false;
 
         names = new ArrayList<>();
-        for(Friend e: Data.user1.getFriendMap().values()){
+        for(Friend e: Model.getInstance().getUser().getFriendMap().values()){
             names.add(e.getName());
         }
 
@@ -75,12 +75,12 @@ public class Friends extends Fragment {
                 intent.setClass(getActivity(), FriendInfo.class);
                 String listItem = (String) adapterView.getItemAtPosition(i);
                 Friend f = null;
-                for(Friend e: Data.user1.getFriendMap().values()){
+                for(Friend e: Model.getInstance().getUser().getFriendMap().values()){
                     if(listItem.equals(e.getName())){
                         f = e;
                     }
                 }
-                Data.focusFriend = f;
+                Model.getInstance().setFocusFriend(f);
                 getActivity().startActivity(intent);
                 Log.d(LOG_TAG, "OnItemClick" + listItem);
             }
@@ -112,16 +112,16 @@ public class Friends extends Fragment {
                                     String listItem = (String) adapterView.getItemAtPosition(i);
 
                                     Friend f = null;
-                                    for(Friend e: Data.user1.getFriendMap().values()){
+                                    for(Friend e: Model.getInstance().getUser().getFriendMap().values()){
                                         if(listItem.equals(e.getName())){
                                             f = e;
                                         }
                                     }
 
-                                    Data.user1.getFriendMap().values().remove(f);
+                                    Model.getInstance().getUser().getFriendMap().values().remove(f);
 
                                     names.remove(listItem);
-                                    Data.focusFriend = f;
+                                    Model.getInstance().setFocusFriend(f);
                                     adapter.notifyDataSetChanged();
                                     adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                 }
@@ -151,7 +151,7 @@ public class Friends extends Fragment {
             }
         });
 
-        Log.d(LOG_TAG, "onCreateView" + Data.user1.getFriendMap().size());
+        Log.d(LOG_TAG, "onCreateView" + Model.getInstance().getUser().getFriendMap().size());
 
         return view;
     }
@@ -182,10 +182,10 @@ public class Friends extends Fragment {
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
                     Friend friend = new Friend(id, name, email, null);
-                    Data.user1.getFriendMap().put(id, friend);
+                    Model.getInstance().getUser().getFriendMap().put(id, friend);
 
                     names.add(friend.getName());
-                    Data.focusFriend = friend;
+                    Model.getInstance().setFocusFriend(friend);
 
                     new ChooseDateFragment().show(getFragmentManager(), "");
 

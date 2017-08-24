@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826.
@@ -26,19 +26,19 @@ public class EditFriendDetails extends AppCompatActivity{
         final EditText editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         final EditText editTextBirthday = (EditText) findViewById(R.id.editTextBirthday);
 
-        editTextId.setText(Data.focusFriend.getId());
-        editTextName.setText(Data.focusFriend.getName());
-        editTextEmail.setText(Data.focusFriend.getEmail());
-        editTextBirthday.setText(Data.focusFriend.getBirthday());
+        editTextId.setText(Model.getInstance().getFocusFriend().getId());
+        editTextName.setText(Model.getInstance().getFocusFriend().getName());
+        editTextEmail.setText(Model.getInstance().getFocusFriend().getEmail());
+        editTextBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
 
         Button editButton = (Button) findViewById(R.id.editButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Data.focusFriend.setId(editTextId.getText().toString());
-                Data.focusFriend.setName(editTextName.getText().toString());
-                Data.focusFriend.setEmail(editTextEmail.getText().toString());
-                Data.focusFriend.setBirthday(editTextBirthday.getText().toString());
+                Model.getInstance().getFocusFriend().setId(editTextId.getText().toString());
+                Model.getInstance().getFocusFriend().setName(editTextName.getText().toString());
+                Model.getInstance().getFocusFriend().setEmail(editTextEmail.getText().toString());
+                Model.getInstance().getFocusFriend().setBirthday(editTextBirthday.getText().toString());
 
                 Intent intent = new Intent(EditFriendDetails.this, FriendInfo.class);
                 startActivity(intent);

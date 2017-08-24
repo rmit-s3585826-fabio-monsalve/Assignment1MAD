@@ -13,7 +13,7 @@ import android.view.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826.
@@ -26,12 +26,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Data.setUpApp(this);
+        Model.getInstance().loadDummyData(this);
 
         setContentView(R.layout.activity_main);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager)
-;
+        setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 

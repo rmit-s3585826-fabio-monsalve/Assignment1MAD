@@ -7,7 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import java.util.Calendar;
 
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Callum on 14/08/2017.
@@ -20,8 +20,8 @@ public class ChooseDateFragment extends DialogFragment implements DatePickerDial
         month = month + 1;
 
         String date = month + "/" + day + "/" + year;
-        String friendid = Data.focusFriend.getId();
-        Data.user1.getFriendMap().get(friendid).setBirthday(date);
+        String friendid = Model.getInstance().getFocusFriend().getId();
+        Model.getInstance().getUser().getFriendMap().get(friendid).setBirthday(date);
     }
 
     @Override

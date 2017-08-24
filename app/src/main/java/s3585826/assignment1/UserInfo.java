@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826.
@@ -24,10 +24,10 @@ public class UserInfo extends Fragment {
         TextView userInfoEmail = view.findViewById(R.id.userInfoEmail);
         TextView userInfoFriendCount = view.findViewById(R.id.userInfoFriendCount);
 
-        userInfoId.setText(Data.user1.getId());
-        userInfoName.setText(Data.user1.getName());
-        userInfoEmail.setText(Data.user1.getEmail());
-        userInfoFriendCount.setText(Integer.toString(Data.user1.getFriendMap().size()));
+        userInfoId.setText(Model.getInstance().getUser().getId());
+        userInfoName.setText(Model.getInstance().getUser().getName());
+        userInfoEmail.setText(Model.getInstance().getUser().getEmail());
+        userInfoFriendCount.setText(Integer.toString(Model.getInstance().getUser().getFriendMap().size()));
 
         return view;
     }

@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import s3585826.assignment1.Model.Data;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826.
@@ -32,10 +32,10 @@ public class FriendInfo extends AppCompatActivity {
         TextView friendInfoEmail = (TextView)findViewById(R.id.friendInfoEmail);
         TextView friendInfoBirthday = (TextView)findViewById(R.id.friendInfoBirthday);
 
-        friendInfoId.setText(Data.focusFriend.getId());
-        friendInfoName.setText(Data.focusFriend.getName());
-        friendInfoEmail.setText(Data.focusFriend.getEmail());
-        friendInfoBirthday.setText(Data.focusFriend.getBirthday());
+        friendInfoId.setText(Model.getInstance().getFocusFriend().getId());
+        friendInfoName.setText(Model.getInstance().getFocusFriend().getName());
+        friendInfoEmail.setText(Model.getInstance().getFocusFriend().getEmail());
+        friendInfoBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
     }
 
     @Override

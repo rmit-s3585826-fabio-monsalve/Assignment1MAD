@@ -14,14 +14,47 @@ import java.util.HashMap;
  * Created by Fabio Monsalve s3585826.
  */
 
-public class Data {
-    public static User user1;
-    public static Friend focusFriend;
+public class Model {
+
+    //Private static variable of the same class that is the only instance of the class.
+    private static Model instance;
+    private static User user1;
+    private static Friend focusFriend;
     private static final String LOG_TAG = "Friends Activity";
 
-    public static void setUpApp(Context context) {
+    //Private constructor to restrict instantiation of the class from other classes.
+    private Model(){
 
-        Log.d(LOG_TAG, "setUpApp() START");
+    }
+
+    //Public static method that returns the instance of the class
+    public static Model getInstance(){
+        if(instance == null){
+            instance = new Model();
+        }
+        return instance;
+    }
+
+    //return user
+    public User getUser(){
+        return user1;
+    }
+
+    //return friend in focus
+    public Friend getFocusFriend(){
+        return focusFriend;
+    }
+
+    //set friend in focus
+    public void setFocusFriend(Friend f){
+        focusFriend=f;
+    }
+
+
+    // Load dummy data from dummy_data.txt
+    public void loadDummyData(Context context) {
+
+        Log.d(LOG_TAG, "loadDummyData() START");
         String[] tokens;
         String line;
         ArrayList<Meeting> meetingList = new ArrayList<>();
@@ -48,6 +81,6 @@ public class Data {
             System.out.println("File not found");
         }
 
-        Log.d(LOG_TAG, "setUpApp() END");
+        Log.d(LOG_TAG, "loadDummyData() END");
     }
 }
