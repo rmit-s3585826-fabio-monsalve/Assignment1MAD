@@ -21,7 +21,7 @@ public class ChooseDateFragment extends DialogFragment implements DatePickerDial
 
         String date = month + "/" + day + "/" + year;
         String friendid = Model.getInstance().getFocusFriend().getId();
-        Model.getInstance().getUser().getFriendMap().get(friendid).setBirthday(date);
+        Model.getInstance().getUser().getFriends().get(friendid).setBirthday(date);
     }
 
     @Override

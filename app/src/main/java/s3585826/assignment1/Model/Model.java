@@ -72,9 +72,11 @@ public class Model {
                 Log.d(LOG_TAG, "switch" + tokens[0] + tokens[1] + tokens[2]);
 
                 switch(tokens[0]){
-                    case "user": user1 = new User(tokens[1],  tokens[2], tokens[3], friendMap, meetingList);
-                    case "friend": Friend friend = new Friend(tokens[1], tokens[2], tokens[3], null);
-                        user1.getFriendMap().put(tokens[1], friend);
+                    case "user":
+                        user1 = new User(tokens[1],  tokens[2], tokens[3], null);
+                    case "friend":
+                        Friend friend = new Friend(tokens[1], tokens[2], tokens[3], null);
+                        user1.addFriend(friend);
                 }
             }
         }catch(IOException e){

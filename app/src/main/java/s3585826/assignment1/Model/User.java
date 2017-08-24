@@ -1,65 +1,49 @@
 package s3585826.assignment1.Model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
+public class User extends Person{
 
-public class User {
-    private String id;
-    private String name;
-    private String email;
-    private HashMap<String, Friend> friendMap;
-    private ArrayList<Meeting> meetingsList;
+    private HashMap<String, Friend> friends;
+    private HashMap<String,Meeting> meetings;
 
-    public User (String id, String name, String email,
-                 HashMap<String, Friend> friendMap, ArrayList<Meeting> meetingList){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.friendMap = friendMap;
-        this.meetingsList = meetingList;
+    // User constructor
+    public User(String id, String name, String email, String birthday) {
+        super(id, name, email, birthday);
+        this.friends = new HashMap<>();
+        this.meetings = new HashMap<>();
     }
 
-    public String getId() {
-        return id;
+    public HashMap<String, Friend> getFriends() {
+        return friends;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public HashMap<String, Meeting> getMeetings() {
+        return meetings;
     }
 
-    public String getName() {
-        return name;
+    public Meeting getMeeting(String id){
+        return meetings.get(id);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addMeeting(Meeting meeting) {
+        meetings.put(meeting.getId(), meeting);
     }
 
-    public String getEmail() {
-        return email;
+    public void removeMeeting(String id){
+        meetings.remove(id);
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public Friend getFriend(String id){
+        return friends.get(id);
+    }
+    public void addFriend(Friend friend) {
+        friends.put(friend.getId(), friend);
     }
 
-    public ArrayList<Meeting> getMeetingsList() {
-        return meetingsList;
+    public void removeFriend(String id){
+        friends.remove(id);
     }
 
-    public void setMeetingsList(ArrayList<Meeting> meetingsList) {
-        this.meetingsList = meetingsList;
-    }
-
-    public HashMap<String, Friend> getFriendMap() {
-        return friendMap;
-    }
-
-    public void setFriendMap(HashMap<String, Friend> friendMap) {
-        this.friendMap = friendMap;
-    }
 }
+

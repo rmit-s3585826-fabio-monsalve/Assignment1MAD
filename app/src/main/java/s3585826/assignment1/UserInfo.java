@@ -27,7 +27,7 @@ public class UserInfo extends Fragment {
         userInfoId.setText(Model.getInstance().getUser().getId());
         userInfoName.setText(Model.getInstance().getUser().getName());
         userInfoEmail.setText(Model.getInstance().getUser().getEmail());
-        userInfoFriendCount.setText(Integer.toString(Model.getInstance().getUser().getFriendMap().size()));
+        userInfoFriendCount.setText(Integer.toString(Model.getInstance().getUser().getFriends().size()));
 
         return view;
     }

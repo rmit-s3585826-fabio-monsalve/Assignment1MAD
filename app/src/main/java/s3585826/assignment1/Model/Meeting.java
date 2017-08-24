@@ -16,6 +16,53 @@ public class Meeting {
     private ArrayList<Friend> invitedFriends;
     private Location location;
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public ArrayList<Friend> getInvitedFriends() {
+        return invitedFriends;
+    }
+
+    public void setInvitedFriends(ArrayList<Friend> invitedFriends) {
+        this.invitedFriends = invitedFriends;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
+
 
