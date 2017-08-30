@@ -24,6 +24,7 @@ public class ChooseDateFragment extends DialogFragment implements DatePickerDial
         Model.getInstance().getUser().getFriends().get(friendid).setBirthday(date);
     }
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -34,4 +35,5 @@ public class ChooseDateFragment extends DialogFragment implements DatePickerDial
 
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
+
 }

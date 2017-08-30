@@ -58,7 +58,7 @@ public class Model {
         String[] tokens;
         String line;
         ArrayList<Meeting> meetingList = new ArrayList<>();
-        HashMap<String, Friend> friendMap = new HashMap<>();
+
 
         try {
             AssetManager am = context.getAssets();
@@ -74,9 +74,17 @@ public class Model {
                 switch(tokens[0]){
                     case "user":
                         user1 = new User(tokens[1],  tokens[2], tokens[3], null);
+                        break;
                     case "friend":
                         Friend friend = new Friend(tokens[1], tokens[2], tokens[3], null);
                         user1.addFriend(friend);
+                        break;
+                    case "meeting":
+                        ArrayList<Friend> invitedFriends = new ArrayList<>();
+                        invitedFriends.add(Model.getInstance().getUser().getFriendByName(tokens[3]));
+                        Meeting meeting = new Meeting(tokens[1], tokens[2], invitedFriends, tokens[4]);
+                        Model.getInstance().getUser().addMeeting(meeting);
+
                 }
             }
         }catch(IOException e){

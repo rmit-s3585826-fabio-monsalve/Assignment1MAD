@@ -32,6 +32,7 @@ public class EditFriendDetails extends AppCompatActivity{
         editTextBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
 
         Button editButton = (Button) findViewById(R.id.editButton);
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

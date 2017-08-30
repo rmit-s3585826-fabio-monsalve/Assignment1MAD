@@ -14,7 +14,14 @@ public class Meeting {
     private String startTime;
     private String endTime;
     private ArrayList<Friend> invitedFriends;
-    private Location location;
+    private String location;
+
+    public Meeting(String startTime, String id, ArrayList<Friend> invitedFriends, String location) {
+        this.id = id;
+        this.startTime = startTime;
+        this.invitedFriends = invitedFriends;
+        this.location = location;
+    }
 
     public String getId() {
         return id;
@@ -56,11 +63,11 @@ public class Meeting {
         this.invitedFriends = invitedFriends;
     }
 
-    public Location getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 }

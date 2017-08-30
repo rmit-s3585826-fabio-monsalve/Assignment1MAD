@@ -34,9 +34,22 @@ public class User extends Person{
         meetings.remove(id);
     }
 
-    public Friend getFriend(String id){
+    public Friend getFriendById(String id){
         return friends.get(id);
     }
+
+    public Friend getFriendByName(String name){
+
+        Friend friend = null;
+        for(Friend e : friends.values()) {
+            if (e.getName().equals(name)) {
+                friend = e;
+                return friend;
+            }
+        }
+        return friend;
+    }
+
     public void addFriend(Friend friend) {
         friends.put(friend.getId(), friend);
     }

@@ -5,28 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import s3585826.assignment1.Model.Meeting;
-
-import static android.app.Activity.RESULT_OK;
+import s3585826.assignment1.Model.Model;
 
 public class Meetings extends Fragment {
-
-    private static final String LOG_TAG = "1";
-    private int meetingCount = 0;
-    protected static final int PICK_CONTACTS_RC = 100;
-    protected static final int ADD_MEETING_RC = 200;
-    private ArrayList<Meeting> meetings = new ArrayList<>();
-    private BaseAdapter meetingsAdapter;
 
     @Nullable
     @Override
@@ -35,8 +24,13 @@ public class Meetings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meetings,container,
             false);
         ListView flv = view.findViewById(R.id.mlw1);
-        meetingsAdapter = new ArrayAdapter<Meeting>(this.getContext(),
-            android.R.layout.simple_list_item_1, meetings) {
+
+        ArrayList<String> meetings = new ArrayList<>();
+        for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
+            meetings.add(e.getId());
+        }
+
+        BaseAdapter meetingsAdapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, meetings) {
         };
         flv.setAdapter(meetingsAdapter);
 
@@ -49,25 +43,5 @@ public class Meetings extends Fragment {
             }
         });
         return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == PICK_CONTACTS_RC) {
-            if (resultCode == RESULT_OK) {
-                ContactDataManager contactsManager = new
-                        ContactDataManager(this.getContext(), data);
-
-                try {
-                    String name = contactsManager.getContactName();
-                    Intent addMeetingIntent = new Intent(this.getContext(), NewMeetingActivity.class);
-                    addMeetingIntent.putExtra("name", "John");
-                    startActivityForResult(addMeetingIntent, ADD_MEETING_RC);
-                } catch (ContactDataManager.ContactQueryException e) {
-                    Log.e(LOG_TAG, e.getMessage());
-                }
-            }
-        }
     }
 }
