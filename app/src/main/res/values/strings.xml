@@ -7,7 +7,10 @@
     <string name="email">EMAIL:</string>
     <string name="friendCount">FRIEND COUNT:</string>
     <string name="birthday">BIRTHDAY:</string>
+    <string name="location">LOCATION:</string>
     <string name="menu_settings">Edit</string>
     <string name="back_button">Edit</string>
     <string name="search_title">Search</string>
+
+
 </resources>

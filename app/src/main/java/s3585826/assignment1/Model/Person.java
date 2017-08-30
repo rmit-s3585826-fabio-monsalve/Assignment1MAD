@@ -9,6 +9,7 @@ public abstract class Person {
     private String name;
     private String email;
     private String birthday;
+    private Location location;
     //private photo;
 
     public Person(String id, String name, String email, String birthday) {
@@ -16,6 +17,7 @@ public abstract class Person {
         this.name = name;
         this.email = email;
         this.birthday = birthday;
+        this.location = null;
     }
     public String getId() {
         return id;
@@ -47,5 +49,19 @@ public abstract class Person {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+    public String getLocationString() {
+        if (location==null)
+            return "Unknown";
+        else
+            return location.toString();
     }
 }

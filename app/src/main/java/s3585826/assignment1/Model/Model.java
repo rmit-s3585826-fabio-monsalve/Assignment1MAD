@@ -10,10 +10,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
-
 public class Model {
 
     //Private static variable of the same class that is the only instance of the class.
@@ -21,13 +17,14 @@ public class Model {
     private static User user1;
     private static Friend focusFriend;
     private static final String LOG_TAG = "Friends Activity";
+    public static boolean firstTimeMain = true;
 
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
 
     }
 
-    //Public static method that returns the instance of the class
+    //Returns the singleton instance
     public static Model getInstance(){
         if(instance == null){
             instance = new Model();

@@ -1,5 +1,6 @@
 package s3585826.assignment1;
 
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,20 +22,31 @@ import s3585826.assignment1.Model.Model;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "Main Activity";
+    private static LocationListener locationListener;
     protected static Toolbar toolbar;
+    private boolean firstTime = true;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Model.getInstance().firstTimeMain) {
+            Model.getInstance().loadDummyData(this);
+            Model.getInstance().firstTimeMain=false;
+        }
 
-        Model.getInstance().loadDummyData(this);
+
 
         setContentView(R.layout.activity_main);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //creat and run a location listener thread
+        locationListener = new LocationListener(this);
+        AsyncTask.execute(locationListener);
 
     }
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import s3585826.assignment1.Model.Model;
+import s3585826.assignment1.Model.*;
 
 /**
  * Created by Fabio Monsalve s3585826.

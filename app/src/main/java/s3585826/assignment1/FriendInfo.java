@@ -1,8 +1,8 @@
 package s3585826.assignment1;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,7 +20,7 @@ public class FriendInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("");
+        setTitle(Model.getInstance().getFocusFriend().getName());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -31,11 +31,13 @@ public class FriendInfo extends AppCompatActivity {
         TextView friendInfoName = (TextView) findViewById(R.id.friendInfoName);
         TextView friendInfoEmail = (TextView)findViewById(R.id.friendInfoEmail);
         TextView friendInfoBirthday = (TextView)findViewById(R.id.friendInfoBirthday);
+        TextView friendInfoLocation = (TextView)findViewById(R.id.friendInfoLocation);
 
         friendInfoId.setText(Model.getInstance().getFocusFriend().getId());
         friendInfoName.setText(Model.getInstance().getFocusFriend().getName());
         friendInfoEmail.setText(Model.getInstance().getFocusFriend().getEmail());
         friendInfoBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
+        friendInfoLocation.setText(Model.getInstance().getFocusFriend().getLocationString());
     }
 
     @Override
