@@ -1,15 +1,13 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
-import android.view.View;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * Created by Callum on 8/08/2017.
- */
+import s3585826.assignment1.R;
 
 public class NewMeetingFragment extends android.support.v4.app.Fragment {
     @Override
@@ -22,7 +20,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
         friendsButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v)
             {
-                new ChooseFriendFragment().show(getFragmentManager(), "mc");
+                new ChooseFriendDialog().show(getFragmentManager(), "mc");
             }
         });
           /* Display date picker */
@@ -30,7 +28,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
         dateButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v)
             {
-                new ChooseDateFragment().show(getFragmentManager(), "mc");
+                new ChooseDateDialog().show(getFragmentManager(), "mc");
             }
         });
 

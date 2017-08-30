@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Support_Code;
 
 
 // dummy friend location provider by Caspar for MAD s2, 2017
@@ -21,7 +21,9 @@ package s3585826.assignment1;
         import java.util.List;
         import java.util.Scanner;
 
-        //import mad.friend.simple.R;
+        import s3585826.assignment1.R;
+
+//import mad.friend.simple.R;
 
 public class DummyLocationService
 {

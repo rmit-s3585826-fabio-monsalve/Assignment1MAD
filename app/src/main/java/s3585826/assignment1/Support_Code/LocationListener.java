@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Support_Code;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,11 +12,8 @@ import s3585826.assignment1.Model.Friend;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Model;
 
-/**
- * Created by Callum on 30/08/2017.
- */
 
-class LocationListener implements Runnable {
+public class LocationListener implements Runnable {
 
     private static final String LOG_TAG = DummyLocationService.class.getName();
 

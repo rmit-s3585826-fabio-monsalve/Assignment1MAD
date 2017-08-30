@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -9,11 +9,7 @@ import java.util.Calendar;
 
 import s3585826.assignment1.Model.Model;
 
-/**
- * Created by Callum on 14/08/2017.
- */
-
-public class ChooseDateFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class ChooseDateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {

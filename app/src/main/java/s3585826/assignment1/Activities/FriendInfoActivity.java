@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +9,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import s3585826.assignment1.Model.Model;
+import s3585826.assignment1.R;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
-
-public class FriendInfo extends AppCompatActivity {
+public class FriendInfoActivity extends AppCompatActivity {
     private static final String LOG_TAG = "Friend Info Activity";
 
     @Override
@@ -43,10 +40,10 @@ public class FriendInfo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings: Intent intent = new Intent(FriendInfo.this, EditFriendDetails.class);
+            case R.id.menu_settings: Intent intent = new Intent(FriendInfoActivity.this, EditFriendActivity.class);
                 startActivity(intent);
                 break;
-            case android.R.id.home: Intent intent2 = new Intent(FriendInfo.this, MainActivity.class);
+            case android.R.id.home: Intent intent2 = new Intent(FriendInfoActivity.this, MainActivity.class);
                 startActivity(intent2);
                 break;
         }

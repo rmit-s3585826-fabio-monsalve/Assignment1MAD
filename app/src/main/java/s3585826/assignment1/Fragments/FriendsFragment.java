@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,18 +23,18 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
+
+import s3585826.assignment1.Support_Code.ContactDataManager;
+import s3585826.assignment1.Activities.FriendInfoActivity;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.Model.Friend;
+import s3585826.assignment1.R;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
+public class FriendsFragment extends Fragment {
 
-public class Friends extends Fragment {
-
-    private static final String LOG_TAG = "Friends Activity";
+    private static final String LOG_TAG = "FriendsFragment";
     protected static final int PICK_CONTACTS = 100;
     private BaseAdapter adapter;
     private boolean firstVisit = true;
@@ -47,32 +47,25 @@ public class Friends extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
         savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_friends, container, false);
-        final ListView flv = view.findViewById(R.id.flw1);
         setHasOptionsMenu(true);
 
-        if(firstVisit) {
-            if(Model.getInstance().getUser().getFriends().size() == 0) {
-                Toast.makeText(getActivity(), "You have no friends",
-                    Toast.LENGTH_SHORT).show();
+        if(Model.getInstance().getUser().getFriends().size() == 0) {
+            Toast.makeText(getActivity(), "You have no friends", Toast.LENGTH_SHORT).show();
             }
-        }
-        firstVisit = false;
 
+        //add names to list view adapter
         names = new ArrayList<>();
-        for(Friend e: Model.getInstance().getUser().getFriends().values()){
+        for(Friend e: Model.getInstance().getUser().getFriends().values())
             names.add(e.getName());
-        }
-
-
         adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, names);
 
-        flv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final View friendsView = inflater.inflate(R.layout.fragment_friends, container, false);
+        final ListView friendsListView = friendsView.findViewById(R.id.flw1);
+        friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), FriendInfo.class);
+                intent.setClass(getActivity(), FriendInfoActivity.class);
                 String listItem = (String) adapterView.getItemAtPosition(i);
                 Friend f = null;
                 for(Friend e: Model.getInstance().getUser().getFriends().values()){
@@ -86,8 +79,8 @@ public class Friends extends Fragment {
             }
         });
 
-        flv.setAdapter(adapter);
-        flv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        friendsListView.setAdapter(adapter);
+        friendsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
         {
 
             @Override
@@ -105,7 +98,7 @@ public class Friends extends Fragment {
                     new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                            flv.postDelayed(new Runnable() {
+                            friendsListView.postDelayed(new Runnable() {
 
                                 @Override
                                 public void run() {
@@ -142,7 +135,7 @@ public class Friends extends Fragment {
             }
         });
 
-        FloatingActionButton flb = view.findViewById(R.id.ffab);
+        FloatingActionButton flb = friendsView.findViewById(R.id.ffab);
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,7 +146,7 @@ public class Friends extends Fragment {
 
         Log.d(LOG_TAG, "onCreateView" + Model.getInstance().getUser().getFriends().size());
 
-        return view;
+        return friendsView;
     }
 
 
@@ -187,7 +180,7 @@ public class Friends extends Fragment {
                     names.add(friend.getName());
                     Model.getInstance().setFocusFriend(friend);
 
-                    new ChooseDateFragment().show(getFragmentManager(), "");
+                    new ChooseDateDialog().show(getFragmentManager(), "");
 
                     adapter.notifyDataSetChanged();
 

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="s3585826.assignment1.EditFriendDetails">
+    tools:context="s3585826.assignment1.Activities.EditFriendActivity">
 
     <TableLayout
         android:layout_width="match_parent"

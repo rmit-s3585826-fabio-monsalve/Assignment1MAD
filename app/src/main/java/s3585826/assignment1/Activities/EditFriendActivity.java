@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import s3585826.assignment1.Model.*;
+import s3585826.assignment1.R;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
 
-public class EditFriendDetails extends AppCompatActivity{
+public class EditFriendActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,7 @@ public class EditFriendDetails extends AppCompatActivity{
                 Model.getInstance().getFocusFriend().setEmail(editTextEmail.getText().toString());
                 Model.getInstance().getFocusFriend().setBirthday(editTextBirthday.getText().toString());
 
-                Intent intent = new Intent(EditFriendDetails.this, FriendInfo.class);
+                Intent intent = new Intent(EditFriendActivity.this, FriendInfoActivity.class);
                 startActivity(intent);
             }
         });

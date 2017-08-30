@@ -1,13 +1,11 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
+import s3585826.assignment1.R;
 
 public class FriendMenuActivity extends Activity{
 
@@ -20,7 +18,7 @@ public class FriendMenuActivity extends Activity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent = new Intent(FriendMenuActivity.this, EditFriendDetails.class);
+        Intent intent = new Intent(FriendMenuActivity.this, EditFriendActivity.class);
         startActivity(intent);
         return true;
     }

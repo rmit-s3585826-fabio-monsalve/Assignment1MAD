@@ -2,9 +2,6 @@ package s3585826.assignment1.Model;
 
 import java.util.ArrayList;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
 
 public class Meeting {
     private String id;

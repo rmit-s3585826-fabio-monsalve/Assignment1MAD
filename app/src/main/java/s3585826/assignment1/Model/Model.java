@@ -16,7 +16,7 @@ public class Model {
     private static Model instance;
     private static User user1;
     private static Friend focusFriend;
-    private static final String LOG_TAG = "Friends Activity";
+    private static final String LOG_TAG = "Model";
     public static boolean firstTimeMain = true;
 
     //Private constructor to restrict instantiation of the class from other classes.

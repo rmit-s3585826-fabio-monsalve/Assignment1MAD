@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +15,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import s3585826.assignment1.Support_Code.ContactDataManager;
 import s3585826.assignment1.Model.Meeting;
+import s3585826.assignment1.Activities.NewMeetingActivity;
+import s3585826.assignment1.R;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Meetings extends Fragment {
+public class MeetingsFragment extends Fragment {
 
     private static final String LOG_TAG = "1";
     private int meetingCount = 0;

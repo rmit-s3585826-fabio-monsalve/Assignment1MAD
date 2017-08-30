@@ -1,11 +1,10 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-/**
- * Created by Callum on 7/08/2017.
- */
+import s3585826.assignment1.R;
+
 
 public class NewMeetingActivity extends AppCompatActivity {
     @Override

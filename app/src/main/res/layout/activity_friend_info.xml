@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:rowCount="2"
     android:columnCount="2"
-    tools:context=".FriendInfo">
+    tools:context=".Activities.FriendInfoActivity">
 
     <TableLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import s3585826.assignment1.Model.Model;
+import s3585826.assignment1.R;
 
-/**
- * Created by Fabio Monsalve s3585826.
- */
 
-public class UserInfo extends Fragment {
+public class MyDetailsFragment extends Fragment {
     View view;
 
     @Override

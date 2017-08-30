@@ -1,4 +1,4 @@
-package s3585826.assignment1;
+package s3585826.assignment1.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,11 +6,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
-/**
- * Created by Callum on 8/08/2017.
- */
+import s3585826.assignment1.R;
 
-public class ChooseFriendFragment extends DialogFragment {
+
+public class ChooseFriendDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {

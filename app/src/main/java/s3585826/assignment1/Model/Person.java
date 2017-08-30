@@ -1,9 +1,5 @@
 package s3585826.assignment1.Model;
 
-/**
- * Created by Callum on 24/08/2017.
- */
-
 public abstract class Person {
     private String id;
     private String name;
