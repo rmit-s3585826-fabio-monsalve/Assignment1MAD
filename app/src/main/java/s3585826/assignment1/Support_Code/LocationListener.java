@@ -47,8 +47,8 @@ public class LocationListener implements Runnable {
                 //update all friends locations
                 for (Friend friend: Model.getInstance().getUser().getFriends().values()){
                     if (locationHashMap.containsKey(friend.getId())) {
-                        location = new Location(locationHashMap.get(friend.getId()).longitude,
-                                locationHashMap.get(friend.getId()).latitude);
+                        location = new Location(locationHashMap.get(friend.getId()).latitude,
+                                locationHashMap.get(friend.getId()).longitude);
                         friend.setLocation(location);
                     } else
                         friend.setLocation(null);

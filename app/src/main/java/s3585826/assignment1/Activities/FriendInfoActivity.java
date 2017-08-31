@@ -54,11 +54,20 @@ public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        double latitude;
+        double longitude;
+        LatLng location;
+        //display friends location with pin
+        if (Model.getInstance().getFocusFriend().getLocation()!=null) {
+            latitude = Model.getInstance().getFocusFriend().getLocation().getLatitude();
+            longitude = Model.getInstance().getFocusFriend().getLocation().getLongitude();
+            location = new LatLng(latitude, longitude);
+            googleMap.addMarker(new MarkerOptions().position(location));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12.0f));
+        }else//display Melbourne
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-37.81,144.96),12.0f));
+
+
     }
 
     @Override
