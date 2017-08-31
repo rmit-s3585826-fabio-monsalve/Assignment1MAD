@@ -8,10 +8,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 
-public class FriendInfoActivity extends AppCompatActivity {
+public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
+
     private static final String LOG_TAG = "Friend Info Activity";
 
     @Override
@@ -35,6 +43,22 @@ public class FriendInfoActivity extends AppCompatActivity {
         friendInfoEmail.setText(Model.getInstance().getFocusFriend().getEmail());
         friendInfoBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
         friendInfoLocation.setText(Model.getInstance().getFocusFriend().getLocationString());
+
+
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Add a marker in Sydney, Australia,
+        // and move the map's camera to the same location.
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     @Override
