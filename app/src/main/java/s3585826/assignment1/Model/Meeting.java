@@ -10,15 +10,30 @@ public class Meeting {
     private String endTime;
     private ArrayList<Friend> invitedFriends;
     private Location location;
+    private String date;
 
-    public Meeting(String id, String title, String startTime, String endTime, ArrayList<Friend> invitedFriends, Location location) {
+    public Meeting(String id, String title, String startTime, String endTime, String date, ArrayList<Friend> invitedFriends, Location location) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.date = date;
         this.invitedFriends = invitedFriends;
         this.location = location;
     }
+
+    public Meeting(){
+
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 
     public String getId() {
         return id;
@@ -66,6 +81,13 @@ public class Meeting {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public String getLocationString() {
+        if (location==null)
+            return "Unknown";
+        else
+            return location.toString();
     }
 }
 

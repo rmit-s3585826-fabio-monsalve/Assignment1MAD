@@ -14,14 +14,24 @@ public class Model {
 
     //Private static variable of the same class that is the only instance of the class.
     private static Model instance;
+    private static boolean meetingFocus;
     private static User user1;
     private static Friend focusFriend;
+    private static Meeting focusMeeting;
     private static final String LOG_TAG = "Model";
     public static boolean firstTimeMain = true;
 
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
 
+    }
+
+    public static boolean isMeetingFocus() {
+        return meetingFocus;
+    }
+
+    public static void setMeetingFocus(boolean meetingFocus) {
+        Model.meetingFocus = meetingFocus;
     }
 
     //Returns the singleton instance
@@ -44,7 +54,16 @@ public class Model {
 
     //set friend in focus
     public void setFocusFriend(Friend f){
-        focusFriend=f;
+        focusFriend = f;
+    }
+
+    public Meeting getFocusMeeting(){
+        return focusMeeting;
+    }
+
+    //set friend in focus
+    public void setFocusMeeting(Meeting m){
+        focusMeeting = m;
     }
 
 

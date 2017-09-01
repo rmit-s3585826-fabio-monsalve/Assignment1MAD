@@ -3,6 +3,7 @@ package s3585826.assignment1.Fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import java.util.Calendar;
@@ -14,12 +15,17 @@ public class ChooseDateDialog extends DialogFragment implements DatePickerDialog
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         month = month + 1;
-
         String date = month + "/" + day + "/" + year;
-        String friendid = Model.getInstance().getFocusFriend().getId();
-        Model.getInstance().getUser().getFriends().get(friendid).setBirthday(date);
+
+        if(Model.getInstance().isMeetingFocus()){
+            NewMeetingFragment.meeting.setDate(date);
+        }else {
+            String friendid = Model.getInstance().getFocusFriend().getId();
+            Model.getInstance().getUser().getFriends().get(friendid).setBirthday(date);
+        }
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

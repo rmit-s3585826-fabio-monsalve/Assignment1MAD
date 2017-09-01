@@ -16,4 +16,10 @@
     <string name="choose_friends">Choose Friends:</string>
     <string name="choose_location">Choose Location:</string>
     <string name="choose_date">Choose Date:</string>
+    <string name="choose_start_time">Choose Start Time:</string>
+    <string name="choose_end_time">Choose End Time:</string>
+    <string name="meeting_title">Title:</string>
+    <string name="meeting_start_time">Start Time:</string>
+    <string name="meeting_end_time">End Time:</string>
+    <string name="number_of_friends">Number of friends:</string>
 </resources>
