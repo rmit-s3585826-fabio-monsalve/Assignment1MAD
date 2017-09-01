@@ -11,6 +11,15 @@ public class Meeting {
     private ArrayList<Friend> invitedFriends;
     private Location location;
 
+    public Meeting(String id, String title, String startTime, String endTime, ArrayList<Friend> invitedFriends, Location location) {
+        this.id = id;
+        this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.invitedFriends = invitedFriends;
+        this.location = location;
+    }
+
     public String getId() {
         return id;
     }

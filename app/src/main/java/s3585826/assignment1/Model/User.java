@@ -1,5 +1,6 @@
 package s3585826.assignment1.Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User extends Person{
@@ -19,8 +20,22 @@ public class User extends Person{
     }
 
     public HashMap<String, Meeting> getMeetings() {
+        ArrayList<Friend> friends = new ArrayList<>();
+        Location location = new Location(321312, 312312);
+        Meeting meeting = new Meeting("4124j1l2i","Meeting 1", "9:00", "13:00", friends, location);
+        meetings.put("dfadfs", meeting);
         return meetings;
     }
+
+    public String [] getfriendsStringArray(){
+        String [] friendsArray = new String [Model.getInstance().getUser().getFriends().size()];
+        int i = 0;
+        for(Friend e : Model.getInstance().getUser().getFriends().values()){
+            friendsArray[i] = e.getName();
+        }
+        return friendsArray;
+    }
+
 
     public Meeting getMeeting(String id){
         return meetings.get(id);
