@@ -13,6 +13,7 @@ public class Location {
     public String toString(){
         return new String(latitude +","+ longitude);
     }
+
     public double getLongitude() {
         return longitude;
     }

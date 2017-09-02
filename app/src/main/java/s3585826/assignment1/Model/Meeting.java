@@ -8,11 +8,11 @@ public class Meeting {
     private String title;
     private String startTime;
     private String endTime;
-    private ArrayList<Friend> invitedFriends;
+    private ArrayList<String> invitedFriends;
     private Location location;
     private String date;
 
-    public Meeting(String id, String title, String startTime, String endTime, String date, ArrayList<Friend> invitedFriends, Location location) {
+    public Meeting(String id, String title, String startTime, String endTime, String date, ArrayList<String> invitedFriends, Location location) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -67,11 +67,11 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public ArrayList<Friend> getInvitedFriends() {
+    public ArrayList<String> getInvitedFriends() {
         return invitedFriends;
     }
 
-    public void setInvitedFriends(ArrayList<Friend> invitedFriends) {
+    public void setInvitedFriends(ArrayList<String> invitedFriends) {
         this.invitedFriends = invitedFriends;
     }
 

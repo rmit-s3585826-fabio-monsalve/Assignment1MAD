@@ -36,17 +36,13 @@ public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyC
         TextView friendInfoName = (TextView) findViewById(R.id.friendInfoName);
         TextView friendInfoEmail = (TextView)findViewById(R.id.friendInfoEmail);
         TextView friendInfoBirthday = (TextView)findViewById(R.id.friendInfoBirthday);
-        TextView friendInfoLocation = (TextView)findViewById(R.id.friendInfoLocation);
+
 
         friendInfoId.setText(Model.getInstance().getFocusFriend().getId());
         friendInfoName.setText(Model.getInstance().getFocusFriend().getName());
         friendInfoEmail.setText(Model.getInstance().getFocusFriend().getEmail());
         friendInfoBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());
-        friendInfoLocation.setText(Model.getInstance().getFocusFriend().getLocationString());
 
-
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -62,12 +58,10 @@ public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyC
             latitude = Model.getInstance().getFocusFriend().getLocation().getLatitude();
             longitude = Model.getInstance().getFocusFriend().getLocation().getLongitude();
             location = new LatLng(latitude, longitude);
-            googleMap.addMarker(new MarkerOptions().position(location));
+            googleMap.addMarker(new MarkerOptions().position(location)).setTitle(location.toString());
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12.0f));
         }else//display Melbourne
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-37.81,144.96),12.0f));
-
-
     }
 
     @Override

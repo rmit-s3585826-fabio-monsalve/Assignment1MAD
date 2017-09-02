@@ -20,7 +20,7 @@ public class User extends Person{
     }
 
     public HashMap<String, Meeting> getMeetings() {
-        ArrayList<Friend> friends = new ArrayList<>();
+        ArrayList<String> friends = new ArrayList<>();
         Location location = new Location(321312, 312312);
 
         Meeting meeting = new Meeting("4124j1l2i","Meeting 1", "9:00", "13:00", "dasda", friends, location);

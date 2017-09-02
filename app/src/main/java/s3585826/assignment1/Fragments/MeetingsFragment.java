@@ -16,9 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
-import s3585826.assignment1.Activities.MainActivity;
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
 import s3585826.assignment1.Model.Friend;
@@ -33,8 +33,7 @@ public class MeetingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup
         container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_meetings,container,
-            false);
+        View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
 
         final ArrayList<String> meetings = new ArrayList<>();
