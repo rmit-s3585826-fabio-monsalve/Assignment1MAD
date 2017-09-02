@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,8 +18,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Fabio Monsalve s3585826 on 1/9/17.
@@ -38,12 +45,22 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
 
         TextView meetingInfoId = (TextView) findViewById(R.id.meetingInfoId);
         TextView meetingInfoTitle = (TextView) findViewById(R.id.meetingInfoTitle);
+        TextView meetingInfoDate = (TextView) findViewById(R.id.meetingInfoDate);
         TextView meetingInfoStartTime = (TextView)findViewById(R.id.meetingInfoStartTime);
         TextView meetingInfoEndTime = (TextView)findViewById(R.id.meetingInfoEndTime);
         TextView meetingInfoLocation = (TextView)findViewById(R.id.meetingInfoLocation);
+        ListView meetingAttendeesList = (ListView)findViewById(R.id.meetingAttendeesList);
+
+
+        final BaseAdapter meetingsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+            Model.getInstance().getFocusMeeting().getAttendeesAsStringArrayList()) {
+        };
+
+        meetingAttendeesList.setAdapter(meetingsAdapter);
 
         meetingInfoId.setText(Model.getInstance().getFocusMeeting().getId());
         meetingInfoTitle.setText(Model.getInstance().getFocusMeeting().getTitle());
+        meetingInfoDate.setText(Model.getInstance().getFocusMeeting().getDate());
         meetingInfoStartTime.setText(Model.getInstance().getFocusMeeting().getStartTime());
         meetingInfoEndTime.setText(Model.getInstance().getFocusMeeting().getEndTime());
         meetingInfoLocation.setText(Model.getInstance().getFocusMeeting().getLocationString());
@@ -51,8 +68,7 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
 
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-            .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -77,7 +93,7 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings: Intent intent = new Intent(MeetingInfoActivity.this, EditFriendActivity.class);
+            case R.id.menu_settings: Intent intent = new Intent(MeetingInfoActivity.this, EditMeetingActivity.class);
                 startActivity(intent);
                 break;
             case android.R.id.home: Intent intent2 = new Intent(MeetingInfoActivity.this, MainActivity.class);

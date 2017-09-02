@@ -137,6 +137,7 @@ public class FriendsFragment extends Fragment {
         flb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Model.getInstance().setMeetingFocus(false);
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(contactPickerIntent, PICK_CONTACTS);
             }

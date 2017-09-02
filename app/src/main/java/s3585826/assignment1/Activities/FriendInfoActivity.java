@@ -25,7 +25,6 @@ public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(Model.getInstance().getFocusFriend().getName());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

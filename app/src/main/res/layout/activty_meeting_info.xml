@@ -11,7 +11,8 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <TableRow
             android:layout_width="match_parent"
@@ -28,7 +29,6 @@
             <TextView
                 android:id="@+id/meetingInfoId"
                 android:layout_weight="1"
-                android:text="ID"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
         </TableRow>
@@ -48,7 +48,24 @@
             <TextView
                 android:id="@+id/meetingInfoTitle"
                 android:layout_weight="1"
-                android:text="Title"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="5dip">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_weight="1"
+                android:text="@string/meeting_date"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+
+            <TextView
+                android:id="@+id/meetingInfoDate"
+                android:layout_weight="1"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 
@@ -66,7 +83,6 @@
             <TextView
                 android:id="@+id/meetingInfoStartTime"
                 android:layout_weight="1"
-                android:text="Start time"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
         <TableRow
@@ -83,7 +99,6 @@
             <TextView
                 android:id="@+id/meetingInfoEndTime"
                 android:layout_weight="1"
-                android:text="End Time"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 
@@ -101,10 +116,15 @@
             <TextView
                 android:id="@+id/meetingInfoLocation"
                 android:layout_weight="1"
-                android:text="Location"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
-
+        <RelativeLayout>
+        <ListView
+            android:id="@+id/meetingAttendeesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        </RelativeLayout>
     </TableLayout>
 
     <fragment
@@ -112,9 +132,11 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".Activities.MeetingInfoActivity" />
+        tools:context=".Activities.MeetingInfoActivity"
+        android:layout_weight="1"/>
 
 </LinearLayout>
+
 
 
 

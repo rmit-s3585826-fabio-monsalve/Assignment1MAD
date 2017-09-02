@@ -26,13 +26,10 @@
                 android:text="@string/id"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
-            <EditText
-                android:id="@+id/editTextId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"/>
+            <TextView
+                android:id="@+id/meetingTextId"
+                android:layout_weight="1"
+                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
         </TableRow>
 
@@ -52,8 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"/>
+                android:inputType="textPersonName"/>
 
         </TableRow>
 
@@ -62,37 +58,12 @@
             android:layout_height="match_parent"
             android:padding="5dip">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_weight="1"
-                android:text="@string/email"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-            <EditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"/>
-
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dip">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_weight="1"
-                android:text="@string/birthday"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-            <EditText
-                android:id="@+id/editTextBirthday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -100,7 +71,7 @@
             android:padding="5dip">
 
             <Button
-                android:id="@+id/editButton"
+                android:id="@+id/editMeetingButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"

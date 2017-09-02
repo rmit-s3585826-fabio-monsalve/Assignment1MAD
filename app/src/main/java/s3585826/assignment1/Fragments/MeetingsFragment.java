@@ -54,6 +54,7 @@ public class MeetingsFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), MeetingInfoActivity.class);
                 String listItem = (String) adapterView.getItemAtPosition(i);
+
                 Meeting m = null;
                 for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
                     if(listItem.equals(e.getTitle())){
@@ -90,17 +91,17 @@ public class MeetingsFragment extends Fragment {
                                 public void run() {
                                     String listItem = (String) adapterView.getItemAtPosition(i);
 
-                                    Friend f = null;
-                                    for(Friend e: Model.getInstance().getUser().getFriends().values()){
-                                        if(listItem.equals(e.getName())){
-                                            f = e;
+                                    Meeting m = null;
+                                    for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
+                                        if(listItem.equals(e.getTitle())){
+                                            m = e;
                                         }
                                     }
 
-                                    Model.getInstance().getUser().getFriends().values().remove(f);
+                                    Model.getInstance().getUser().getMeetings().values().remove(m);
 
                                     meetings.remove(listItem);
-                                    Model.getInstance().setFocusFriend(f);
+                                    Model.getInstance().setFocusMeeting(m);
                                     meetingsAdapter.notifyDataSetChanged();
                                     adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                 }

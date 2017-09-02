@@ -8,28 +8,19 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.ArrayList;
-
 import s3585826.assignment1.Activities.MainActivity;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 
-/**
- * Created by Callum on 8/08/2017.
- */
-
 public class NewMeetingFragment extends android.support.v4.app.Fragment {
-    int id = 0;
     public final static Meeting meeting = new Meeting();
     private static final String LOG_TAG = "newMeetingFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.add_meeting, container, false);
-
 
         /* Display a list of checkboxes */
         Button friendsButton = view.findViewById(R.id.chooseFriendsButton);
@@ -39,6 +30,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
                 new ChooseFriendDialog().show(getFragmentManager(), "mc");
             }
         });
+
           /* Display date picker */
         Button dateButton = view.findViewById(R.id.chooseDateButton);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +63,6 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
 
                 ChooseTimeDialog endTimeDialog = new ChooseTimeDialog();
                 endTimeDialog.setArguments(bundle);
-
                 endTimeDialog.show(getFragmentManager(), "mc");
             }
         });
@@ -80,17 +71,19 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                id++;
-                Log.d(LOG_TAG, "End");
-                id = id +1;
                 EditText et = view.findViewById(R.id.editTextId);
-                meeting.setId(Integer.toString(id));
-                meeting.setTitle(et.getText().toString());
+                Model.getInstance().incrementMeetingId();
+                Model.getInstance();
+
                 Location location = new Location(11212, 2121);
                 meeting.setLocation(location);
-                ArrayList<String> friends = new ArrayList<>();
-                meeting.setInvitedFriends(friends);
-                Meeting newMeeting = meeting;
+
+                Meeting newMeeting = new Meeting(Integer.toString(Model.getMeetingId()), et.getText().toString(),
+                    meeting.getStartTime(), meeting.getEndTime(), meeting.getDate(), meeting.getInvitedFriends(),
+                    location);
+
+                Log.d(LOG_TAG, newMeeting.getTitle());
+
                 Model.getInstance().getUser().addMeeting(newMeeting);
 
                 Intent intent = new Intent(getActivity(), MainActivity.class);

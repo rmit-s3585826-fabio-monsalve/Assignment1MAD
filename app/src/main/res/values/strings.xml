@@ -19,7 +19,12 @@
     <string name="choose_start_time">Choose Start Time:</string>
     <string name="choose_end_time">Choose End Time:</string>
     <string name="meeting_title">Title:</string>
+    <string name="meeting_date">Date:</string>
     <string name="meeting_start_time">Start Time:</string>
     <string name="meeting_end_time">End Time:</string>
     <string name="number_of_friends">Number of friends:</string>
+    <string name="edit_meeting_title">Title:</string>
+    <string name="edit_meeting_start_time">Start Time:</string>
+    <string name="edit_meeting_end_time">End Time:</string>
+    <string name="edit_number_of_friends">Number of friends:</string>
 </resources>

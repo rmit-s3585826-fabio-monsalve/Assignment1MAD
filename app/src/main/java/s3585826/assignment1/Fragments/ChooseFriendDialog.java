@@ -21,7 +21,7 @@ public class ChooseFriendDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, "array" + Model.getInstance().getUser().getfriendsStringArray().length);
         final boolean[] checkedFriends = new boolean[]{false, true, false, true, false};
-        final ArrayList<String> attendees = new ArrayList<>();
+        final String [] attendees = new String [Model.getInstance().getUser().getFriends().size()];
 
         //get list of names to populate dialog
         final CharSequence[] names = new CharSequence[Model.getInstance().getUser().getFriends().size()];
@@ -36,7 +36,9 @@ public class ChooseFriendDialog extends DialogFragment {
                 .setMultiChoiceItems(names, null , new DialogInterface.OnMultiChoiceClickListener() {
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 if(isChecked)
-                                    attendees.add(names[which].toString());
+                                    for(int i = 0; i<names.length ; i++ ){
+                                        attendees [i] = names[i].toString();
+                                    }
                             }
                         })
                 .setPositiveButton("Submit",

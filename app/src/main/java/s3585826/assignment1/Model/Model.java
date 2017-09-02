@@ -7,8 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Model {
 
@@ -21,6 +19,8 @@ public class Model {
     private static final String LOG_TAG = "Model";
     public static boolean firstTimeMain = true;
     public static int friendId = 0;
+    public static int meetingId = 0;
+
 
     public static int getFriendId() {
         return friendId;
@@ -29,8 +29,6 @@ public class Model {
     public static int getMeetingId() {
         return meetingId;
     }
-
-    public static int meetingId = 0;
 
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
@@ -88,8 +86,6 @@ public class Model {
         Log.d(LOG_TAG, "loadDummyData() START");
         String[] tokens;
         String line;
-        ArrayList<Meeting> meetingList = new ArrayList<>();
-        HashMap<String, Friend> friendMap = new HashMap<>();
 
         try {
             AssetManager am = context.getAssets();

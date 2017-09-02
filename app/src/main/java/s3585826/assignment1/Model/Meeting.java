@@ -8,11 +8,11 @@ public class Meeting {
     private String title;
     private String startTime;
     private String endTime;
-    private ArrayList<String> invitedFriends;
+    private String [] invitedFriends;
     private Location location;
     private String date;
 
-    public Meeting(String id, String title, String startTime, String endTime, String date, ArrayList<String> invitedFriends, Location location) {
+    public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends, Location location) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -24,6 +24,15 @@ public class Meeting {
 
     public Meeting(){
 
+    }
+
+    public ArrayList<String> getAttendeesAsStringArrayList(){
+
+        ArrayList<String> attendeesArrayList = new ArrayList<>();
+        for(int i = 0; i < invitedFriends.length; i++){
+            attendeesArrayList.add(invitedFriends[i]);
+        }
+        return attendeesArrayList;
     }
 
     public String getDate() {
@@ -67,11 +76,11 @@ public class Meeting {
         this.endTime = endTime;
     }
 
-    public ArrayList<String> getInvitedFriends() {
+    public String [] getInvitedFriends() {
         return invitedFriends;
     }
 
-    public void setInvitedFriends(ArrayList<String> invitedFriends) {
+    public void setInvitedFriends(String [] invitedFriends) {
         this.invitedFriends = invitedFriends;
     }
 
