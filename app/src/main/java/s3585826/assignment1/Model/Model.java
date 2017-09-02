@@ -66,6 +66,10 @@ public class Model {
         focusMeeting = m;
     }
 
+    public Meeting getNewMeeting(){
+        return new Meeting();
+    }
+
 
     // Load dummy data from dummy_data.txt
     public void loadDummyData(Context context) {

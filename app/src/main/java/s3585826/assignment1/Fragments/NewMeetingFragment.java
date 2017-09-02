@@ -31,8 +31,15 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.add_meeting, container, false);
-        final Meeting newMeeting = meeting;
-
+        id = id +1;
+        EditText et = view.findViewById(R.id.editTextId);
+        meeting.setId(Integer.toString(id));
+        meeting.setTitle(et.getText().toString());
+        Location location = new Location(11212, 2121);
+        meeting.setLocation(location);
+        ArrayList<Friend> friends = new ArrayList<>();
+        meeting.setInvitedFriends(friends);
+        Model.getInstance().getNewMeeting();
 
         /* Display a list of checkboxes */
         Button friendsButton = view.findViewById(R.id.chooseFriendsButton);
@@ -83,17 +90,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-               //TODO
-                EditText et = view.findViewById(R.id.editTextId);
-                meeting.setId(Integer.toString(id +1));
-                meeting.setTitle(et.getText().toString());
-                Location location = new Location(11212, 2121);
-                meeting.setLocation(location);
-                ArrayList<Friend> friends = new ArrayList<>();
-                meeting.setInvitedFriends(friends);
-
-                Model.getInstance().getUser().addMeeting(newMeeting);
-                Model.getInstance().setMeetingFocus(false);
+                id++;
                 Log.d(LOG_TAG, "End");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
