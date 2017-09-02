@@ -1,6 +1,5 @@
 package s3585826.assignment1.Fragments;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import s3585826.assignment1.Activities.MainActivity;
-import s3585826.assignment1.Model.Friend;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
@@ -90,7 +88,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
                 meeting.setTitle(et.getText().toString());
                 Location location = new Location(11212, 2121);
                 meeting.setLocation(location);
-                ArrayList<Friend> friends = new ArrayList<>();
+                ArrayList<String> friends = new ArrayList<>();
                 meeting.setInvitedFriends(friends);
                 Meeting newMeeting = meeting;
                 Model.getInstance().getUser().addMeeting(newMeeting);
