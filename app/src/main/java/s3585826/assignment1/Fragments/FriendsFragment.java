@@ -37,9 +37,7 @@ public class FriendsFragment extends Fragment {
     private static final String LOG_TAG = "FriendsFragment";
     protected static final int PICK_CONTACTS = 100;
     private BaseAdapter adapter;
-    private boolean firstVisit = true;
     private ArrayList<String> names;
-    int idNo = 0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -159,7 +157,6 @@ public class FriendsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String id;
         String name;
         String email;
 
@@ -170,8 +167,6 @@ public class FriendsFragment extends Fragment {
                     ContactDataManager(this.getContext(), data);
 
                 try {
-                    idNo = idNo + 1;
-                    id = String.valueOf(idNo);
                     Model.getInstance().incrementFriendId();
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
