@@ -172,10 +172,11 @@ public class FriendsFragment extends Fragment {
                 try {
                     idNo = idNo + 1;
                     id = String.valueOf(idNo);
+                    Model.getInstance().incrementFriendId();
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
-                    Friend friend = new Friend(id, name, email, null);
-                    Model.getInstance().getUser().getFriends().put(id, friend);
+                    Friend friend = new Friend(Integer.toString(Model.getInstance().getFriendId()), name, email, null);
+                    Model.getInstance().getUser().getFriends().put(Integer.toString(Model.getInstance().getFriendId()), friend);
 
                     names.add(friend.getName());
                     Model.getInstance().setFocusFriend(friend);

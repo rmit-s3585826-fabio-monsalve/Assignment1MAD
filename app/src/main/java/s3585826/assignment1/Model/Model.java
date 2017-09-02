@@ -20,6 +20,17 @@ public class Model {
     private static Meeting focusMeeting;
     private static final String LOG_TAG = "Model";
     public static boolean firstTimeMain = true;
+    public static int friendId = 0;
+
+    public static int getFriendId() {
+        return friendId;
+    }
+
+    public static int getMeetingId() {
+        return meetingId;
+    }
+
+    public static int meetingId = 0;
 
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
@@ -104,5 +115,15 @@ public class Model {
         }
 
         Log.d(LOG_TAG, "loadDummyData() END");
+    }
+
+    public void incrementMeetingId(){
+
+        meetingId++;
+    }
+
+    public void incrementFriendId(){
+
+        friendId++;
     }
 }
