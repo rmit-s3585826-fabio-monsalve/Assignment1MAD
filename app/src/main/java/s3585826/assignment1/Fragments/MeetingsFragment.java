@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
 import s3585826.assignment1.Model.Friend;
+import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
@@ -35,7 +36,14 @@ public class MeetingsFragment extends Fragment {
         container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
-
+        String  [] attendees = new String [4];
+        attendees[0] = "Bob Bonucci";
+        attendees[1] = "Alice Anderson";
+        attendees[2] = "Javier Jimenez";
+        attendees[3] = "Fredrick Fransz";
+        Location location = new Location(-37.820488, 144.973784);
+        Meeting meeting = new Meeting("0", "Picnic on the Yarra", "12:30", "13:30", "13/14/17", attendees, location);
+        Model.getInstance().getUser().addMeeting(meeting);
         final ArrayList<String> meetings = new ArrayList<>();
         for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
             meetings.add(e.getTitle());
