@@ -18,17 +18,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 
-import static java.security.AccessController.getContext;
-
 /**
- * Created by Fabio Monsalve s3585826 on 1/9/17.
+ * Activity for displaying a friend's details
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
  */
-
 public class MeetingInfoActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String LOG_TAG = "Meeting Info Activity";

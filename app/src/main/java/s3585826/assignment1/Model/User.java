@@ -1,14 +1,21 @@
 package s3585826.assignment1.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * User class
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class User extends Person{
 
     private HashMap<String, Friend> friends;
     private HashMap<String,Meeting> meetings;
-    private ArrayList<Friend> freinfds1;
+    private static final String LOG_TAG = "User class";
 
     // User constructor
     public User(String id, String name, String email, String birthday) {
@@ -25,6 +32,7 @@ public class User extends Person{
         return meetings;
     }
 
+
     public String [] getfriendsStringArray(){
         String [] friendsArray = new String [Model.getInstance().getUser().getFriends().size()];
         int i = 0;
@@ -39,9 +47,27 @@ public class User extends Person{
         return meetings.get(id);
     }
 
-    public void sortMeetingsByTimeAscending(){
-        //Collections.sort(meetings.values(),
-           // (o1, o2) -> meetings.get(o1).getStartTime().compareTo(meetings.get(o2).getStartTime()));
+    // Method to sort Meetings by time
+    public ArrayList<String> sortMeetingsByTimeAscending(){
+        ArrayList<Meeting> meetingsToSort = new ArrayList<Meeting>(meetings.values());
+
+        ArrayList<String> sortedMeetings = new ArrayList<>();
+
+        Collections.sort(meetingsToSort, new Comparator<Meeting>() {
+
+            public int compare(Meeting o1, Meeting o2) {
+                return Integer.parseInt(o1.getStartTime()) - Integer.parseInt(o2.getStartTime());
+            }
+        });
+
+        for(Meeting m : meetings.values()){
+            sortedMeetings.add(m.getTitle());
+        }
+
+        for (String s : sortedMeetings) {
+            Log.d(LOG_TAG, s);
+        }
+        return sortedMeetings;
     }
 
 

@@ -7,6 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity for populating pages inside view pager with fragments
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();

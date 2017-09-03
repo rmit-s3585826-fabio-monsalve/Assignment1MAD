@@ -1,7 +1,6 @@
 package s3585826.assignment1.Fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -17,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -32,6 +30,10 @@ import s3585826.assignment1.R;
 
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * Fragment class for friends tab
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class FriendsFragment extends Fragment {
 
     private static final String LOG_TAG = "FriendsFragment";
@@ -47,100 +49,88 @@ public class FriendsFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
+        // If user has no friends a toast will appear
         if(Model.getInstance().getUser().getFriends().size() == 0) {
             Toast.makeText(getActivity(), "You have no friends", Toast.LENGTH_SHORT).show();
-            }
+        }
 
-        //add names to list view adapter
+        Log.d(LOG_TAG, Integer.toString(Model.getInstance().getUser().getFriends().size()) + Model.getInstance().getUser().getFriend("2").getName());
+
         names = new ArrayList<>();
-        for(Friend e: Model.getInstance().getUser().getFriends().values())
+        for(Friend e: Model.getInstance().getUser().getFriends().values()) {
             names.add(e.getName());
+        }
+
         adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, names);
 
         final View friendsView = inflater.inflate(R.layout.fragment_friends, container, false);
         final ListView friendsListView = friendsView.findViewById(R.id.flw1);
-        friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent();
-                intent.setClass(getActivity(), FriendInfoActivity.class);
-                String listItem = (String) adapterView.getItemAtPosition(i);
-                Friend f = null;
-                for(Friend e: Model.getInstance().getUser().getFriends().values()){
-                    if(listItem.equals(e.getName())){
-                        f = e;
-                    }
-                }
-                Model.getInstance().setFocusFriend(f);
-                getActivity().startActivity(intent);
-                Log.d(LOG_TAG, "OnItemClick" + listItem);
-            }
-        });
-
         friendsListView.setAdapter(adapter);
-        friendsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
 
-            @Override
-            public boolean onItemLongClick(final AdapterView<?> adapterView, final View view, final int i, long l) {
+        // Navigate to friend info page
+        friendsListView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), FriendInfoActivity.class);
 
-                Log.d(LOG_TAG, "OnItemLongClick");
+            String listItem = (String) adapterView.getItemAtPosition(i);
+            Friend f = null;
 
-                adapterView.getChildAt(i).setBackgroundColor(Color.RED);
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Delete");
-                alert.setMessage("Are you sure you want to delete friend?");
-
-                alert.setPositiveButton(android.R.string.yes,
-                    new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            friendsListView.postDelayed(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    String listItem = (String) adapterView.getItemAtPosition(i);
-
-                                    Friend f = null;
-                                    for(Friend e: Model.getInstance().getUser().getFriends().values()){
-                                        if(listItem.equals(e.getName())){
-                                            f = e;
-                                        }
-                                    }
-
-                                    Model.getInstance().getUser().getFriends().values().remove(f);
-
-                                    names.remove(listItem);
-                                    Model.getInstance().setFocusFriend(f);
-                                    adapter.notifyDataSetChanged();
-                                    adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                                }
-                            }, 400);
-                        }
-                    });
-
-                alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                        dialog.cancel();
-                    }
-                });
-
-                alert.show();
-                return true;
+            // Populate array list of friends for ListView with names from the users friends hashmap
+            for(Friend e: Model.getInstance().getUser().getFriends().values()){
+                if(listItem.equals(e.getName())){
+                    f = e;
+                }
             }
+            Model.getInstance().setFocusFriend(f);
+            getActivity().startActivity(intent);
         });
 
+        // Delete friend on long click
+        friendsListView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+
+            adapterView.getChildAt(i).setBackgroundColor(Color.RED);
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            alert.setTitle("Delete");
+            alert.setMessage("Are you sure you want to delete friend?");
+
+            alert.setPositiveButton(android.R.string.yes,
+                (dialog, which) -> friendsListView.postDelayed(() -> {
+                    String listItem = (String) adapterView.getItemAtPosition(i);
+
+                    // Find friend in user's friend hashmap with name of friend
+                    Friend f = null;
+                    for(Friend e: Model.getInstance().getUser().getFriends().values()){
+                        if(listItem.equals(e.getName())){
+                            f = e;
+                        }
+                    }
+
+                    Model.getInstance().getUser().getFriends().values().remove(f);
+
+                    names.remove(listItem);
+                    Model.getInstance().setFocusFriend(f);
+
+                    // Update list
+                    adapter.notifyDataSetChanged();
+                    adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                }, 400));
+
+            alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+                adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                dialog.cancel();
+            });
+
+            alert.show();
+            return true;
+        });
+
+        // Assign add new friend from contacts function to floating action button
         FloatingActionButton flb = friendsView.findViewById(R.id.ffab);
-        flb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Model.getInstance().setMeetingFocus(false);
-                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(contactPickerIntent, PICK_CONTACTS);
-            }
+        flb.setOnClickListener(view -> {
+            Model.getInstance().setMeetingFocus(false);
+            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(contactPickerIntent, PICK_CONTACTS);
         });
 
         Log.d(LOG_TAG, "onCreateView" + Model.getInstance().getUser().getFriends().size());
@@ -168,6 +158,8 @@ public class FriendsFragment extends Fragment {
                     ContactDataManager(this.getContext(), data);
 
                 try {
+
+                    // Create friend from contacts
                     Model.getInstance().incrementFriendId();
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
@@ -177,6 +169,7 @@ public class FriendsFragment extends Fragment {
                     names.add(friend.getName());
                     Model.getInstance().setFocusFriend(friend);
 
+                    // Navigate to DateDialog fragment
                     new ChooseDateDialog().show(getFragmentManager(), "");
 
                     adapter.notifyDataSetChanged();

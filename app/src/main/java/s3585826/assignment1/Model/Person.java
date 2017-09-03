@@ -1,5 +1,9 @@
 package s3585826.assignment1.Model;
 
+/**
+ * Person class
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public abstract class Person {
     private String id;
     private String name;

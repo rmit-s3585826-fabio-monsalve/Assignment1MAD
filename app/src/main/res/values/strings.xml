@@ -28,4 +28,13 @@
     <string name="edit_meeting_start_time">Start Time:</string>
     <string name="edit_meeting_end_time">End Time:</string>
     <string name="edit_number_of_friends">Number of friends:</string>
+    <string name="done">Done</string>
+    <string name="choose_date_meeting">Choose Date</string>
+    <string name="choose_location_meeting">Choose Location</string>
+    <string name="choose_end_time_meeting">Choose End Time</string>
+    <string name="choose_start_time_meeting">Choose Start Time</string>
+    <string name="choose_friends_meeting">Choose Friends</string>
+    <string name="id_user">ID</string>
+    <string name="name_user">NAME</string>
+    <string name="email_user">EMAIL</string>
 </resources>

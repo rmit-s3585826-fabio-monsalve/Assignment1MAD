@@ -44,7 +44,7 @@
             <TextView
                 android:id="@+id/userInfoId"
                 android:layout_weight="1"
-                android:text="ID"
+                android:text="@string/id_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
         </TableRow>
@@ -64,7 +64,7 @@
             <TextView
                 android:id="@+id/userInfoName"
                 android:layout_weight="1"
-                android:text="NAME"
+                android:text="@string/name_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 
@@ -82,7 +82,7 @@
             <TextView
                 android:id="@+id/userInfoEmail"
                 android:layout_weight="1"
-                android:text="EMAIL"
+                android:text="@string/email_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
         <TableRow

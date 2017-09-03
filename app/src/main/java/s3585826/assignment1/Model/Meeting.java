@@ -2,7 +2,10 @@ package s3585826.assignment1.Model;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class for meeting
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class Meeting {
     private String id;
     private String title;
@@ -12,7 +15,8 @@ public class Meeting {
     private Location location;
     private String date;
 
-    public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends, Location location) {
+    public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends,
+                   Location location) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -26,6 +30,7 @@ public class Meeting {
 
     }
 
+    // Method to get invited friends to a simple String Array List
     public ArrayList<String> getAttendeesAsStringArrayList(){
 
         ArrayList<String> attendeesArrayList = new ArrayList<>();

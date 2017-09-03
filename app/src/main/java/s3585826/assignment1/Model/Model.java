@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Model class
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class Model {
 
     //Private static variable of the same class that is the only instance of the class.

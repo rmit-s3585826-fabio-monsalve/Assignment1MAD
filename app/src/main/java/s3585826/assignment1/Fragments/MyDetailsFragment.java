@@ -9,7 +9,10 @@ import android.widget.TextView;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 
-
+/**
+ * Fragment class for User Details tab
+ * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
+ */
 public class MyDetailsFragment extends Fragment {
     View view;
 

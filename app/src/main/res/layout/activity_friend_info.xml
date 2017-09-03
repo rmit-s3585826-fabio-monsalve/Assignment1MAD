@@ -13,25 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:padding="5dip">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_weight="1"
-                android:text="@string/id"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
-            <TextView
-                android:id="@+id/friendInfoId"
-                android:layout_weight="1"
-                android:text="ID"
-                android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
-        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -48,7 +29,7 @@
             <TextView
                 android:id="@+id/friendInfoName"
                 android:layout_weight="1"
-                android:text="NAME"
+                android:text=""
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 
@@ -66,7 +47,7 @@
             <TextView
                 android:id="@+id/friendInfoEmail"
                 android:layout_weight="1"
-                android:text="EMAIL"
+                android:text=""
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
         <TableRow
@@ -83,7 +64,7 @@
             <TextView
                 android:id="@+id/friendInfoBirthday"
                 android:layout_weight="1"
-                android:text="BIRTHDAY"
+                android:text=""
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
 

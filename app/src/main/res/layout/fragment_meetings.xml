@@ -3,25 +3,27 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rowCount="2">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/sortingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Toggle Sorting by time"/>
+        android:text="Toggle Sorting by time"
+        android:layout_alignBottom="@+id/ffab"
+        android:layout_alignParentStart="true"/>
 
     <ListView
         android:id="@+id/mlw1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:divider="@color/colorPrimary"
         android:dividerHeight="1px"
         android:visibility="visible"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_above="@+id/ffab"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/ffab"

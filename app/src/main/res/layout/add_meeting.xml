@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Choose Friends"/>
+                android:text="@string/choose_friends_meeting"/>
 
         </TableRow>
 
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Choose Start Time"/>
+                android:text="@string/choose_start_time_meeting"/>
 
         </TableRow>
 
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Choose End Time"/>
+                android:text="@string/choose_end_time_meeting"/>
 
         </TableRow>
 
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Choose Location"/>
+                android:text="@string/choose_location_meeting"/>
 
         </TableRow>
 
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Choose Date"/>
+                android:text="@string/choose_date_meeting"/>
 
         </TableRow>
         <TableRow
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
-                android:text="Done"/>
+                android:text="@string/done"/>
         </TableRow>
 
     </TableLayout>
