@@ -28,57 +28,76 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
 
         // Display a list of checkboxes
         Button friendsButton = view.findViewById(R.id.chooseFriendsButton);
-        friendsButton.setOnClickListener(v -> new ChooseFriendDialog().show(getFragmentManager(), "mc"));
+        friendsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ChooseFriendDialog().show(NewMeetingFragment.this.getFragmentManager(), "mc");
+            }
+        });
 
         // Display date picker
         Button dateButton = view.findViewById(R.id.chooseDateButton);
-        dateButton.setOnClickListener(v -> new ChooseDateDialog().show(getFragmentManager(), "mc"));
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ChooseDateDialog().show(NewMeetingFragment.this.getFragmentManager(), "mc");
+            }
+        });
 
         // Display startTime button
         Button startTimeButton = view.findViewById(R.id.chooseStartTimeButton);
-        startTimeButton.setOnClickListener(v -> {
+        startTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            // Bundle number to dictate the time picker dialog function
-            Bundle bundle = new Bundle();
-            bundle.putInt("DATE",1);
+                // Bundle number to dictate the time picker dialog function
+                Bundle bundle = new Bundle();
+                bundle.putInt("DATE", 1);
 
-            ChooseTimeDialog startTimeDialog = new ChooseTimeDialog();
-            startTimeDialog.setArguments(bundle);
+                ChooseTimeDialog startTimeDialog = new ChooseTimeDialog();
+                startTimeDialog.setArguments(bundle);
 
-            // Show dialog
-            startTimeDialog.show(getFragmentManager(), "mc");
+                // Show dialog
+                startTimeDialog.show(NewMeetingFragment.this.getFragmentManager(), "mc");
+            }
         });
 
         Button endTimeButton = view.findViewById(R.id.chooseEndTimeButton);
-        endTimeButton.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("DATE",2);
+        endTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("DATE", 2);
 
-            ChooseTimeDialog endTimeDialog = new ChooseTimeDialog();
-            endTimeDialog.setArguments(bundle);
-            endTimeDialog.show(getFragmentManager(), "mc");
+                ChooseTimeDialog endTimeDialog = new ChooseTimeDialog();
+                endTimeDialog.setArguments(bundle);
+                endTimeDialog.show(NewMeetingFragment.this.getFragmentManager(), "mc");
+            }
         });
 
         Button doneButton = view.findViewById(R.id.doneButton);
-        doneButton.setOnClickListener(v -> {
-            EditText et = view.findViewById(R.id.editTextId);
-            Model.getInstance().incrementMeetingId();
-            Model.getInstance();
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et = view.findViewById(R.id.editTextId);
+                Model.getInstance().incrementMeetingId();
+                Model.getInstance();
 
-            Location location = new Location(-37.820488, 144.973784);
-            meeting.setLocation(location);
+                Location location = new Location(-37.820488, 144.973784);
+                meeting.setLocation(location);
 
-            // Create new meeting with new user input
-            Meeting newMeeting = new Meeting(Integer.toString(Model.getMeetingId()), et.getText().toString(),
-                meeting.getStartTime(), meeting.getEndTime(), meeting.getDate(), meeting.getInvitedFriends(),
-                location);
+                // Create new meeting with new user input
+                Meeting newMeeting = new Meeting(Integer.toString(Model.getMeetingId()), et.getText().toString(),
+                    meeting.getStartTime(), meeting.getEndTime(), meeting.getDate(), meeting.getInvitedFriends(),
+                    location);
 
-            Log.d(LOG_TAG, newMeeting.getTitle());
+                Log.d(LOG_TAG, newMeeting.getTitle());
 
-            Model.getInstance().getUser().addMeeting(newMeeting);
+                Model.getInstance().getUser().addMeeting(newMeeting);
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(NewMeetingFragment.this.getActivity(), MainActivity.class);
+                NewMeetingFragment.this.startActivity(intent);
+            }
         });
 
         return view;

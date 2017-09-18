@@ -3,6 +3,7 @@ package s3585826.assignment1.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -33,15 +34,18 @@ public class EditFriendActivity extends AppCompatActivity{
 
         // Set new details from user input
         Button editButton = (Button) findViewById(R.id.editButton);
-        editButton.setOnClickListener(view -> {
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            Model.getInstance().getFocusFriend().setName(editTextName.getText().toString());
-            Model.getInstance().getFocusFriend().setEmail(editTextEmail.getText().toString());
-            Model.getInstance().getFocusFriend().setBirthday(editTextBirthday.getText().toString());
+                Model.getInstance().getFocusFriend().setName(editTextName.getText().toString());
+                Model.getInstance().getFocusFriend().setEmail(editTextEmail.getText().toString());
+                Model.getInstance().getFocusFriend().setBirthday(editTextBirthday.getText().toString());
 
-            // Back to FriendInfo
-            Intent intent = new Intent(EditFriendActivity.this, FriendInfoActivity.class);
-            startActivity(intent);
+                // Back to FriendInfo
+                Intent intent = new Intent(EditFriendActivity.this, FriendInfoActivity.class);
+                EditFriendActivity.this.startActivity(intent);
+            }
         });
     }
 }

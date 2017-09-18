@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,14 +34,17 @@ public class EditMeetingActivity extends AppCompatActivity{
 
         Button editButton = (Button) findViewById(R.id.editMeetingButton);
 
-        editButton.setOnClickListener(view -> {
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            //Set new details from user input
-            Model.getInstance().getFocusMeeting().setTitle(editTextTitle.getText().toString());
+                //Set new details from user input
+                Model.getInstance().getFocusMeeting().setTitle(editTextTitle.getText().toString());
 
-            // Back to Meeting Info
-            Intent intent = new Intent(EditMeetingActivity.this, MeetingInfoActivity.class);
-            startActivity(intent);
+                // Back to Meeting Info
+                Intent intent = new Intent(EditMeetingActivity.this, MeetingInfoActivity.class);
+                EditMeetingActivity.this.startActivity(intent);
+            }
         });
     }
 }

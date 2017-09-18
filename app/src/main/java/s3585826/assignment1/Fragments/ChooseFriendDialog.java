@@ -2,6 +2,7 @@ package s3585826.assignment1.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
@@ -33,18 +34,29 @@ public class ChooseFriendDialog extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Choose Friends")
-                .setMultiChoiceItems(names, null , (dialog, which, isChecked) -> {
-                    if(isChecked)
-                        for(int i1 = 0; i1 <names.length ; i1++ ){
-                            attendees [i1] = names[i1].toString();
-                        }
+                .setMultiChoiceItems(names, null , new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked)
+                            for (int i1 = 0; i1 < names.length; i1++) {
+                                attendees[i1] = names[i1].toString();
+                            }
+                    }
                 })
                 .setPositiveButton("Submit",
-                    (dialog, whichButton) -> NewMeetingFragment.meeting.setInvitedFriends(attendees))
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            NewMeetingFragment.meeting.setInvitedFriends(attendees);
+                        }
+                    })
                 .setNegativeButton("Cancel",
-                    (dialog, whichButton) -> {
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int whichButton) {
 
                 /* User clicked No so do some stuff */
+                        }
                     }).create();
     }
 }
