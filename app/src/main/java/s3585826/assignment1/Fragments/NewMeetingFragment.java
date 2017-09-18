@@ -65,7 +65,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
             Model.getInstance().incrementMeetingId();
             Model.getInstance();
 
-            Location location = new Location(11212, 2121);
+            Location location = new Location(-37.820488, 144.973784);
             meeting.setLocation(location);
 
             // Create new meeting with new user input

@@ -37,7 +37,7 @@ public class LocationListener implements Runnable {
             try {
                 // returns locations within 10 mins either side of 9:46:30 AM
                 matched = dummyLocationService.getFriendLocationsForTime(DateFormat.getTimeInstance(
-                        DateFormat.MEDIUM).parse("9:46:30 AM"), 10, 0);
+                        DateFormat.MEDIUM).parse("09:46:30 AM"), 10, 0);
 
                 //fill hashmap with matched locations
                 for (DummyLocationService.FriendLocation friendLocation:matched){
