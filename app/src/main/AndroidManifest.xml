@@ -31,12 +31,16 @@
         </activity>
         <activity android:name=".Activities.EditMeetingActivity">
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBiE0loMjMLL5eYJTLw68QXoqqmiX7wmNM"/>
+
+        <activity android:name=".Activities.DatabaseTester">
+        </activity>
     </application>
 
 </manifest>

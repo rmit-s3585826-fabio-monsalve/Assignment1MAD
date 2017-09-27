@@ -20,10 +20,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
+import s3585826.assignment1.Activities.DatabaseTester;
+import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Support_Code.ContactDataManager;
 import s3585826.assignment1.Activities.FriendInfoActivity;
 import s3585826.assignment1.Model.Model;
@@ -42,6 +45,7 @@ public class FriendsFragment extends Fragment {
     protected static final int PICK_CONTACTS = 100;
     private BaseAdapter adapter;
     private ArrayList<String> names;
+    private DatabaseHandler databaseHandler;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
@@ -68,6 +72,16 @@ public class FriendsFragment extends Fragment {
         final View friendsView = inflater.inflate(R.layout.fragment_friends, container, false);
         final ListView friendsListView = friendsView.findViewById(R.id.flw1);
         friendsListView.setAdapter(adapter);
+
+        Button databaseButton = friendsView.findViewById(R.id.databaseButton);
+        databaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(FriendsFragment.this.getActivity(), DatabaseTester.class);
+                FriendsFragment.this.getActivity().startActivity(intent);
+            }
+        });
 
         // Navigate to friend info page
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -172,6 +186,7 @@ public class FriendsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String name;
         String email;
+        databaseHandler = new DatabaseHandler(this.getContext(), null, null, 1);
 
         if (requestCode == PICK_CONTACTS) {
 
@@ -185,9 +200,9 @@ public class FriendsFragment extends Fragment {
                     Model.getInstance().incrementFriendId();
                     name = contactsManager.getContactName();
                     email = contactsManager.getContactEmail();
-                    Friend friend = new Friend(Integer.toString(Model.getInstance().getFriendId()), name, email, null);
+                    Friend friend = new Friend(Integer.toString(Model.getInstance().getFriendId()), name, email, "birthday");
                     Model.getInstance().getUser().getFriends().put(Integer.toString(Model.getInstance().getFriendId()), friend);
-
+                    databaseHandler.addFriend(friend);
                     names.add(friend.getName());
                     Model.getInstance().setFocusFriend(friend);
 
@@ -203,4 +218,6 @@ public class FriendsFragment extends Fragment {
         }
         Log.d(LOG_TAG, "onActivityResult");
     }
+
+
 }
