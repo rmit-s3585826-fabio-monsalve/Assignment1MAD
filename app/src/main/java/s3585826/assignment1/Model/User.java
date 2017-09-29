@@ -15,6 +15,8 @@ public class User extends Person{
 
     private HashMap<String, Friend> friends;
     private HashMap<String,Meeting> meetings;
+    private int suggestionInterval;
+    private int reminderPeriod;
     private static final String LOG_TAG = "User class";
 
     // User constructor
@@ -22,6 +24,8 @@ public class User extends Person{
         super(id, name, email, birthday);
         this.friends = new HashMap<>();
         this.meetings = new HashMap<>();
+        this.suggestionInterval=5;
+        this.reminderPeriod=5;
     }
 
     public HashMap<String, Friend> getFriends() {
@@ -82,6 +86,7 @@ public class User extends Person{
     public Friend getFriend(String id){
         return friends.get(id);
     }
+
     public void addFriend(Friend friend) {
         friends.put(friend.getId(), friend);
     }
@@ -90,5 +95,21 @@ public class User extends Person{
         friends.remove(id);
     }
 
+
+    public int getSuggestionInterval() {
+        return suggestionInterval;
+    }
+
+    public void setSuggestionInterval(int suggestionInterval) {
+        this.suggestionInterval = suggestionInterval;
+    }
+
+    public int getReminderPeriod() {
+        return reminderPeriod;
+    }
+
+    public void setReminderPeriod(int reminderPeriod) {
+        this.reminderPeriod = reminderPeriod;
+    }
 }
 
