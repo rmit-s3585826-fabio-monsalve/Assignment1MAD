@@ -39,4 +39,7 @@
     <string name="id_user">ID</string>
     <string name="name_user">NAME</string>
     <string name="email_user">EMAIL</string>
+    <string name="suggestion_interval">Meeting suggestion interval:</string>
+    <string name="reminder_period">Meeting reminder notice time:</string>
+
 </resources>
