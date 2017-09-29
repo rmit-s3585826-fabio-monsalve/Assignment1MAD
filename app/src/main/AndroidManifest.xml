@@ -31,6 +31,10 @@
         </activity>
         <activity android:name=".Activities.EditMeetingActivity">
         </activity>
+        <activity android:name=".Activities.UserProfileActivity">
+        </activity>
+        <activity android:name=".Activities.SettingsActivity">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
