@@ -1,6 +1,5 @@
 package s3585826.assignment1.Activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +28,17 @@ public class DatabaseTester extends AppCompatActivity {
                 printDatabase();
             }
         });
+
+        Button deleteButton = (Button) findViewById(R.id.namesButton);
+        namesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                printDatabase();
+            }
+        });
     }
+
+
 
     public void printDatabase(){
         String dbString = databaseHandler.databaseToString();

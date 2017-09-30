@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import s3585826.assignment1.Adapters.SectionsPageAdapter;
+import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Fragments.FriendsFragment;
 import s3585826.assignment1.Fragments.MeetingsFragment;
 import s3585826.assignment1.Fragments.MyDetailsFragment;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         // Load dummy data from /assets.dummy_data.txt on first entry to MainActivity
         if (Model.getInstance().firstTimeMain) {
             Model.getInstance().loadDummyData(this);
+            DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
+            //databaseHandler.loadData();
             Model.getInstance().firstTimeMain=false;
         }
 

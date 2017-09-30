@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +15,10 @@
         android:textAllCaps="false"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp"/>
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_below="@+id/namesButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"/>
 
     <Button
         android:id="@+id/namesButton"
@@ -23,5 +26,8 @@
         android:layout_height="wrap_content"
         android:text="Give me the names"
         tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="447dp"/>
-</android.support.constraint.ConstraintLayout>
+        tools:layout_editor_absoluteY="447dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"/>
+</RelativeLayout>

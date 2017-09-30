@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import s3585826.assignment1.Model.Friend;
 import s3585826.assignment1.Model.Meeting;
+import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826 on 27/09/17.
@@ -59,7 +60,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Add a new row to the database
     public void addFriend(Friend friend){
         ContentValues values = new ContentValues();
+        values.put(FRIENDS_COLUMN_ID, friend.getId());
         values.put(FRIENDS_COLUMN_NAME, friend.getName());
+        values.put(FRIENDS_COLUMN_EMAIL, friend.getEmail());
+        values.put(FRIENDS_COLUMN_BIRTHDAY, friend.getBirthday());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(FRIENDS_TABLE, null, values);
         db.close();
@@ -78,9 +82,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Delete a product from the database
-    public void deleteFriend(String friendId){
+    public void deleteFriend(String friendName){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + FRIENDS_TABLE + " WHERE " + FRIENDS_COLUMN_ID + "=\"" + friendId + "\";");
+        db.execSQL("DELETE FROM " + FRIENDS_TABLE + " WHERE " + FRIENDS_COLUMN_NAME + "=\"" + friendName + "\";");
     }
 
     public void deleteMeeting(String meetingId){
@@ -108,6 +112,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    public void loadData(){
+
+        String id = "";
+        String name = "";
+        String email = "";
+        String birthday = "";
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + FRIENDS_TABLE + " WHERE 1";
+
+        //Cursor points to a location in your results
+        Cursor c = db.rawQuery(query, null);
+        //Move to the first row in your results
+        c.moveToFirst();
+
+        //Position after the last row means the end of the results
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("FRIEND_ID")) != null) {
+                id = c.getString(c.getColumnIndex("FRIEND_ID"));
+            }
+            if (c.getString(c.getColumnIndex("NAME")) != null) {
+                name = c.getString(c.getColumnIndex("NAME"));
+            }
+//            if (c.getString(c.getColumnIndex("EMAIL")) != null) {
+//                email = c.getString(c.getColumnIndex("EMAIL"));
+//            }
+//            if (c.getString(c.getColumnIndex("BIRTHDAY")) != null) {
+//                birthday = c.getString(c.getColumnIndex("BIRTHDAY"));
+//            }
+            c.moveToNext();
+            Friend friend = new Friend(id, name, email, birthday);
+            Model.getInstance().getUser().addFriend(friend);
+        }
+        db.close();
     }
 
 }
