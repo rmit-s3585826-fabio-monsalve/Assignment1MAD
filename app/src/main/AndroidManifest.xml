@@ -31,6 +31,12 @@
         </activity>
         <activity android:name=".Activities.EditMeetingActivity">
         </activity>
+        <activity android:name=".Activities.UserProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Activities.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

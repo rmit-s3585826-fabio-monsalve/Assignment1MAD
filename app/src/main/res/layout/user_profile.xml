@@ -1,84 +1,76 @@
-
-<GridLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rowCount="2"
-    android:columnCount="2"
-    tools:context=".Fragments.MyDetailsFragment">
+    tools:context=".Activities.UserProfileActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/my_title"
+        app:titleTextColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/nebs"/>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/nebs"/>
         </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:padding="5dip">
-
             <TextView
                 android:id="@+id/textView"
                 android:layout_weight="1"
                 android:text="@string/id"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
             <TextView
                 android:id="@+id/userInfoId"
                 android:layout_weight="1"
                 android:text="@string/id_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:padding="5dip">
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_weight="1"
                 android:text="@string/name"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
             <TextView
                 android:id="@+id/userInfoName"
                 android:layout_weight="1"
                 android:text="@string/name_user"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
         </TableRow>
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dip">
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_weight="1"
                 android:text="@string/email"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
             <TextView
                 android:id="@+id/userInfoEmail"
                 android:layout_weight="1"
@@ -89,13 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="5dip">
-
             <TextView
                 android:id="@+id/textView4"
                 android:layout_weight="1"
                 android:text="@string/friendCount"
                 android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
             <TextView
                 android:id="@+id/userInfoFriendCount"
                 android:layout_weight="1"
@@ -104,5 +94,4 @@
         </TableRow>
     </TableLayout>
 
-</GridLayout>
-
+</LinearLayout>
