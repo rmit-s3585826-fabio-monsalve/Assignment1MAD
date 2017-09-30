@@ -169,7 +169,7 @@ public class FriendsFragment extends Fragment {
             }
         });
 
-        Log.d(LOG_TAG, "onCreateView" + Model.getInstance().getUser().getFriends().size());
+        Log.d(LOG_TAG, "saonCreateView" + Model.getInstance().getUser().getFriends().size());
 
         return friendsView;
     }
