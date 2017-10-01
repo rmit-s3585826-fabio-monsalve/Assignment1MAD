@@ -38,8 +38,6 @@ public class DatabaseTester extends AppCompatActivity {
         });
     }
 
-
-
     public void printDatabase(){
         String dbString = databaseHandler.databaseToString();
         textView.setText(dbString);

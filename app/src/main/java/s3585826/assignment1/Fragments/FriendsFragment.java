@@ -59,7 +59,6 @@ public class FriendsFragment extends Fragment {
             Toast.makeText(getActivity(), "You have no friends", Toast.LENGTH_SHORT).show();
         }
 
-        Log.d(LOG_TAG, Integer.toString(Model.getInstance().getUser().getFriends().size()) + Model.getInstance().getUser().getFriend("2").getName());
 
         names = new ArrayList<>();
         for(Friend e: Model.getInstance().getUser().getFriends().values()) {

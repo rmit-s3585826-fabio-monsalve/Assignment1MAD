@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         if (Model.getInstance().firstTimeMain) {
             Model.getInstance().loadDummyData(this);
             DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
-            //databaseHandler.loadData();
+            databaseHandler.loadData();
             Model.getInstance().firstTimeMain=false;
         }
 

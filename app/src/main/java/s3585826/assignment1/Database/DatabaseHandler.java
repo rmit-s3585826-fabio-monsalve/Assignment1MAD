@@ -40,13 +40,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query1 = "CREATE TABLE " + FRIENDS_TABLE + "(" +
-            FRIENDS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + FRIENDS_COLUMN_NAME + " TEXT " +
-            FRIENDS_COLUMN_EMAIL + " TEXT " + FRIENDS_COLUMN_BIRTHDAY + " TEXT " + ");";
+            FRIENDS_COLUMN_ID + " TEXT, " + FRIENDS_COLUMN_NAME + " TEXT, " +
+            FRIENDS_COLUMN_EMAIL + " TEXT, " + FRIENDS_COLUMN_BIRTHDAY + " TEXT " + ");";
         db.execSQL(query1);
 
         String query2 = "CREATE TABLE " + MEETINGS_TABLE + "(" +
-            MEETINGS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + MEETINGS_COLUMN_TITLE + " TEXT " +
-            MEETINGS_COLUMN_STARTTIME + " TEXT " + MEETINGS_COLUMN_ENDTIME + " TEXT " + MEETINGS_COLUMN_LOCATION + " TEXT " +
+            MEETINGS_COLUMN_ID + " TEXT, " + MEETINGS_COLUMN_TITLE + " TEXT, " +
+            MEETINGS_COLUMN_STARTTIME + " TEXT, " + MEETINGS_COLUMN_ENDTIME + " TEXT, " + MEETINGS_COLUMN_LOCATION + " TEXT, " +
             MEETINGS_COLUMN_DATE + " TEXT " + ");";
         db.execSQL(query2);
     }
@@ -137,12 +137,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (c.getString(c.getColumnIndex("NAME")) != null) {
                 name = c.getString(c.getColumnIndex("NAME"));
             }
-//            if (c.getString(c.getColumnIndex("EMAIL")) != null) {
-//                email = c.getString(c.getColumnIndex("EMAIL"));
-//            }
-//            if (c.getString(c.getColumnIndex("BIRTHDAY")) != null) {
-//                birthday = c.getString(c.getColumnIndex("BIRTHDAY"));
-//            }
+            if (c.getString(c.getColumnIndex("EMAIL")) != null) {
+                email = c.getString(c.getColumnIndex("EMAIL"));
+            }
+            if (c.getString(c.getColumnIndex("BIRTHDAY")) != null) {
+                birthday = c.getString(c.getColumnIndex("BIRTHDAY"));
+            }
             c.moveToNext();
             Friend friend = new Friend(id, name, email, birthday);
             Model.getInstance().getUser().addFriend(friend);

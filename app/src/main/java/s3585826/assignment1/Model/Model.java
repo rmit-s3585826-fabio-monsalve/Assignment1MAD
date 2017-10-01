@@ -105,9 +105,7 @@ public class Model {
                 switch(tokens[0]){
                     case "user":
                         user1 = new User(tokens[1],  tokens[2], tokens[3], null);
-                    case "friend":
-                        Friend friend = new Friend(tokens[1], tokens[2], tokens[3], null);
-                        user1.addFriend(friend);
+
                 }
             }
         }catch(IOException e){
