@@ -1,7 +1,5 @@
 package s3585826.assignment1.Model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,7 +12,7 @@ import java.util.HashMap;
 public class User extends Person{
 
     private HashMap<String, Friend> friends;
-    private HashMap<String,Meeting> meetings;
+    private HashMap<String, Meeting> meetings;
     private int suggestionInterval;
     private int reminderPeriod;
     private static final String LOG_TAG = "User class";
@@ -51,29 +49,43 @@ public class User extends Person{
         return meetings.get(id);
     }
 
-    // Method to sort Meetings by time
-    public ArrayList<String> sortMeetingsByTimeAscending(){
-        ArrayList<Meeting> meetingsToSort = new ArrayList<Meeting>(meetings.values());
-
-        ArrayList<String> sortedMeetings = new ArrayList<>();
-
-        Collections.sort(meetingsToSort, new Comparator<Meeting>() {
-
-            public int compare(Meeting o1, Meeting o2) {
-                return Integer.parseInt(o1.getStartTime()) - Integer.parseInt(o2.getStartTime());
+    // Method to sort Meetings by 24hr time
+    public ArrayList<Meeting> sortMeetingsByTimeAscending(){
+        ArrayList<Meeting> sortMeetings = new ArrayList<>(meetings.values());
+        Collections.sort(sortMeetings, new Comparator<Meeting>() {
+            @Override
+            public int compare(Meeting m1, Meeting m2) {
+                return Integer.compare(Integer.parseInt(m1.getStartTime()),Integer.parseInt(m2.getStartTime()));
             }
         });
-
-        for(Meeting m : meetings.values()){
-            sortedMeetings.add(m.getTitle());
-        }
-
-        for (String s : sortedMeetings) {
-            Log.d(LOG_TAG, s);
-        }
-        return sortedMeetings;
+        return sortMeetings;
     }
 
+    // Create a list of suggested meetings sorted on walking time ascending
+    public ArrayList<Meeting> generateSuggestedMeetings(){
+
+        ArrayList<Meeting> suggestedMeetings = new ArrayList<>();
+        for (Friend friend : friends.values()) {
+            if (friend.getLocation()!=null){
+
+                Meeting meeting = new Meeting();
+                String[] attendees = {friend.getName()};
+
+                //setup suggested meeting
+                meeting.setId(Integer.toString(Model.getMeetingId()));
+                meeting.setTitle("Meeting with "+friend.getName());
+                meeting.setDate("3/10/2017");
+                meeting.setInvitedFriends(attendees);
+                meeting.setStartTime("1300");
+                meeting.setEndTime("1400");
+                meeting.setLocation(friend.getLocation());
+
+                suggestedMeetings.add(meeting);
+            }
+            //sort meetings here
+        }
+        return suggestedMeetings;
+    }
 
     public void addMeeting(Meeting meeting) {
         meetings.put(meeting.getId(), meeting);
@@ -94,7 +106,6 @@ public class User extends Person{
     public void removeFriend(String id){
         friends.remove(id);
     }
-
 
     public int getSuggestionInterval() {
         return suggestionInterval;

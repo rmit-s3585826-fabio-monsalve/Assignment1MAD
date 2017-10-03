@@ -17,11 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
-import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
@@ -31,46 +31,41 @@ import s3585826.assignment1.R;
  * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
  */
 public class MeetingsFragment extends Fragment {
+
     private static final String LOG_TAG = "Meetings fragment";
+    ArrayList<String> meetings;
+    BaseAdapter meetingsAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
 
-        String  [] attendees = new String [4];
-        attendees[0] = "Bob Bonucci";
-        attendees[1] = "Alice Anderson";
-        attendees[2] = "Javier Jimenez";
-        attendees[3] = "Fredrick Fransz";
+//        String  [] attendees = new String [4];
+//        attendees[0] = "Bob Bonucci";
+//        attendees[1] = "Alice Anderson";
+//        attendees[2] = "Javier Jimenez";
+//        attendees[3] = "Fredrick Fransz";
+//
+//        Location location = new Location(-37.820488, 144.973784);
+//
+//        Meeting meeting2 = new Meeting("80", "bbq", "1230", "13:30", "13/14/17", attendees, location);
+//        Model.getInstance().getUser().addMeeting(meeting2);
+//
+//        Meeting meeting1 = new Meeting("9", "Picnic", "1130", "13:30", "13/14/17", attendees, location);
+//        Model.getInstance().getUser().addMeeting(meeting1);
+//
+//        Meeting meeting = new Meeting("8", "Picnic on the Yarra", "1030", "13:30", "13/14/17", attendees, location);
+//        Model.getInstance().getUser().addMeeting(meeting);
 
-        Location location = new Location(-37.820488, 144.973784);
-
-        Meeting meeting2 = new Meeting("80", "bbq", "1230", "13:30", "13/14/17", attendees, location);
-        Model.getInstance().getUser().addMeeting(meeting2);
-
-        Meeting meeting1 = new Meeting("9", "Picnic", "1130", "13:30", "13/14/17", attendees, location);
-        Model.getInstance().getUser().addMeeting(meeting1);
-
-        Meeting meeting = new Meeting("8", "Picnic on the Yarra", "1030", "13:30", "13/14/17", attendees, location);
-        Model.getInstance().getUser().addMeeting(meeting);
-
-        // Create list for listView
-        final ArrayList<String> meetings = new ArrayList<>();
-
-        // Populate array list of meetings for ListView with Titles from the users meetings hashmap
-        for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
-            meetings.add(e.getTitle());
-        }
-
-        Log.d(LOG_TAG, Integer.toString(meetings.size()));
-        final BaseAdapter meetingsAdapter = new ArrayAdapter<String>(this.getContext(),
-            android.R.layout.simple_list_item_1, meetings) {
-        };
-
+        //setup adapter for listview
+        meetings = new ArrayList<>();
+        meetingsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, meetings);
         flv.setAdapter(meetingsAdapter);
+        updateView();
 
         // Navigate to meeting info page
         flv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +99,6 @@ public class MeetingsFragment extends Fragment {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MeetingsFragment.this.getContext());
                 alert.setTitle("Delete");
                 alert.setMessage("Are you sure you want to delete meeting?");
-
                 alert.setPositiveButton(android.R.string.yes,
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -121,11 +115,9 @@ public class MeetingsFragment extends Fragment {
                                         }
                                     }
 
+                                    //remove meeting from model and update view
                                     Model.getInstance().getUser().getMeetings().values().remove(m);
-
-                                    meetings.remove(listItem);
-                                    Model.getInstance().setFocusMeeting(m);
-                                    meetingsAdapter.notifyDataSetChanged();
+                                    updateView();
                                     adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                 }
                             }, 400);
@@ -161,12 +153,43 @@ public class MeetingsFragment extends Fragment {
         Button sortingByTime = view.findViewById(R.id.sortingButton);
         sortingByTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view14) {
-                //meetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
+            public void onClick(View v) {
+                ArrayList<Meeting> sortedMeetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
+                meetings.clear();
+                for(Meeting e: sortedMeetings){
+                    meetings.add(e.getTitle());
+                }
                 meetingsAdapter.notifyDataSetChanged();
-
             }
         });
+
+        // Assign function to suggest button
+        Button suggestButton = view.findViewById(R.id.suggestButton);
+        suggestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index=0;
+                Bundle bundle = new Bundle();
+                bundle.putInt("index",index);
+
+                SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                dialog.setArguments(bundle);
+                dialog.setTargetFragment(MeetingsFragment.this,1);
+                dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+            }
+        });
+
         return view;
+
     }
+
+    // Populate array list of meetings for ListView with Titles from the users meetings hashmap
+    public void updateView(){
+        meetings.clear();
+        for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
+            meetings.add(e.getTitle());
+        }
+        meetingsAdapter.notifyDataSetChanged();
+    }
+
 }

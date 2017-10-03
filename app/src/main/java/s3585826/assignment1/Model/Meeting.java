@@ -11,7 +11,7 @@ public class Meeting {
     private String title;
     private String startTime;
     private String endTime;
-    private String [] invitedFriends;
+    private String[] invitedFriends;
     private Location location;
     private String date;
 
@@ -47,7 +47,6 @@ public class Meeting {
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public String getId() {
         return id;

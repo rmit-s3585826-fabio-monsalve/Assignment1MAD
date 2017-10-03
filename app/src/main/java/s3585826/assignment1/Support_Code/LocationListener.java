@@ -40,7 +40,7 @@ public class LocationListener implements Runnable {
                         DateFormat.MEDIUM).parse("09:46:30 AM"), 10, 0);
 
                 //fill hashmap with matched locations
-                for (DummyLocationService.FriendLocation friendLocation:matched){
+                for (DummyLocationService.FriendLocation friendLocation : matched){
                     locationHashMap.put(friendLocation.id,friendLocation);
                 }
 

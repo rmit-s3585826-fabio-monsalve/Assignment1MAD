@@ -26,14 +26,6 @@ public class Model {
     public static int meetingId = 0;
 
 
-    public static int getFriendId() {
-        return friendId;
-    }
-
-    public static int getMeetingId() {
-        return meetingId;
-    }
-
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
 
@@ -125,5 +117,13 @@ public class Model {
     public void incrementFriendId(){
 
         friendId++;
+    }
+
+    public static int getFriendId() {
+        return friendId;
+    }
+
+    public static int getMeetingId() {
+        return meetingId;
     }
 }

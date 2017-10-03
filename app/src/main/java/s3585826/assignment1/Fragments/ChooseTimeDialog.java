@@ -43,11 +43,11 @@ public class ChooseTimeDialog extends DialogFragment implements TimePickerDialog
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
         if(timeType == 1){
-            String date =  hour + ":" + minute;
+            String date =  hour + "" + minute;
             NewMeetingFragment.meeting.setStartTime(date);
         }
         else{
-            String date =  hour + ":" + minute;
+            String date =  hour + "" + minute;
             NewMeetingFragment.meeting.setEndTime(date);
         }
     }

@@ -12,8 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Toggle Sorting by time"
-        android:layout_alignBottom="@+id/ffab"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"/>
+
+    <Button
+        android:id="@+id/suggestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suggest a meeting"
+        android:layout_below="@id/sortingButton"/>
 
     <ListView
         android:id="@+id/mlw1"
@@ -22,7 +29,7 @@
         android:divider="@color/colorPrimary"
         android:dividerHeight="1px"
         android:visibility="visible"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/suggestButton"
         android:layout_above="@+id/ffab"/>
 
     <android.support.design.widget.FloatingActionButton

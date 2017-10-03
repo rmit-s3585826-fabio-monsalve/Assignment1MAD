@@ -24,6 +24,7 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final View view = inflater.inflate(R.layout.add_meeting, container, false);
 
         // Display a list of checkboxes
@@ -93,7 +94,9 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
 
                 Log.d(LOG_TAG, newMeeting.getTitle());
 
+                // add meeting and increment meetingID
                 Model.getInstance().getUser().addMeeting(newMeeting);
+                Model.getInstance().incrementMeetingId();
 
                 Intent intent = new Intent(NewMeetingFragment.this.getActivity(), MainActivity.class);
                 NewMeetingFragment.this.startActivity(intent);
