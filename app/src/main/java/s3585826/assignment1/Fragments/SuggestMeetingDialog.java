@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-import java.util.ArrayList;
-
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 
@@ -18,7 +16,6 @@ public class SuggestMeetingDialog extends DialogFragment {
 
     private static final String LOG_TAG = "SuggestMeetingDialog";
     int index;
-    ArrayList<Meeting> suggestedMeetings;
     Meeting meeting;
     MeetingsFragment parentFrag;
 
@@ -29,14 +26,11 @@ public class SuggestMeetingDialog extends DialogFragment {
         //get reference to parent fragment
          parentFrag = ((MeetingsFragment)SuggestMeetingDialog.this.getTargetFragment());
 
-        // get sorted list of meetings
-        suggestedMeetings = Model.getInstance().getUser().generateSuggestedMeetings();
-
         // get index of correct suggested meeting
         index = getArguments().getInt("index");
 
         // get meeting
-        meeting = suggestedMeetings.get(index);
+        meeting = Model.getInstance().getUser().getSuggestedMeetings().get(index);
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Schedule Meeting")
@@ -56,7 +50,7 @@ public class SuggestMeetingDialog extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Suggest next meeting. Change text and keep dialog open?
                         index++;
-                        if (index<(suggestedMeetings.size())) {
+                        if (index<(Model.getInstance().getUser().getSuggestedMeetings().size())) {
                             Bundle bundle = new Bundle();
                             bundle.putInt("index", index);
 

@@ -13,6 +13,7 @@ public class User extends Person{
 
     private HashMap<String, Friend> friends;
     private HashMap<String, Meeting> meetings;
+    private ArrayList<Meeting> suggestedMeetings;
     private int suggestionInterval;
     private int reminderPeriod;
     private static final String LOG_TAG = "User class";
@@ -22,6 +23,7 @@ public class User extends Person{
         super(id, name, email, birthday);
         this.friends = new HashMap<>();
         this.meetings = new HashMap<>();
+        this.suggestedMeetings = new ArrayList<>();
         this.suggestionInterval=5;
         this.reminderPeriod=5;
     }
@@ -64,7 +66,7 @@ public class User extends Person{
     // Create a list of suggested meetings sorted on walking time ascending
     public ArrayList<Meeting> generateSuggestedMeetings(){
 
-        ArrayList<Meeting> suggestedMeetings = new ArrayList<>();
+        suggestedMeetings.clear();
         for (Friend friend : friends.values()) {
             if (friend.getLocation()!=null){
 
@@ -82,7 +84,7 @@ public class User extends Person{
 
                 suggestedMeetings.add(meeting);
             }
-            //sort meetings here
+            //sort meetings on combined distance here
         }
         return suggestedMeetings;
     }
@@ -121,6 +123,14 @@ public class User extends Person{
 
     public void setReminderPeriod(int reminderPeriod) {
         this.reminderPeriod = reminderPeriod;
+    }
+
+    public ArrayList<Meeting> getSuggestedMeetings() {
+        return suggestedMeetings;
+    }
+
+    public void setSuggestedMeetings(ArrayList<Meeting> suggestedMeetings) {
+        this.suggestedMeetings = suggestedMeetings;
     }
 }
 

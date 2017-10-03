@@ -1,5 +1,7 @@
 package s3585826.assignment1.Model;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**

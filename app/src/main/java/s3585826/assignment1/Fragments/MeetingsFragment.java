@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -100,29 +101,29 @@ public class MeetingsFragment extends Fragment {
                 alert.setTitle("Delete");
                 alert.setMessage("Are you sure you want to delete meeting?");
                 alert.setPositiveButton(android.R.string.yes,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            flv.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String listItem = (String) adapterView.getItemAtPosition(i);
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                flv.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String listItem = (String) adapterView.getItemAtPosition(i);
 
-                                    Meeting m = null;
-                                    for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
-                                        if (listItem.equals(e.getTitle())) {
-                                            m = e;
+                                        Meeting m = null;
+                                        for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
+                                            if (listItem.equals(e.getTitle())) {
+                                                m = e;
+                                            }
                                         }
-                                    }
 
-                                    //remove meeting from model and update view
-                                    Model.getInstance().getUser().getMeetings().values().remove(m);
-                                    updateView();
-                                    adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                                }
-                            }, 400);
-                        }
-                    });
+                                        //remove meeting from model and update view
+                                        Model.getInstance().getUser().getMeetings().values().remove(m);
+                                        updateView();
+                                        adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                                    }
+                                }, 400);
+                            }
+                        });
 
                 alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
@@ -168,14 +169,19 @@ public class MeetingsFragment extends Fragment {
         suggestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index=0;
-                Bundle bundle = new Bundle();
-                bundle.putInt("index",index);
 
-                SuggestMeetingDialog dialog = new SuggestMeetingDialog();
-                dialog.setArguments(bundle);
-                dialog.setTargetFragment(MeetingsFragment.this,1);
-                dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                if (Model.getInstance().getUser().getSuggestedMeetings().size()>0) {
+                    int index = 0;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("index", index);
+
+                    SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                    dialog.setArguments(bundle);
+                    dialog.setTargetFragment(MeetingsFragment.this, 1);
+                    dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                }else{
+                    Toast.makeText(getActivity(), "No suggestions", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
