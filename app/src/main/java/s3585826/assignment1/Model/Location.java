@@ -15,7 +15,7 @@ public class Location {
 
     @Override
     public String toString(){
-        return new String(latitude +","+ longitude);
+        return latitude + "," + longitude;
     }
 
     public double getLongitude() {

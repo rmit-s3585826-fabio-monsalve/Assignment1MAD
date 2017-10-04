@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -38,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         if (Model.getInstance().firstTimeMain) {
             Model.getInstance().loadDummyData(this);
             DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
-            databaseHandler.loadData();
+            databaseHandler.loadFriendsFromDb();
+            databaseHandler.loadMeetingsFromDb();
             Model.getInstance().firstTimeMain=false;
         }
 

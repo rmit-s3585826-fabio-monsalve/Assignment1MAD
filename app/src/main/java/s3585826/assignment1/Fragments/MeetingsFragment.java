@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
+import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
@@ -118,6 +119,8 @@ public class MeetingsFragment extends Fragment {
 
                                         //remove meeting from model and update view
                                         Model.getInstance().getUser().getMeetings().values().remove(m);
+                                        DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
+                                        db.deleteMeeting(m.getId());
                                         updateView();
                                         adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                     }
@@ -170,7 +173,7 @@ public class MeetingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (Model.getInstance().getUser().getSuggestedMeetings().size()>0) {
+                if (Model.getInstance().getUser().generateSuggestedMeetings().size()>0) {
                     int index = 0;
                     Bundle bundle = new Bundle();
                     bundle.putInt("index", index);
@@ -184,9 +187,7 @@ public class MeetingsFragment extends Fragment {
                 }
             }
         });
-
         return view;
-
     }
 
     // Populate array list of meetings for ListView with Titles from the users meetings hashmap

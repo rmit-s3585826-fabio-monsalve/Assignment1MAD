@@ -17,8 +17,7 @@ public class Meeting {
     private Location location;
     private String date;
 
-    public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends,
-                   Location location) {
+    public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends, Location location) {
         this.id = id;
         this.title = title;
         this.startTime = startTime;
@@ -88,6 +87,14 @@ public class Meeting {
 
     public void setInvitedFriends(String [] invitedFriends) {
         this.invitedFriends = invitedFriends;
+    }
+
+    public String getInvitedFriendsAsString(){
+        String concatenatedFriendsString = "";
+        for(int i = 0; i<invitedFriends.length; i++){
+            concatenatedFriendsString = concatenatedFriendsString + "," +  invitedFriends[i];
+        }
+        return concatenatedFriendsString;
     }
 
     public Location getLocation() {

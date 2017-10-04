@@ -1,9 +1,4 @@
-user,1, Nebojsa, nebojsa@user1.com
-friend,2, Jose, jose@user2.com
-friend,3, Michael, michael@user3.com
-friend,4, Hannah, hannah@user4.com
-friend,5, Alice, alice@user5.com
-meeting, 9:49:19 AM, 1,jane doe1,-144.08,95.12,
-meeting, 9:44:19 AM, 2,jane doe2,-145.08,96.12,
-meeting, 9:46:19 AM, 3,john doe1,-146.08,97.12,
-meeting, 9:50:19 AM, 4,john doe2,-147.08,98.12,
+user,2, Nebosja, nebs@nebs.com
+friend,2, JaneDoe1, janedoe1@somedomain.com
+friend,3, JohnDoe2, johndoe1@somedomain.com
+friend,4, JohnDoe1, johndoe2@somedomain.com
