@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +22,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
@@ -27,6 +34,7 @@ import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
+import s3585826.assignment1.Services.MeetingSuggestionService;
 
 /**
  * Fragment class for meetings tab
@@ -37,31 +45,126 @@ public class MeetingsFragment extends Fragment {
     private static final String LOG_TAG = "Meetings fragment";
     ArrayList<String> meetings;
     BaseAdapter meetingsAdapter;
+    LongOperation lo;
+    SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+    private static WeakReference<MeetingsFragment> wrActivity = null;
+
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while(true) {
+//                    Thread.sleep(TimeUnit.MINUTES.toMillis(Model.getInstance().getUser().getReminderPeriod()));
+                    meetingSuggestionsThread.sleep(10000);
+                    if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
+                        int index = 0;
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("index", index);
+
+                        SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                        dialog.setArguments(bundle);
+                        dialog.setTargetFragment(MeetingsFragment.this, 1);
+                        dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                    }
+                    if(Model.getInstance().isSettingsChanged()){
+                        Model.getInstance().setSettingsChanged(false);
+                        return;
+                    }
+
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public Thread meetingSuggestionsThread = new Thread(runnable);
+
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (true) {
+//                    Thread.sleep(TimeUnit.MINUTES.toMillis(Model.getInstance().getUser().getReminderPeriod()));
+                            meetingSuggestionsThread.sleep(10000);
+                            if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
+                                int index = 0;
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("index", index);
+
+                                SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                                dialog.setArguments(bundle);
+                                dialog.setTargetFragment(MeetingsFragment.this, 1);
+                                dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                            }
+                            if (Model.getInstance().isSettingsChanged()) {
+                                Model.getInstance().setSettingsChanged(false);
+                                return;
+                            }
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onPreExecute() {
+//            FragmentManager fm = this.getSupportFragmentManager();
+//            FragmentTransaction ft = fm.beginTransaction();
+//            DummyFragment dummyFragment = DummyFragment.newInstance();
+//            ft.add(R.id.dummy_fragment_layout, dummyFragment);
+//            ft.commit();
+        }
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        lo = new LongOperation();
+        lo.doInBackground();
+        Log.d(LOG_TAG, "onStart()");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "onPause()");
+        lo.cancel(true);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "onStop()");
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        wrActivity = new WeakReference<MeetingsFragment>(this);
+
+        Log.d(LOG_TAG, "onCreate()");
 
         View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
-
-//        String  [] attendees = new String [4];
-//        attendees[0] = "Bob Bonucci";
-//        attendees[1] = "Alice Anderson";
-//        attendees[2] = "Javier Jimenez";
-//        attendees[3] = "Fredrick Fransz";
-//
-//        Location location = new Location(-37.820488, 144.973784);
-//
-//        Meeting meeting2 = new Meeting("80", "bbq", "1230", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting2);
-//
-//        Meeting meeting1 = new Meeting("9", "Picnic", "1130", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting1);
-//
-//        Meeting meeting = new Meeting("8", "Picnic on the Yarra", "1030", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting);
 
         //setup adapter for listview
         meetings = new ArrayList<>();
@@ -102,31 +205,31 @@ public class MeetingsFragment extends Fragment {
                 alert.setTitle("Delete");
                 alert.setMessage("Are you sure you want to delete meeting?");
                 alert.setPositiveButton(android.R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                flv.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String listItem = (String) adapterView.getItemAtPosition(i);
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            flv.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String listItem = (String) adapterView.getItemAtPosition(i);
 
-                                        Meeting m = null;
-                                        for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
-                                            if (listItem.equals(e.getTitle())) {
-                                                m = e;
-                                            }
+                                    Meeting m = null;
+                                    for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
+                                        if (listItem.equals(e.getTitle())) {
+                                            m = e;
                                         }
-
-                                        //remove meeting from model and update view
-                                        Model.getInstance().getUser().getMeetings().values().remove(m);
-                                        DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
-                                        db.deleteMeeting(m.getId());
-                                        updateView();
-                                        adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                     }
-                                }, 400);
-                            }
-                        });
+
+                                    //remove meeting from model and update view
+                                    Model.getInstance().getUser().getMeetings().values().remove(m);
+                                    DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
+                                    db.deleteMeeting(m.getId());
+                                    updateView();
+                                    adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                                }
+                            }, 400);
+                        }
+                    });
 
                 alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
@@ -189,6 +292,8 @@ public class MeetingsFragment extends Fragment {
         });
         return view;
     }
+
+
 
     // Populate array list of meetings for ListView with Titles from the users meetings hashmap
     public void updateView(){

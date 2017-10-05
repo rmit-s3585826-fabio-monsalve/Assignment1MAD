@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import s3585826.assignment1.Fragments.MeetingsFragment;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 
@@ -43,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity {
                 Model.getInstance().getUser().setSuggestionInterval(Integer.parseInt(suggestionInterval.getText().toString()));
                 Model.getInstance().getUser().setReminderPeriod(Integer.parseInt(reminderPeriod.getText().toString()));
 
+                Model.getInstance().setSettingsChanged(true);
                 // Back to Main Activity
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
                 startActivity(intent);

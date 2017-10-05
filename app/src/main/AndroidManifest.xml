@@ -37,7 +37,7 @@
         <activity android:name=".Activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
+        <service android:enabled="true" android:name=".Services.MeetingSuggestionService" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

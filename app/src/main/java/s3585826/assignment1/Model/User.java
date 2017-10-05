@@ -24,8 +24,8 @@ public class User extends Person{
         this.friends = new HashMap<>();
         this.meetings = new HashMap<>();
         this.suggestedMeetings = new ArrayList<>();
-        this.suggestionInterval=5;
-        this.reminderPeriod=5;
+        this.suggestionInterval = 1;
+        this.reminderPeriod = 1;
     }
 
     public HashMap<String, Friend> getFriends() {
