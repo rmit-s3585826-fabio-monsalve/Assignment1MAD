@@ -1,5 +1,6 @@
 package s3585826.assignment1.Activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,18 +8,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MenuInflater;
-import android.content.Intent;
+import android.view.MenuItem;
 
 import s3585826.assignment1.Adapters.SectionsPageAdapter;
 import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Fragments.FriendsFragment;
-import s3585826.assignment1.Fragments.MeetingsFragment;
 import s3585826.assignment1.Fragments.MapsFragment;
+import s3585826.assignment1.Fragments.MeetingsFragment;
+import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 import s3585826.assignment1.Support_Code.LocationListener;
+import s3585826.assignment1.Support_Code.WalkTimeCalculator;
 
 /**
  * Main Activity
@@ -45,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         // Create and run a location listener thread
         locationListener = new LocationListener(this);
         AsyncTask.execute(locationListener);
+
+        //test the json thread
+        Location location1 = new Location(-37.8107,144.9544);
+        Location location2 = new Location(-37.8054,144.9714);
+        WalkTimeCalculator walkTimeCalculator = new WalkTimeCalculator(location1,location2);
+        walkTimeCalculator.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         setContentView(R.layout.activity_main);
 

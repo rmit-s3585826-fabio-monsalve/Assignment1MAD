@@ -24,7 +24,7 @@ public class Model {
     public static boolean firstTimeMain = true;
     public static int friendId = 0;
     public static int meetingId = 0;
-
+    public String json="test";
 
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){

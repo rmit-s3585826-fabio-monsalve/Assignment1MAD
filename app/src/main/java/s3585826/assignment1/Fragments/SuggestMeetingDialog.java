@@ -50,7 +50,7 @@ public class SuggestMeetingDialog extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Suggest next meeting. Change text and keep dialog open?
                         index++;
-                        if (index<(Model.getInstance().getUser().getSuggestedMeetings().size())) {
+                        if (index<(Model.getInstance().getUser().generateSuggestedMeetings().size())) {
                             Bundle bundle = new Bundle();
                             bundle.putInt("index", index);
 
