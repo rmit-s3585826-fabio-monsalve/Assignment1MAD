@@ -36,11 +36,13 @@ public class FriendInfoActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_friend_info);
 
         // Reference all relevant elements from the view
+        TextView friendInfoId = (TextView) findViewById(R.id.friendInfoId);
         TextView friendInfoName = (TextView) findViewById(R.id.friendInfoName);
         TextView friendInfoEmail = (TextView)findViewById(R.id.friendInfoEmail);
         TextView friendInfoBirthday = (TextView)findViewById(R.id.friendInfoBirthday);
 
         // Set the current friend details
+        friendInfoId.setText(Model.getInstance().getFocusFriend().getId());
         friendInfoName.setText(Model.getInstance().getFocusFriend().getName());
         friendInfoEmail.setText(Model.getInstance().getFocusFriend().getEmail());
         friendInfoBirthday.setText(Model.getInstance().getFocusFriend().getBirthday());

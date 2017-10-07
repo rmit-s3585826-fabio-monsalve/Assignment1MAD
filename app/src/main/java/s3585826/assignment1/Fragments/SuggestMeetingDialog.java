@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
+import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 
@@ -40,6 +41,8 @@ public class SuggestMeetingDialog extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Add meeting and increment meetingID
                         Model.getInstance().getUser().addMeeting(meeting);
+                        DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
+                        db.addMeeting(meeting);
                         Model.getInstance().incrementMeetingId();
                         if (parentFrag!=null)
                             parentFrag.updateView();

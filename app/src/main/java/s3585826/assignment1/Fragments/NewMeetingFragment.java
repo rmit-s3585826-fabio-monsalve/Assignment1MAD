@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import s3585826.assignment1.Activities.MainActivity;
+import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
@@ -95,7 +96,12 @@ public class NewMeetingFragment extends android.support.v4.app.Fragment {
                 Log.d(LOG_TAG, newMeeting.getTitle());
 
                 // add meeting and increment meetingID
+
                 Model.getInstance().getUser().addMeeting(newMeeting);
+
+                DatabaseHandler db  = new DatabaseHandler(getContext(), null, null, 1);
+                db.addMeeting(newMeeting);
+
                 Model.getInstance().incrementMeetingId();
 
                 Intent intent = new Intent(NewMeetingFragment.this.getActivity(), MainActivity.class);

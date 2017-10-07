@@ -132,6 +132,8 @@ public class FriendsFragment extends Fragment {
 
                                     Model.getInstance().getUser().getFriends().values().remove(f);
 
+                                    DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
+                                    db.deleteFriend(f.getId());
                                     names.remove(listItem);
                                     Model.getInstance().setFocusFriend(f);
 

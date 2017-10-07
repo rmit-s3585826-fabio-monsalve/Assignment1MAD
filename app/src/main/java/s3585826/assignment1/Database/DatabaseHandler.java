@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import s3585826.assignment1.Model.Friend;
+import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 
@@ -29,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String MEETINGS_COLUMN_TITLE = "TITLE";
     public static final String MEETINGS_COLUMN_STARTTIME = "STARTTIME";
     public static final String MEETINGS_COLUMN_ENDTIME = "ENDTIME";
+    public static final String MEETINGS_COLUMN_INVITED_FRIENDS = "INVITEDFRIENDS";
     public static final String MEETINGS_COLUMN_LOCATION = "LOCATION";
     public static final String MEETINGS_COLUMN_DATE = "DATE";
 
@@ -46,7 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String query2 = "CREATE TABLE " + MEETINGS_TABLE + "(" +
             MEETINGS_COLUMN_ID + " TEXT, " + MEETINGS_COLUMN_TITLE + " TEXT, " +
-            MEETINGS_COLUMN_STARTTIME + " TEXT, " + MEETINGS_COLUMN_ENDTIME + " TEXT, " + MEETINGS_COLUMN_LOCATION + " TEXT, " +
+            MEETINGS_COLUMN_STARTTIME + " TEXT, " + MEETINGS_COLUMN_ENDTIME + " TEXT, " + MEETINGS_COLUMN_LOCATION + " TEXT, " + MEETINGS_COLUMN_INVITED_FRIENDS + " TEXT, " +
             MEETINGS_COLUMN_DATE + " TEXT " + ");";
         db.execSQL(query2);
     }
@@ -54,6 +55,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + FRIENDS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + MEETINGS_TABLE);
+
         onCreate(db);
     }
 
@@ -64,6 +67,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(FRIENDS_COLUMN_NAME, friend.getName());
         values.put(FRIENDS_COLUMN_EMAIL, friend.getEmail());
         values.put(FRIENDS_COLUMN_BIRTHDAY, friend.getBirthday());
+
         SQLiteDatabase db = getWritableDatabase();
         db.insert(FRIENDS_TABLE, null, values);
         db.close();
@@ -76,15 +80,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(MEETINGS_COLUMN_STARTTIME, meeting.getStartTime());
         values.put(MEETINGS_COLUMN_ENDTIME, meeting.getEndTime());
         values.put(MEETINGS_COLUMN_LOCATION, meeting.getLocationString());
+        values.put(MEETINGS_COLUMN_INVITED_FRIENDS, meeting.getInvitedFriendsAsString());
+        values.put(MEETINGS_COLUMN_DATE, meeting.getDate());
+
         SQLiteDatabase db = getWritableDatabase();
         db.insert(MEETINGS_TABLE, null, values);
         db.close();
     }
 
     //Delete a product from the database
-    public void deleteFriend(String friendName){
+    public void deleteFriend(String friendId){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + FRIENDS_TABLE + " WHERE " + FRIENDS_COLUMN_NAME + "=\"" + friendName + "\";");
+        db.execSQL("DELETE FROM " + FRIENDS_TABLE + " WHERE " + FRIENDS_COLUMN_ID + "=\"" + friendId + "\";");
     }
 
     public void deleteMeeting(String meetingId){
@@ -114,7 +121,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return dbString;
     }
 
-    public void loadData(){
+    public String databaseToStringMeetings(){
+        String dbString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + MEETINGS_TABLE + " WHERE 1";
+
+        //Cursor points to a location in your results
+        Cursor c = db.rawQuery(query, null);
+        //Move to the first row in your results
+        c.moveToFirst();
+
+        //Position after the last row means the end of the results
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("TITLE")) != null) {
+                dbString += c.getString(c.getColumnIndex("TITLE"));
+                dbString += "\n";
+            }
+            c.moveToNext();
+        }
+        db.close();
+        return dbString;
+    }
+
+    public void loadFriendsFromDb(){
 
         String id = "";
         String name = "";
@@ -150,47 +179,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void loadMeetingsFromDb(){
+        String id = "";
+        String title = "";
+        String startTime = "";
+        String endTime = "";
+        String location = "";
+        String date = "";
+        String invitedFriends = "";
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + MEETINGS_TABLE + " WHERE 1";
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        //Position after the last row means the end of the results
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("MEETING_ID")) != null) {
+                id = c.getString(c.getColumnIndex("MEETING_ID"));
+            }
+            if (c.getString(c.getColumnIndex("TITLE")) != null) {
+                title = c.getString(c.getColumnIndex("TITLE"));
+            }
+            if (c.getString(c.getColumnIndex("STARTTIME")) != null) {
+                startTime = c.getString(c.getColumnIndex("STARTTIME"));
+            }
+            if (c.getString(c.getColumnIndex("ENDTIME")) != null) {
+                endTime = c.getString(c.getColumnIndex("ENDTIME"));
+            }
+            if (c.getString(c.getColumnIndex("LOCATION")) != null) {
+                location = c.getString(c.getColumnIndex("LOCATION"));
+            }
+            if (c.getString(c.getColumnIndex("INVITEDFRIENDS")) != null) {
+                invitedFriends = c.getString(c.getColumnIndex("INVITEDFRIENDS"));
+            }
+            if (c.getString(c.getColumnIndex("DATE")) != null) {
+                date = c.getString(c.getColumnIndex("DATE"));
+            }
+            c.moveToNext();
+
+            String[] tokens;
+            tokens = invitedFriends.split(",");
+
+            String [] locationTokens;
+            locationTokens = location.split(",");
+
+            double latitude = Double.parseDouble(locationTokens[0]);
+            double longitude = Double.parseDouble(locationTokens[1]);
+            Location newLocation = new Location(latitude, longitude);
+
+            Meeting meeting = new Meeting(id, title, startTime, endTime, date, tokens, newLocation);
+
+            Model.getInstance().getUser().addMeeting(meeting);
+        }
+        db.close();
+    }
 }
-
-/*
-public class MainActivity extends AppCompatActivity {
-
-    EditText editText;
-    TextView textView;
-    MyDBHandler dbHandler;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        editText = (EditText) findViewById(R.id.editText);
-        textView = (TextView) findViewById(R.id.textView);
-        dbHandler = new MyDBHandler(this, null, null, 1);
-        printDatabase();
-
-    }
-
-    public void addButtonClicked(View view){
-        Product product = new Product(editText.getText().toString());
-        dbHandler.addProduct(product);
-        printDatabase();
-
-    }
-
-    public void deleteButtonClicked(View view){
-        String inputText = editText.getText().toString();
-        dbHandler.deleteProduct(inputText);
-        printDatabase();
-
-    }
-
-    public void printDatabase(){
-        String dbString = dbHandler.databaseToString();
-        textView.setText(dbString);
-        editText.setText("");
-    }
-
-
-}
-                                                                              */

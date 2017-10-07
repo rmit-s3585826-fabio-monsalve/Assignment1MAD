@@ -39,7 +39,7 @@ public class DatabaseTester extends AppCompatActivity {
     }
 
     public void printDatabase(){
-        String dbString = databaseHandler.databaseToString();
+        String dbString = databaseHandler.databaseToStringMeetings();
         textView.setText(dbString);
     }
 
