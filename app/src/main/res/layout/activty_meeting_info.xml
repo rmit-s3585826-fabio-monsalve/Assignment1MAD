@@ -130,6 +130,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dip">
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_weight="1"
+                    android:text="@string/combinedWalktime"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+
+                <TextView
+                    android:id="@+id/combinedWalktime"
+                    android:layout_weight="1"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dip">
 
                 <TextView
                     android:id="@+id/textView8"

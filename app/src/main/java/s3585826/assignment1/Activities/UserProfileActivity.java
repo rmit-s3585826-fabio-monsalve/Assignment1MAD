@@ -18,13 +18,11 @@ public class UserProfileActivity extends Activity {
 
         setContentView(R.layout.user_profile);
 
-        TextView textView= findViewById(R.id.text);
         TextView userInfoId = findViewById(R.id.userInfoId);
         TextView userInfoName = findViewById(R.id.userInfoName);
         TextView userInfoEmail = findViewById(R.id.userInfoEmail);
         TextView userInfoFriendCount = findViewById(R.id.userInfoFriendCount);
 
-        textView.setText(Model.getInstance().json);
         userInfoId.setText(Model.getInstance().getUser().getId());
         userInfoName.setText(Model.getInstance().getUser().getName());
         userInfoEmail.setText(Model.getInstance().getUser().getEmail());

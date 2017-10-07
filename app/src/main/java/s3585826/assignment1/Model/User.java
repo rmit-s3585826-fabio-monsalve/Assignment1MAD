@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -94,57 +96,72 @@ public class User extends Person{
                     return suggestedMeetings;
                 }
 
-                //setup required values
-                String[] attendees = {friend.getName()};
-
-                //setup suggested meeting
+                //setup suggested meeting with id and title
                 Meeting meeting = new Meeting();
-
                 meeting.setId(Integer.toString(Model.getMeetingId()));
                 meeting.setTitle("Meeting with "+friend.getName());
+
+                //Assign attendees
+                String[] attendees = {friend.getName()};
                 meeting.setInvitedFriends(attendees);
 
-                // defualt startTime is currentTime plus larger of attendee walktimes
-                int seconds;
-                int userSeconds;
-                int friendSeconds;
+                // get start and end time. startTime = current + largest walktime. endTime= startTime + 1hr.
+                int maxWalkTime;
+                int userWalktime;
+                int friendWalktime;
                 try {
-                    userSeconds = json.getJSONArray("rows")
+                    userWalktime = json.getJSONArray("rows")
                             .getJSONObject(0)
                             .getJSONArray ("elements")
                             .getJSONObject(0)
                             .getJSONObject("duration")
                             .getInt("value");
-                    friendSeconds = json.getJSONArray("rows")
+                    friendWalktime = json.getJSONArray("rows")
                             .getJSONObject(1)
                             .getJSONArray ("elements")
                             .getJSONObject(0)
                             .getJSONObject("duration")
                             .getInt("value");
-                    if (userSeconds>friendSeconds)
-                        seconds=userSeconds;
+                    if (userWalktime>friendWalktime)
+                        maxWalkTime=userWalktime;
                     else
-                        seconds=friendSeconds;
+                        maxWalkTime=friendWalktime;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     return suggestedMeetings;
                 }
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.SECOND,seconds);
-                meeting.setStartTime(cal.getTime().toString());
+                Calendar cal;
+                Date date;
+                SimpleDateFormat format=new SimpleDateFormat("HHmm");
 
-                // default endtime is startTime +1hr
+                cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND,maxWalkTime);
+                date = cal.getTime();
+                meeting.setStartTime(format.format(date));
+
                 cal.add(Calendar.HOUR_OF_DAY, 1);
-                meeting.setEndTime(cal.getTime().toString());
+                date = cal.getTime();
+                meeting.setEndTime(format.format(date));
 
+                //get combined walkTime
+                int combinedWalktime;
+                combinedWalktime=userWalktime+friendWalktime;
+                meeting.setCombinedWalktime(combinedWalktime);
 
+                //set location
                 meeting.setLocation(new Location((userLocation.getLatitude()+friendLocation.getLatitude())/2,
                         (userLocation.getLongitude()+friendLocation.getLongitude())/2));
 
                 suggestedMeetings.add(meeting);
             }
-            //sort meetings on combined distance here
         }
+        //sort meetings by lowest combined walk time
+        Collections.sort(suggestedMeetings, new Comparator<Meeting>() {
+            @Override
+            public int compare(Meeting m1, Meeting m2) {
+                return Integer.compare(m1.getCombinedWalktime(),m2.getCombinedWalktime());
+            }
+        });
         return suggestedMeetings;
     }
 

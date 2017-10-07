@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             databaseHandler.loadFriendsFromDb();
             databaseHandler.loadMeetingsFromDb();
             Model.getInstance().firstTimeMain=false;
+            Model.getInstance().getUser().setLocation(new Location(-37.80,144.92));
         }
 
         // Create and run a location listener thread

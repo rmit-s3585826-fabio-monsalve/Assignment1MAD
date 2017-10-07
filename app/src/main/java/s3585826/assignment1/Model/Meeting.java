@@ -1,7 +1,5 @@
 package s3585826.assignment1.Model;
 
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 
 /**
@@ -16,6 +14,7 @@ public class Meeting {
     private String[] invitedFriends;
     private Location location;
     private String date;
+    private int combinedWalktime;
 
     public Meeting(String id, String title, String startTime, String endTime, String date, String [] invitedFriends, Location location) {
         this.id = id;
@@ -110,6 +109,14 @@ public class Meeting {
             return "Unknown";
         else
             return location.toString();
+    }
+
+    public int getCombinedWalktime() {
+        return combinedWalktime;
+    }
+
+    public void setCombinedWalktime(int combinedWalktime) {
+        this.combinedWalktime = combinedWalktime;
     }
 }
 

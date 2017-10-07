@@ -45,6 +45,7 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
         TextView meetingInfoStartTime = (TextView)findViewById(R.id.meetingInfoStartTime);
         TextView meetingInfoEndTime = (TextView)findViewById(R.id.meetingInfoEndTime);
         TextView meetingInfoLocation = (TextView)findViewById(R.id.meetingInfoLocation);
+        TextView meetingInfoCombinedWalktime = (TextView)findViewById(R.id.combinedWalktime);
         ListView meetingAttendeesList = (ListView)findViewById(R.id.meetingAttendeesList);
 
 
@@ -60,6 +61,7 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
         meetingInfoStartTime.setText(Model.getInstance().getFocusMeeting().getStartTime());
         meetingInfoEndTime.setText(Model.getInstance().getFocusMeeting().getEndTime());
         meetingInfoLocation.setText(Model.getInstance().getFocusMeeting().getLocationString());
+        meetingInfoCombinedWalktime.setText(Integer.toString(Model.getInstance().getFocusMeeting().getCombinedWalktime()));
 
 
         // Get the SupportMapFragment and request notification
