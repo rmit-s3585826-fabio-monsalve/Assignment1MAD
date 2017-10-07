@@ -33,7 +33,7 @@ public class ChooseDateDialog extends DialogFragment implements DatePickerDialog
 
         // Set date from user input
         month = month + 1;
-        String date = month + "/" + day + "/" + year;
+        String date = year + "-" + month + "-" + day ;
 
         // If a meeting is being created then set date else if it's a friends birthday set date
         if(Model.getInstance().isMeetingFocus()){

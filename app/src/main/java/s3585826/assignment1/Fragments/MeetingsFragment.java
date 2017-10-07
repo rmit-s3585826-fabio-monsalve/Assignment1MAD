@@ -1,16 +1,16 @@
 package s3585826.assignment1.Fragments;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +21,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
+import java.util.Calendar;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
@@ -34,7 +30,6 @@ import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
-import s3585826.assignment1.Services.MeetingSuggestionService;
 
 /**
  * Fragment class for meetings tab
@@ -45,98 +40,10 @@ public class MeetingsFragment extends Fragment {
     private static final String LOG_TAG = "Meetings fragment";
     ArrayList<String> meetings;
     BaseAdapter meetingsAdapter;
-    LongOperation lo;
-    SuggestMeetingDialog dialog = new SuggestMeetingDialog();
-    private static WeakReference<MeetingsFragment> wrActivity = null;
-
-    public Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                while(true) {
-//                    Thread.sleep(TimeUnit.MINUTES.toMillis(Model.getInstance().getUser().getReminderPeriod()));
-                    meetingSuggestionsThread.sleep(10000);
-                    if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
-                        int index = 0;
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("index", index);
-
-                        SuggestMeetingDialog dialog = new SuggestMeetingDialog();
-                        dialog.setArguments(bundle);
-                        dialog.setTargetFragment(MeetingsFragment.this, 1);
-                        dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
-                    }
-                    if(Model.getInstance().isSettingsChanged()){
-                        Model.getInstance().setSettingsChanged(false);
-                        return;
-                    }
-
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    public Thread meetingSuggestionsThread = new Thread(runnable);
-
-
-    private class LongOperation extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        while (true) {
-//                    Thread.sleep(TimeUnit.MINUTES.toMillis(Model.getInstance().getUser().getReminderPeriod()));
-                            meetingSuggestionsThread.sleep(10000);
-                            if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
-                                int index = 0;
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("index", index);
-
-                                SuggestMeetingDialog dialog = new SuggestMeetingDialog();
-                                dialog.setArguments(bundle);
-                                dialog.setTargetFragment(MeetingsFragment.this, 1);
-                                dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
-                            }
-                            if (Model.getInstance().isSettingsChanged()) {
-                                Model.getInstance().setSettingsChanged(false);
-                                return;
-                            }
-
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-        }
-
-        @Override
-        protected void onPreExecute() {
-//            FragmentManager fm = this.getSupportFragmentManager();
-//            FragmentTransaction ft = fm.beginTransaction();
-//            DummyFragment dummyFragment = DummyFragment.newInstance();
-//            ft.add(R.id.dummy_fragment_layout, dummyFragment);
-//            ft.commit();
-        }
-        @Override
-        protected void onProgressUpdate(Void... values) {}
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        lo = new LongOperation();
-        lo.doInBackground();
         Log.d(LOG_TAG, "onStart()");
     }
 
@@ -144,7 +51,6 @@ public class MeetingsFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d(LOG_TAG, "onPause()");
-        lo.cancel(true);
     }
 
     @Override
@@ -159,14 +65,12 @@ public class MeetingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        wrActivity = new WeakReference<MeetingsFragment>(this);
-
         Log.d(LOG_TAG, "onCreate()");
 
         View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
 
-        //setup adapter for listview
+        //setup adapter for listView
         meetings = new ArrayList<>();
         meetingsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, meetings);
         flv.setAdapter(meetingsAdapter);
@@ -256,7 +160,6 @@ public class MeetingsFragment extends Fragment {
         });
 
         // Assign function to sort to Button
-        final boolean clicked = false;
         Button sortingByTime = view.findViewById(R.id.sortingButton);
         sortingByTime.setOnClickListener(new View.OnClickListener() {
             @Override

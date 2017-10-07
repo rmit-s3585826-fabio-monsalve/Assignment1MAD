@@ -1,5 +1,8 @@
 package s3585826.assignment1.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,14 +15,17 @@ import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.content.Intent;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import s3585826.assignment1.Adapters.SectionsPageAdapter;
 import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Fragments.FriendsFragment;
 import s3585826.assignment1.Fragments.MeetingsFragment;
 import s3585826.assignment1.Fragments.MapsFragment;
+import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
-import s3585826.assignment1.Services.MeetingSuggestionService;
 import s3585826.assignment1.Support_Code.LocationListener;
 
 /**
@@ -40,8 +46,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(LOG_TAG, "onStart() MainACT");
+        Log.d(LOG_TAG, "onStart() MainActivity");
 
+        ArrayList<Meeting> meetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
+        Meeting meeting = meetings.get(0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+        notificationIntent.addCategory("android.intent.category.DEFAULT");
+
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(meeting.getFormattedDate());
+        Long time = cal.getTimeInMillis()- Model.getInstance().getUser().getReminderPeriodAsMilliseconds();
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, broadcast);
+        Log.d(LOG_TAG, "onStart() MainActivity END" + time);
     }
 
     @Override

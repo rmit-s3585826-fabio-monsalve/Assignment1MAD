@@ -32,10 +32,10 @@
         <activity android:name=".Activities.EditMeetingActivity">
         </activity>
         <activity android:name=".Activities.UserProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".Activities.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <service android:enabled="true" android:name=".Services.MeetingSuggestionService" />
         <meta-data
@@ -47,6 +47,13 @@
 
         <activity android:name=".Activities.DatabaseTester">
         </activity>
+
+        <receiver android:name=".Services.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
