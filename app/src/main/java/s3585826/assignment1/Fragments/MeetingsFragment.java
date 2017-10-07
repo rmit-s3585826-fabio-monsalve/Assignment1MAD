@@ -173,17 +173,21 @@ public class MeetingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (Model.getInstance().getUser().generateSuggestedMeetings().size()>0) {
-                    int index = 0;
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("index", index);
+                if(Model.getInstance().getConnected()) {
+                    if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
+                        int index = 0;
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("index", index);
 
-                    SuggestMeetingDialog dialog = new SuggestMeetingDialog();
-                    dialog.setArguments(bundle);
-                    dialog.setTargetFragment(MeetingsFragment.this, 1);
-                    dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
-                }else{
-                    Toast.makeText(getActivity(), "No suggestions", Toast.LENGTH_SHORT).show();
+                        SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                        dialog.setArguments(bundle);
+                        dialog.setTargetFragment(MeetingsFragment.this, 1);
+                        dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                    } else {
+                        Toast.makeText(getActivity(), "No suggestions", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Need connectivity to make suggestions", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -1,6 +1,9 @@
 package s3585826.assignment1.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -20,7 +23,7 @@ import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
 import s3585826.assignment1.Support_Code.LocationListener;
-import s3585826.assignment1.Support_Code.WalkTimeCalculator;
+import s3585826.assignment1.Support_Code.NetworkChangeReceiver;
 
 /**
  * Main Activity
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         // Load dummy data from /assets.dummy_data.txt on first entry to MainActivity
         if (Model.getInstance().firstTimeMain) {
@@ -55,13 +59,16 @@ public class MainActivity extends AppCompatActivity {
         locationListener = new LocationListener(this);
         AsyncTask.execute(locationListener);
 
-        //test the json thread
-        Location location1 = new Location(-37.8107,144.9544);
-        Location location2 = new Location(-37.8054,144.9714);
-        WalkTimeCalculator walkTimeCalculator = new WalkTimeCalculator(location1,location2);
-        walkTimeCalculator.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        setContentView(R.layout.activity_main);
+        // Determine initial connectivity state and register network broadcast receiver to update state changes
+        Context context = getApplicationContext();
+        ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
+        if(networkInfo != null && networkInfo.isConnected()){
+            Model.getInstance().setConnected(true);
+        }else{
+            Model.getInstance().setConnected(false);
+        }
+        NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
 
         //setup toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
