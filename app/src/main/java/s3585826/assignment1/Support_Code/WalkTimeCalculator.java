@@ -15,7 +15,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import s3585826.assignment1.Model.Location;
-import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Callum on 3/10/2017.
@@ -60,7 +59,6 @@ public class WalkTimeCalculator extends AsyncTask<Void,Void,JSONObject> {
                 contentSB.append(line + "\n");
             }
             json = new JSONObject(contentSB.toString());
-            Model.getInstance().json=json.toString();
 
         } catch (ProtocolException e) {
             e.printStackTrace();

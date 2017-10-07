@@ -15,16 +15,16 @@ import java.io.InputStreamReader;
 public class Model {
 
     //Private static variable of the same class that is the only instance of the class.
+    private static final String LOG_TAG = "Model";
     private static Model instance;
+    private Boolean isConnected;
     private static boolean meetingFocus;
     private static User user1;
     private static Friend focusFriend;
     private static Meeting focusMeeting;
-    private static final String LOG_TAG = "Model";
     public static boolean firstTimeMain = true;
     public static int friendId = 0;
     public static int meetingId = 0;
-    public String json="test";
 
     public static boolean isSettingsChanged() {
         return settingsChanged;
@@ -42,20 +42,20 @@ public class Model {
 
     }
 
-    public static boolean isMeetingFocus() {
-        return meetingFocus;
-    }
-
-    public static void setMeetingFocus(boolean meetingFocus) {
-        Model.meetingFocus = meetingFocus;
-    }
-
     //Returns the singleton instance
     public static Model getInstance(){
         if(instance == null){
             instance = new Model();
         }
         return instance;
+    }
+
+    public static boolean isMeetingFocus() {
+        return meetingFocus;
+    }
+
+    public static void setMeetingFocus(boolean meetingFocus) {
+        Model.meetingFocus = meetingFocus;
     }
 
     //return user
@@ -85,7 +85,6 @@ public class Model {
     public Meeting getNewMeeting(){
         return new Meeting();
     }
-
 
     // Load dummy data from dummy_data.txt
     public void loadDummyData(Context context) {
@@ -133,5 +132,13 @@ public class Model {
 
     public static int getMeetingId() {
         return meetingId;
+    }
+
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(Boolean connected) {
+        isConnected = connected;
     }
 }
