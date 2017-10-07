@@ -1,6 +1,13 @@
 package s3585826.assignment1.Model;
 
+import android.os.Parcelable;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class for meeting
@@ -109,6 +116,19 @@ public class Meeting {
             return "Unknown";
         else
             return location.toString();
+    }
+
+    public Date getFormattedDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd, HH:mm:ss");
+        formatter.setLenient(false);
+        Date meetingDate = new Date();
+        try {
+            meetingDate = formatter.parse(date + ", " + startTime + ":00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return meetingDate;
     }
 
     public int getCombinedWalktime() {

@@ -26,6 +26,17 @@ public class Model {
     public static int meetingId = 0;
     public String json="test";
 
+    public static boolean isSettingsChanged() {
+        return settingsChanged;
+    }
+
+    public static void setSettingsChanged(boolean settingsChanged) {
+        Model.settingsChanged = settingsChanged;
+    }
+
+    public static boolean settingsChanged = false;
+
+
     //Private constructor to restrict instantiation of the class from other classes.
     private Model(){
 

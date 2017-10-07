@@ -1,6 +1,9 @@
 package s3585826.assignment1.Fragments;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,8 +21,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
@@ -38,32 +41,36 @@ public class MeetingsFragment extends Fragment {
     ArrayList<String> meetings;
     BaseAdapter meetingsAdapter;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(LOG_TAG, "onStart()");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(LOG_TAG, "onPause()");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(LOG_TAG, "onStop()");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.d(LOG_TAG, "onCreate()");
 
         View view = inflater.inflate(R.layout.fragment_meetings,container, false);
         final ListView flv = view.findViewById(R.id.mlw1);
 
-//        String  [] attendees = new String [4];
-//        attendees[0] = "Bob Bonucci";
-//        attendees[1] = "Alice Anderson";
-//        attendees[2] = "Javier Jimenez";
-//        attendees[3] = "Fredrick Fransz";
-//
-//        Location location = new Location(-37.820488, 144.973784);
-//
-//        Meeting meeting2 = new Meeting("80", "bbq", "1230", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting2);
-//
-//        Meeting meeting1 = new Meeting("9", "Picnic", "1130", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting1);
-//
-//        Meeting meeting = new Meeting("8", "Picnic on the Yarra", "1030", "13:30", "13/14/17", attendees, location);
-//        Model.getInstance().getUser().addMeeting(meeting);
-
-        //setup adapter for listview
+        //setup adapter for listView
         meetings = new ArrayList<>();
         meetingsAdapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_list_item_1, meetings);
         flv.setAdapter(meetingsAdapter);
@@ -102,31 +109,31 @@ public class MeetingsFragment extends Fragment {
                 alert.setTitle("Delete");
                 alert.setMessage("Are you sure you want to delete meeting?");
                 alert.setPositiveButton(android.R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                flv.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String listItem = (String) adapterView.getItemAtPosition(i);
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            flv.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String listItem = (String) adapterView.getItemAtPosition(i);
 
-                                        Meeting m = null;
-                                        for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
-                                            if (listItem.equals(e.getTitle())) {
-                                                m = e;
-                                            }
+                                    Meeting m = null;
+                                    for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
+                                        if (listItem.equals(e.getTitle())) {
+                                            m = e;
                                         }
-
-                                        //remove meeting from model and update view
-                                        Model.getInstance().getUser().getMeetings().values().remove(m);
-                                        DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
-                                        db.deleteMeeting(m.getId());
-                                        updateView();
-                                        adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                                     }
-                                }, 400);
-                            }
-                        });
+
+                                    //remove meeting from model and update view
+                                    Model.getInstance().getUser().getMeetings().values().remove(m);
+                                    DatabaseHandler db = new DatabaseHandler(getContext(), null, null, 1);
+                                    db.deleteMeeting(m.getId());
+                                    updateView();
+                                    adapterView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                                }
+                            }, 400);
+                        }
+                    });
 
                 alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     @Override
@@ -153,7 +160,6 @@ public class MeetingsFragment extends Fragment {
         });
 
         // Assign function to sort to Button
-        final boolean clicked = false;
         Button sortingByTime = view.findViewById(R.id.sortingButton);
         sortingByTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +195,8 @@ public class MeetingsFragment extends Fragment {
         });
         return view;
     }
+
+
 
     // Populate array list of meetings for ListView with Titles from the users meetings hashmap
     public void updateView(){

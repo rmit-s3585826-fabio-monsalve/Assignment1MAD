@@ -84,8 +84,6 @@ public class MeetingInfoActivity extends AppCompatActivity implements OnMapReady
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,12.0f));
         }else//display Melbourne
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-37.81,144.96),12.0f));
-
-
     }
 
     @Override

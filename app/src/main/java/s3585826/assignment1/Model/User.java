@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import s3585826.assignment1.Support_Code.WalkTimeCalculator;
+import java.util.concurrent.TimeUnit;
 
 /**
  * User class
@@ -35,8 +38,8 @@ public class User extends Person{
         this.friends = new HashMap<>();
         this.meetings = new HashMap<>();
         this.suggestedMeetings = new ArrayList<>();
-        this.suggestionInterval=5;
-        this.reminderPeriod=5;
+        this.suggestionInterval = 1;
+        this.reminderPeriod = 1;
     }
 
     public HashMap<String, Friend> getFriends() {
@@ -47,6 +50,9 @@ public class User extends Person{
         return meetings;
     }
 
+    public long getReminderPeriodAsMilliseconds(){
+        return TimeUnit.MINUTES.toMillis(reminderPeriod);
+    }
 
     public String [] getfriendsStringArray(){
         String [] friendsArray = new String [Model.getInstance().getUser().getFriends().size()];
@@ -66,9 +72,18 @@ public class User extends Person{
     public ArrayList<Meeting> sortMeetingsByTimeAscending(){
         ArrayList<Meeting> sortMeetings = new ArrayList<>(meetings.values());
         Collections.sort(sortMeetings, new Comparator<Meeting>() {
+
             @Override
             public int compare(Meeting m1, Meeting m2) {
-                return Integer.compare(Integer.parseInt(m1.getStartTime()),Integer.parseInt(m2.getStartTime()));
+                Log.d(LOG_TAG, m1.getStartTime() + " " + m2.getEndTime());
+                String[] m1Tokens;
+                m1Tokens = m1.getStartTime().split(":");
+                String startTime1Formatted = m1Tokens[0] + m1Tokens[1];
+                String[] m2Tokens;
+                m2Tokens = m2.getStartTime().split(":");
+                String startTime2Formatted = m2Tokens[0] + m2Tokens[1];
+
+                return Integer.compare(Integer.parseInt(startTime1Formatted),Integer.parseInt(startTime2Formatted));
             }
         });
         return sortMeetings;
@@ -100,10 +115,14 @@ public class User extends Person{
                 Meeting meeting = new Meeting();
                 meeting.setId(Integer.toString(Model.getMeetingId()));
                 meeting.setTitle("Meeting with "+friend.getName());
+                meeting.setDate("2017-3-27");
 
                 //Assign attendees
                 String[] attendees = {friend.getName()};
                 meeting.setInvitedFriends(attendees);
+                meeting.setStartTime("13:00");
+                meeting.setEndTime("14:00");
+                meeting.setLocation(friend.getLocation());
 
                 // get start and end time. startTime = current + largest walktime. endTime= startTime + 1hr.
                 int maxWalkTime;
