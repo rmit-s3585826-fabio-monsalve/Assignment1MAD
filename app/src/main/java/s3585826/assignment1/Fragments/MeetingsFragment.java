@@ -1,9 +1,6 @@
 package s3585826.assignment1.Fragments;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,8 +18,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
@@ -38,7 +35,7 @@ import s3585826.assignment1.R;
 public class MeetingsFragment extends Fragment {
 
     private static final String LOG_TAG = "Meetings fragment";
-    ArrayList<String> meetings;
+    ArrayList<Meeting> meetings;
     BaseAdapter meetingsAdapter;
 
     @Override
@@ -82,11 +79,11 @@ public class MeetingsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
                 Intent intent = new Intent();
                 intent.setClass(MeetingsFragment.this.getActivity(), MeetingInfoActivity.class);
-                String listItem = (String) adapterView.getItemAtPosition(i);
+                Meeting listItem = (Meeting)adapterView.getItemAtPosition(i);
 
                 Meeting m = null;
                 for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
-                    if (listItem.equals(e.getTitle())) {
+                    if (listItem.getId().equals(e.getId())) {
                         m = e;
                     }
                 }
@@ -115,11 +112,11 @@ public class MeetingsFragment extends Fragment {
                             flv.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String listItem = (String) adapterView.getItemAtPosition(i);
+                                    Meeting listItem = (Meeting) adapterView.getItemAtPosition(i);
 
                                     Meeting m = null;
                                     for (Meeting e : Model.getInstance().getUser().getMeetings().values()) {
-                                        if (listItem.equals(e.getTitle())) {
+                                        if (listItem.getId().equals(e.getId())) {
                                             m = e;
                                         }
                                     }
@@ -167,7 +164,7 @@ public class MeetingsFragment extends Fragment {
                 ArrayList<Meeting> sortedMeetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
                 meetings.clear();
                 for(Meeting e: sortedMeetings){
-                    meetings.add(e.getTitle());
+                    meetings.add(e);
                 }
                 meetingsAdapter.notifyDataSetChanged();
             }
@@ -206,7 +203,7 @@ public class MeetingsFragment extends Fragment {
     public void updateView(){
         meetings.clear();
         for(Meeting e: Model.getInstance().getUser().getMeetings().values()){
-            meetings.add(e.getTitle());
+            meetings.add(e);
         }
         meetingsAdapter.notifyDataSetChanged();
     }

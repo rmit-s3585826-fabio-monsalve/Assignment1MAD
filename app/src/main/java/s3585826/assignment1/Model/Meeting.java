@@ -1,12 +1,8 @@
 package s3585826.assignment1.Model;
 
-import android.os.Parcelable;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -31,6 +27,11 @@ public class Meeting {
         this.date = date;
         this.invitedFriends = invitedFriends;
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 
     public Meeting(){

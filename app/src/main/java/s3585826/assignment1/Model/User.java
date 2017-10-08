@@ -1,13 +1,12 @@
 package s3585826.assignment1.Model;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -15,9 +14,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import s3585826.assignment1.Support_Code.WalkTimeCalculator;
-import java.util.concurrent.TimeUnit;
 
 /**
  * User class
@@ -72,7 +71,6 @@ public class User extends Person{
     public ArrayList<Meeting> sortMeetingsByTimeAscending(){
         ArrayList<Meeting> sortMeetings = new ArrayList<>(meetings.values());
         Collections.sort(sortMeetings, new Comparator<Meeting>() {
-
             @Override
             public int compare(Meeting m1, Meeting m2) {
                 Log.d(LOG_TAG, m1.getStartTime() + " " + m2.getEndTime());
@@ -82,7 +80,6 @@ public class User extends Person{
                 String[] m2Tokens;
                 m2Tokens = m2.getStartTime().split(":");
                 String startTime2Formatted = m2Tokens[0] + m2Tokens[1];
-
                 return Integer.compare(Integer.parseInt(startTime1Formatted),Integer.parseInt(startTime2Formatted));
             }
         });
