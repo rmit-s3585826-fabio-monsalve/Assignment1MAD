@@ -28,14 +28,6 @@ public class DatabaseTester extends AppCompatActivity {
                 printDatabase();
             }
         });
-
-        Button deleteButton = (Button) findViewById(R.id.namesButton);
-        namesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                printDatabase();
-            }
-        });
     }
 
     public void printDatabase(){
