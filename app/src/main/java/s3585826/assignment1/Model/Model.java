@@ -102,8 +102,6 @@ public class Model {
             while ((line = br.readLine()) != null) {
                 tokens = line.split(",");
 
-                Log.d(LOG_TAG, "switch" + tokens[0] + tokens[1] + tokens[2]);
-
                 switch(tokens[0]){
                     case "user":
                         user1 = new User(tokens[1],  tokens[2], tokens[3], null);
@@ -133,7 +131,10 @@ public class Model {
     }
 
     public static int getFriendId() {
-        return friendId;
+        int min = 0;
+        int max = 1000;
+        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+        return friendId + randomNum;
     }
 
     public static int getMeetingId() {
