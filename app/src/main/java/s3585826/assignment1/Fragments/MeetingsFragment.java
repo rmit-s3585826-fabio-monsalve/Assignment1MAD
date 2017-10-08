@@ -234,7 +234,6 @@ public class MeetingsFragment extends Fragment {
             meetings.add(e);
         }
         meetingsAdapter.notifyDataSetChanged();
-        MapsFragment mfragment = new MapsFragment();
     }
 
 }
