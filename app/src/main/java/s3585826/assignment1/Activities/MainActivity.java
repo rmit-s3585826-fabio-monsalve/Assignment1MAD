@@ -1,6 +1,7 @@
 package s3585826.assignment1.Activities;
 
 import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -20,16 +21,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import s3585826.assignment1.Adapters.SectionsPageAdapter;
 import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Fragments.FriendsFragment;
 import s3585826.assignment1.Fragments.MapsFragment;
 import s3585826.assignment1.Fragments.MeetingsFragment;
+import s3585826.assignment1.Fragments.SuggestMeetingDialog;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
+import s3585826.assignment1.Services.MeetingSuggestionService;
 import s3585826.assignment1.Support_Code.LocationListener;
 import s3585826.assignment1.Support_Code.NetworkChangeReceiver;
 
@@ -79,11 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, "MainActivity()" + Model.getInstance().getUser().getReminderPeriodAfterNotification());
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
             }
-            processIntentAction(getIntent());
+            notificationButtonActions(getIntent());
         }
     }
 
-    private void processIntentAction(Intent intent) {
+    // Method for actions taken after user has clicked on a notification button
+    private void notificationButtonActions(Intent intent) {
         if (intent.getAction() != null) {
             switch (intent.getAction()) {
                 case "DISMISS":

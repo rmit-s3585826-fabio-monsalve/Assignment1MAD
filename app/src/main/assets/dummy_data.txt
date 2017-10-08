@@ -1,4 +1,4 @@
 user,2, Nebosja, nebs@nebs.com
-friend,2, JaneDoe1, janedoe1@somedomain.com
-friend,3, JohnDoe2, johndoe1@somedomain.com
-friend,4, JohnDoe1, johndoe2@somedomain.com
+friend,1, JaneDoe1, janedoe1@somedomain.com
+friend,2, JohnDoe2, johndoe1@somedomain.com
+friend,3, JohnDoe1, johndoe2@somedomain.com

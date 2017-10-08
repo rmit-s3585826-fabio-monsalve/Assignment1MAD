@@ -25,7 +25,7 @@ public class SuggestMeetingDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         //get reference to parent fragment
-         parentFrag = ((MeetingsFragment)SuggestMeetingDialog.this.getTargetFragment());
+        parentFrag = ((MeetingsFragment)SuggestMeetingDialog.this.getTargetFragment());
 
         // get index of correct suggested meeting
         index = getArguments().getInt("index");

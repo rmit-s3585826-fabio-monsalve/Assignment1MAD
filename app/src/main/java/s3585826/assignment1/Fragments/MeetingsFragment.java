@@ -20,7 +20,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
+import s3585826.assignment1.Activities.MainActivity;
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
 import s3585826.assignment1.Database.DatabaseHandler;
@@ -61,6 +63,32 @@ public class MeetingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new Thread (new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while(true) {
+                        Log.d(LOG_TAG, "Thread asleep now..");
+                        Thread.sleep(TimeUnit.SECONDS.toMillis(Model.getInstance().getUser().getSuggestionInterval()));
+
+                        if(Model.getInstance().getConnected()) {
+                            if (Model.getInstance().getUser().generateSuggestedMeetings().size() > 0) {
+                                int index = 0;
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("index", index);
+                                SuggestMeetingDialog dialog = new SuggestMeetingDialog();
+                                dialog.setArguments(bundle);
+                                dialog.setTargetFragment(MeetingsFragment.this, 1);
+                                dialog.show(MeetingsFragment.this.getFragmentManager(), "SuggestMeeting");
+                            }
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         Log.d(LOG_TAG, "onCreate()");
 

@@ -1,20 +1,12 @@
 package s3585826.assignment1.Services;
 
 import android.app.Service;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.util.concurrent.TimeUnit;
-
-import s3585826.assignment1.Fragments.MeetingsFragment;
-import s3585826.assignment1.Fragments.SuggestMeetingDialog;
 import s3585826.assignment1.Model.Model;
 
 /**
@@ -29,7 +21,7 @@ public class MeetingSuggestionService extends Service {
             try {
                 while(true) {
                     Log.d(LOG_TAG, "Thread asleep now..");
-                    Thread.sleep(TimeUnit.MINUTES.toMillis(Model.getInstance().getUser().getReminderPeriod()));
+                    Thread.sleep(TimeUnit.SECONDS.toMillis(5));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
