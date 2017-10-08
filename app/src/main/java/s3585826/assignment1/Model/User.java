@@ -29,6 +29,7 @@ public class User extends Person{
     private ArrayList<Meeting> suggestedMeetings;
     private int suggestionInterval;
     private int reminderPeriod;
+    private int reminderPeriodAfterNotification = 0;
     private static final String LOG_TAG = "User class";
 
     // User constructor
@@ -51,6 +52,14 @@ public class User extends Person{
 
     public long getReminderPeriodAsMilliseconds(){
         return TimeUnit.MINUTES.toMillis(reminderPeriod);
+    }
+
+    public int getReminderPeriodAfterNotification() {
+        return reminderPeriodAfterNotification;
+    }
+
+    public void setReminderPeriodAfterNotification(int reminderPeriodAfterNotification) {
+        this.reminderPeriodAfterNotification = reminderPeriodAfterNotification;
     }
 
     public String [] getfriendsStringArray(){

@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "Main Activity";
     private static LocationListener locationListener;
     DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
+    private AlarmManager alarmManager;
+    private PendingIntent broadcast;
+
 
     @Override
     protected void onStop() {
@@ -60,20 +63,23 @@ public class MainActivity extends AppCompatActivity {
         }else {
             Meeting meeting = meetings.get(0);
             Model.getInstance().setFocusMeeting(meeting);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
+            alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
             notificationIntent.addCategory("android.intent.category.DEFAULT");
 
-            PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             Calendar cal = Calendar.getInstance();
-            cal.setTime(meeting.getFormattedDate());
-            Long time = cal.getTimeInMillis() - Model.getInstance().getUser().getReminderPeriodAsMilliseconds();
 
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, broadcast);
+            if(Model.getInstance().getUser().getReminderPeriodAfterNotification() == 0){
+                cal.setTime(meeting.getFormattedDate());
+                Long time = cal.getTimeInMillis() - Model.getInstance().getUser().getReminderPeriodAsMilliseconds();
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, broadcast);
+            }else {
+                cal.add(Calendar.MINUTE, Model.getInstance().getUser().getReminderPeriodAfterNotification());
+                Log.d(LOG_TAG, "MainActivity()" + Model.getInstance().getUser().getReminderPeriodAfterNotification());
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+            }
             processIntentAction(getIntent());
-            Log.d(LOG_TAG, "onStart() MainActivity END" + time);
         }
     }
 
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             switch (intent.getAction()) {
                 case "DISMISS":
                     Toast.makeText(this, "Notification dismissed", Toast.LENGTH_SHORT).show();
+                    alarmManager.cancel(broadcast);
                     break;
                 case "CANCEL":
                     Toast.makeText(this, "Meeting cancelled", Toast.LENGTH_SHORT).show();
@@ -90,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "REMIND":
                     Toast.makeText(this, "REMIND", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,MeetingReminderActivity.class));
                     break;
             }
         }

@@ -41,7 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(dismissIntent);
 
-        PendingIntent dismissingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent dismissingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Intent for cancelling
         TaskStackBuilder stackBuilder3 = TaskStackBuilder.create(context);
