@@ -3,7 +3,6 @@ package s3585826.assignment1.Activities;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "Main Activity";
     private static LocationListener locationListener;
-
+    DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
 
     @Override
     protected void onStop() {
@@ -54,20 +54,45 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "onStart() MainActivity");
 
         ArrayList<Meeting> meetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
-        Meeting meeting = meetings.get(0);
+        if(meetings.size()  ==  0){
+            Toast.makeText(this, "You have no meetings", Toast.LENGTH_SHORT).show();
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        }else {
+            Meeting meeting = meetings.get(0);
+            Model.getInstance().setFocusMeeting(meeting);
 
-        Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
-        notificationIntent.addCategory("android.intent.category.DEFAULT");
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(meeting.getFormattedDate());
-        Long time = cal.getTimeInMillis()- Model.getInstance().getUser().getReminderPeriodAsMilliseconds();
+            Intent notificationIntent = new Intent("android.media.action.DISPLAY_NOTIFICATION");
+            notificationIntent.addCategory("android.intent.category.DEFAULT");
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, broadcast);
-        Log.d(LOG_TAG, "onStart() MainActivity END" + time);
+            PendingIntent broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(meeting.getFormattedDate());
+            Long time = cal.getTimeInMillis() - Model.getInstance().getUser().getReminderPeriodAsMilliseconds();
+
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, broadcast);
+            processIntentAction(getIntent());
+            Log.d(LOG_TAG, "onStart() MainActivity END" + time);
+        }
+    }
+
+    private void processIntentAction(Intent intent) {
+        if (intent.getAction() != null) {
+            switch (intent.getAction()) {
+                case "DISMISS":
+                    Toast.makeText(this, "Notification dismissed", Toast.LENGTH_SHORT).show();
+                    break;
+                case "CANCEL":
+                    Toast.makeText(this, "Meeting cancelled", Toast.LENGTH_SHORT).show();
+                    Model.getInstance().getUser().getMeetings().remove(Model.getInstance().getFocusMeeting().getId());
+                    databaseHandler.deleteMeeting(Model.getInstance().getFocusMeeting().getId());
+                    break;
+                case "REMIND":
+                    Toast.makeText(this, "REMIND", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
     }
 
     @Override
@@ -78,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         // Load dummy data from /assets.dummy_data.txt on first entry to MainActivity
         if (Model.getInstance().firstTimeMain) {
             Model.getInstance().loadDummyData(this);
-            DatabaseHandler databaseHandler = new DatabaseHandler(this, null, null, 1);
             databaseHandler.loadFriendsFromDb();
             databaseHandler.loadMeetingsFromDb();
             Model.getInstance().firstTimeMain=false;

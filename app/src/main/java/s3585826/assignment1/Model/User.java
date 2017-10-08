@@ -115,12 +115,12 @@ public class User extends Person{
                 Meeting meeting = new Meeting();
                 meeting.setId(Integer.toString(Model.getMeetingId()));
                 meeting.setTitle("Meeting with "+friend.getName());
-                meeting.setDate("2017-3-27");
+                meeting.setDate("2017-10-08");
 
                 //Assign attendees
                 String[] attendees = {friend.getName()};
                 meeting.setInvitedFriends(attendees);
-                meeting.setStartTime("13:00");
+                meeting.setStartTime("11:15");
                 meeting.setEndTime("14:00");
                 meeting.setLocation(friend.getLocation());
 
@@ -151,7 +151,7 @@ public class User extends Person{
                 }
                 Calendar cal;
                 Date date;
-                SimpleDateFormat format=new SimpleDateFormat("HHmm");
+                SimpleDateFormat format=new SimpleDateFormat("HH:mm");
 
                 cal = Calendar.getInstance();
                 cal.add(Calendar.SECOND,maxWalkTime);

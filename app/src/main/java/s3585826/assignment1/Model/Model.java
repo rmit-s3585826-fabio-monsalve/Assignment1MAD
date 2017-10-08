@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.util.concurrent.ThreadLocalRandom;
 /**
  * Model class
  * @authors Fabio Monsalve s3585826 and Callum Pearse s3586928
@@ -131,7 +131,10 @@ public class Model {
     }
 
     public static int getMeetingId() {
-        return meetingId;
+        int min = 0;
+        int max = 1000;
+        int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+        return meetingId + randomNum;
     }
 
     public Boolean getConnected() {
