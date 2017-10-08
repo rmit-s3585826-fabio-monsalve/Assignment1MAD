@@ -18,6 +18,7 @@ public class MeetingReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_reminder);
 
+        // Set user reminder period after notification
         Button button1 = (Button)findViewById(R.id.button2);
         button1.setOnClickListener(new View.OnClickListener() {
                                        @Override
@@ -28,20 +29,19 @@ public class MeetingReminderActivity extends AppCompatActivity {
                                    }
         );
 
+        // Set up number picker
+        NumberPicker numberPicker = (NumberPicker)findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(30);
+        numberPicker.setWrapSelectorWheel(true);
 
-        NumberPicker np = (NumberPicker)findViewById(R.id.numberPicker);
-        np.setMinValue(1);
-        np.setMaxValue(30);
-        np.setWrapSelectorWheel(true);
-
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
         {
 
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal)
+            public void onValueChange(NumberPicker picker, int oldValue, int newValue)
             {
-                remindIn = newVal;
-
+                remindIn = newValue;
             }
         });
 

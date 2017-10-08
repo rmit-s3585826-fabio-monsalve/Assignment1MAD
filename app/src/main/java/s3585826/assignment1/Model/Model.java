@@ -107,6 +107,12 @@ public class Model {
                 switch(tokens[0]){
                     case "user":
                         user1 = new User(tokens[1],  tokens[2], tokens[3], null);
+                        break;
+                    case "notificationPeriod":
+                        Model.getInstance().getUser().setReminderPeriod(Integer.parseInt(tokens[1]));
+                        break;
+                    case "suggestionFrequency":
+                        Model.getInstance().getUser().setSuggestionInterval(Integer.parseInt(tokens[1]));
                 }
             }
         }catch(IOException e){

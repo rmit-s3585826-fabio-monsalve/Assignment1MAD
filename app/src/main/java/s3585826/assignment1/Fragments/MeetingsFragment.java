@@ -22,7 +22,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import s3585826.assignment1.Activities.MainActivity;
 import s3585826.assignment1.Activities.MeetingInfoActivity;
 import s3585826.assignment1.Activities.NewMeetingActivity;
 import s3585826.assignment1.Database.DatabaseHandler;
@@ -64,6 +63,7 @@ public class MeetingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Create thread to show dialog every 30 seconds
         new Thread (new Runnable() {
             @Override
             public void run() {

@@ -21,19 +21,16 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import s3585826.assignment1.Adapters.SectionsPageAdapter;
 import s3585826.assignment1.Database.DatabaseHandler;
 import s3585826.assignment1.Fragments.FriendsFragment;
 import s3585826.assignment1.Fragments.MapsFragment;
 import s3585826.assignment1.Fragments.MeetingsFragment;
-import s3585826.assignment1.Fragments.SuggestMeetingDialog;
 import s3585826.assignment1.Model.Location;
 import s3585826.assignment1.Model.Meeting;
 import s3585826.assignment1.Model.Model;
 import s3585826.assignment1.R;
-import s3585826.assignment1.Services.MeetingSuggestionService;
 import s3585826.assignment1.Support_Code.LocationListener;
 import s3585826.assignment1.Support_Code.NetworkChangeReceiver;
 
@@ -60,10 +57,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Log.d(LOG_TAG, "onStart() MainActivity");
 
+        // Sort meetings
         ArrayList<Meeting> meetings = Model.getInstance().getUser().sortMeetingsByTimeAscending();
+
+        // Show toast if there are no meetings
         if(meetings.size()  ==  0){
             Toast.makeText(this, "You have no meetings", Toast.LENGTH_SHORT).show();
 
+            // Show notification if user has meetings
         }else {
             Meeting meeting = meetings.get(0);
             Model.getInstance().setFocusMeeting(meeting);
@@ -74,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             broadcast = PendingIntent.getBroadcast(this, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             Calendar cal = Calendar.getInstance();
 
+            // If user has clicked the remind me in n minutes button on the notification then show the same notification
+            // in n minutes, else, show notification for first meeting coming up
             if(Model.getInstance().getUser().getReminderPeriodAfterNotification() == 0){
                 cal.setTime(meeting.getFormattedDate());
                 Long time = cal.getTimeInMillis() - Model.getInstance().getUser().getReminderPeriodAsMilliseconds();

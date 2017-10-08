@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 import java.util.concurrent.TimeUnit;
-import s3585826.assignment1.Model.Model;
 
 /**
  * Created by Fabio Monsalve s3585826 on 5/10/17.
